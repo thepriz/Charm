@@ -8,18 +8,20 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import svenhjol.charm.decoration.module.AllTheBarrels;
-import svenhjol.meson.enums.WoodType;
+import svenhjol.meson.enums.IWoodType;
+import svenhjol.meson.enums.VanillaWoodType;
 
 public class CustomBarrelTileEntity extends BarrelTileEntity {
-    public WoodType wood;
+    public IWoodType wood;
 
     public CustomBarrelTileEntity() {
-        this(WoodType.OAK);
+        this(VanillaWoodType.OAK);
     }
 
-    public CustomBarrelTileEntity(WoodType wood) {
+    public CustomBarrelTileEntity(IWoodType wood) {
         super(AllTheBarrels.tile);
         this.wood = wood;
+        this.setCustomName(new TranslationTextComponent("block.charm.barrel_" + this.wood.getName()));
     }
 
     /**

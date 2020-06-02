@@ -110,7 +110,13 @@ public class CratesClient {
                     RenderSystem.enableDepthTest();
 
                     for (int i = 0; i < size; i++) {
-                        ItemStack itemstack = cap.getStackInSlot(i);
+                        ItemStack itemstack;
+                        try {
+                            itemstack = cap.getStackInSlot(i);
+                        } catch (Exception e) {
+                            // catch null issue with itemstack. Needs investigation. #255
+                            continue;
+                        }
                         int xp = x + 6 + (i % 9) * 18;
                         int yp = y + 6 + (i / 9) * 18;
 
@@ -134,10 +140,8 @@ public class CratesClient {
             return false;
 
         final String itemName = itemRegName.toString();
-        if (!itemName.contains("charm:crate_"))
-            return false;
-
-        return true;
+        // OH JUST GO TO BED SVEN
+        return itemName.contains("charm:crate_") || itemName.contains("covalent:crate_");
     }
 
     public void drawModalRectWithCustomSizedTexture(int x, int y, float u, float v, int width, int height, float textureWidth, float textureHeight) {
