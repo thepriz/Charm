@@ -47,12 +47,12 @@ minecraft {
 dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
 
-    compile fg.deobf("curse.maven:${autoreglib}")
-    compile fg.deobf("curse.maven:${quark}")
-    compile fg.deobf("curse.maven:${quark_oddities}")
-
-    compileOnly fg.deobf("mezz.jei:jei-${jei}:api")
-    runtimeOnly fg.deobf("mezz.jei:jei-${jei}")
+//    compile fg.deobf("curse.maven:${autoreglib}")
+//    compile fg.deobf("curse.maven:${quark}")
+//    compile fg.deobf("curse.maven:${quark_oddities}")
+//
+//    compileOnly fg.deobf("mezz.jei:jei-${jei}:api")
+//    runtimeOnly fg.deobf("mezz.jei:jei-${jei}")
 
     // for testing botania
 //    compile fg.deobf("curse.maven:botania:2953670")
