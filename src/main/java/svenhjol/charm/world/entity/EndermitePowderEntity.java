@@ -9,7 +9,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.network.play.server.SSpawnObjectPacket;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import svenhjol.charm.world.module.EndermitePowder;
@@ -64,11 +64,11 @@ public class EndermitePowderEntity extends Entity {
         double rise = 0.03;
         int maxLiveTime = 1000;
         int particles = 18;
-        int x = getPosition().getX();
-        int y = getPosition().getY();
-        int z = getPosition().getZ();
+        int x = func_233580_cy_().getX();
+        int y = func_233580_cy_().getY();
+        int z = func_233580_cy_().getZ();
 
-        Vec3d vec = new Vec3d((double) dataManager.get(TARGET_X), y, (double) dataManager.get(TARGET_Z))
+        Vector3d vec = new Vector3d((double) dataManager.get(TARGET_X), y, (double) dataManager.get(TARGET_Z))
             .subtract(x, y, z).normalize().scale(scale);
 
         double bpx = x + vec.x * ticks;

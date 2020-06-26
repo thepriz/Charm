@@ -53,7 +53,7 @@ public class RunePortalFrameBlock extends MesonBlock {
             .create(Material.ROCK, MaterialColor.GREEN)
             .sound(SoundType.GLASS)
             .hardnessAndResistance(-1.0F, 3600000.0F)
-            .lightValue(1)
+            .func_235838_a_((p_235447_0_) -> 1)
             .noDrops()
         );
         this.setDefaultState(this.getStateContainer().getBaseState()

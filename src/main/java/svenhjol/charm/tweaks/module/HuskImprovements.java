@@ -41,7 +41,7 @@ public class HuskImprovements extends MesonModule {
             && event.getEntityLiving().world.rand.nextFloat() <= (chance + (lootingBoost * event.getLootingLevel()))
         ) {
             Entity entity = event.getEntity();
-            BlockPos entityPos = entity.getPosition();
+            BlockPos entityPos = entity.func_233580_cy_();
             ItemStack sand = new ItemStack(Items.SAND);
             event.getDrops().add(new ItemEntity(entity.getEntityWorld(), entityPos.getX(), entityPos.getY(), entityPos.getZ(), sand));
         }

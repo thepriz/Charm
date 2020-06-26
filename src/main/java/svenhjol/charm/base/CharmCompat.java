@@ -1,7 +1,6 @@
 package svenhjol.charm.base;
 
 import svenhjol.charm.Charm;
-import svenhjol.charm.base.compat.QuarkCompat;
 import svenhjol.meson.MesonInstance;
 import svenhjol.meson.helper.ForgeHelper;
 

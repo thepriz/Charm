@@ -1,7 +1,7 @@
 package svenhjol.charm.world.gen.placement;
 
 import com.google.common.collect.Lists;
-import com.mojang.datafixers.Dynamic;
+import com.mojang.serialization.Dynamic;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.placement.FrequencyConfig;
 import net.minecraft.world.gen.placement.SimplePlacement;

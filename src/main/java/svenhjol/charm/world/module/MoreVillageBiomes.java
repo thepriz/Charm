@@ -47,7 +47,7 @@ public class MoreVillageBiomes extends MesonModule {
             VillagerData data = villager.getVillagerData();
 
             if (data.getType() == IVillagerType.PLAINS) {
-                Biome biome = BiomeHelper.getBiomeAtPos((ServerWorld)event.getWorld(), event.getEntity().getPosition());
+                Biome biome = BiomeHelper.getBiomeAtPos((ServerWorld)event.getWorld(), event.getEntity().func_233580_cy_());
 
                 if (plainsBiomes.contains(biome)) {
                     villager.setVillagerData(data.withType(IVillagerType.byBiome(biome)));

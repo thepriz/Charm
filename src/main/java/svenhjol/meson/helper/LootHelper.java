@@ -1,10 +1,10 @@
 package svenhjol.meson.helper;
 
+import net.minecraft.loot.LootEntry;
+import net.minecraft.loot.LootPool;
+import net.minecraft.loot.LootTable;
+import net.minecraft.loot.LootTables;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.storage.loot.LootEntry;
-import net.minecraft.world.storage.loot.LootPool;
-import net.minecraft.world.storage.loot.LootTable;
-import net.minecraft.world.storage.loot.LootTables;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 import java.util.ArrayList;

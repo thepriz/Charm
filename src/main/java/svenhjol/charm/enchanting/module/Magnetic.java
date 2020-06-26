@@ -51,7 +51,7 @@ public class Magnetic extends MesonModule {
             BlockPos foundPos = null;
 
             for (BlockPos pos : dropmap.keySet()) {
-                double dist = WorldHelper.getDistanceSq(pos, event.getEntity().getPosition());
+                double dist = WorldHelper.getDistanceSq(pos, event.getEntity().func_233580_cy_());
                 if (dist <= r) {
                     foundPos = pos;
                     break;
@@ -60,7 +60,7 @@ public class Magnetic extends MesonModule {
 
             if (foundPos != null) {
                 PlayerEntity player = dropmap.get(foundPos);
-                BlockPos playerPos = player.getPosition();
+                BlockPos playerPos = player.func_233580_cy_();
                 ItemEntity fake = new ItemEntity(player.world, playerPos.getX(), playerPos.getY(), playerPos.getZ());
                 ItemStack item = ((ItemEntity) event.getEntity()).getItem();
                 fake.setItem(item);

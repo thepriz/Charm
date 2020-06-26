@@ -12,7 +12,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 import svenhjol.meson.compat.IQuarkCompat;
-import svenhjol.meson.compat.QuarkCompat;
 import svenhjol.meson.handler.LogHandler;
 import svenhjol.meson.handler.PlayerQueueHandler;
 import svenhjol.meson.helper.ForgeHelper;

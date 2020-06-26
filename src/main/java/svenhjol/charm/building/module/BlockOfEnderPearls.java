@@ -59,7 +59,7 @@ public class BlockOfEnderPearls extends MesonModule {
             World world = event.getEntityLiving().world;
             PlayerEntity player = (PlayerEntity) event.getEntityLiving();
             Map<Double, BlockPos> positions = new HashMap<>();
-            BlockPos playerPos = player.getPosition();
+            BlockPos playerPos = player.func_233580_cy_();
             BlockPos targetPos = null;
 
             // find the blocks around the player

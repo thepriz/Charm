@@ -27,7 +27,7 @@ public class SpongesReduceFallDamage extends MesonModule {
             && event.getSource() == DamageSource.FALL
         ) {
             World world = event.getEntityLiving().getEntityWorld();
-            BlockPos pos = event.getEntityLiving().getPosition();
+            BlockPos pos = event.getEntityLiving().func_233580_cy_();
             Block down = world.getBlockState(pos.down()).getBlock();
 
             if (down instanceof SpongeBlock || down instanceof WetSpongeBlock) {

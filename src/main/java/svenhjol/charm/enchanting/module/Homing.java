@@ -11,7 +11,7 @@ import net.minecraft.item.TieredItem;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -110,7 +110,7 @@ public class Homing extends MesonModule {
             }
 
             if (foundPos != null) {
-                player.lookAt(EntityAnchorArgument.Type.EYES, new Vec3d(foundPos).add(0.5F, 0.5F, 0.5F));
+                player.lookAt(EntityAnchorArgument.Type.EYES, new Vector3d(foundPos.getX(), foundPos.getY(), foundPos.getZ()).add(0.5F, 0.5F, 0.5F));
 
                 if (!world.isRemote) {
                     double damage = held.getMaxDamage() * damageMultiplier;
@@ -121,7 +121,7 @@ public class Homing extends MesonModule {
                     double vol = 1 - (Math.min(distance, 100) / 100);
                     double pitch = Math.max(0.5D, 1 - (Math.min(distance, 100) / 100));
                     player.swingArm(event.getHand());
-                    world.playSound(player, player.getPosition(), CharmSounds.HOMING, SoundCategory.BLOCKS, (float) vol, (float) pitch);
+                    world.playSound(player, player.func_233580_cy_(), CharmSounds.HOMING, SoundCategory.BLOCKS, (float) vol, (float) pitch);
                 }
             }
         }

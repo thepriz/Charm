@@ -84,11 +84,11 @@ public class CrateTileEntity extends LockableLootTileEntity implements ICapabili
 
     @Override
     public void openInventory(PlayerEntity player) {
-        player.world.playSound(null, player.getPosition(), SoundEvents.BLOCK_BARREL_OPEN, SoundCategory.BLOCKS, 0.5F, player.world.rand.nextFloat() * 0.1F + 0.9F);
+        player.world.playSound(null, player.func_233580_cy_(), SoundEvents.BLOCK_BARREL_OPEN, SoundCategory.BLOCKS, 0.5F, player.world.rand.nextFloat() * 0.1F + 0.9F);
     }
 
     @Override
     public void closeInventory(PlayerEntity player) {
-        player.world.playSound(null, player.getPosition(), SoundEvents.BLOCK_BARREL_CLOSE, SoundCategory.BLOCKS, 0.5F, player.world.rand.nextFloat() * 0.1F + 0.9F);
+        player.world.playSound(null, player.func_233580_cy_(), SoundEvents.BLOCK_BARREL_CLOSE, SoundCategory.BLOCKS, 0.5F, player.world.rand.nextFloat() * 0.1F + 0.9F);
     }
 }

@@ -19,6 +19,7 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import svenhjol.charm.base.CharmSounds;
@@ -96,8 +97,8 @@ public class FumaroleBlock extends MesonBlock {
         List<Entity> entities = world.getEntitiesWithinAABB(Entity.class, bb.grow(0, 10, 0), selector);
 
         for (Entity entity : entities) {
-            Vec3d motion = entity.getMotion();
-            double speed = 1.75D / ((entity.getPosition().getY() - pos.getY()) * 0.75D);
+            Vector3d motion = entity.getMotion();
+            double speed = 1.75D / ((entity.func_233580_cy_().getY() - pos.getY()) * 0.75D);
             entity.setMotion(motion.x, speed, motion.z);
             entity.velocityChanged = true;
         }

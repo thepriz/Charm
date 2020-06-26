@@ -57,10 +57,10 @@ public class PlayerHelper {
         World world = player.world;
         Random rand = world.rand;
 
-        if (!WorldHelper.canSeeSky(world, player.getPosition()))
+        if (!WorldHelper.canSeeSky(world, player.func_233580_cy_()))
             return;
 
-        BlockPos pos = player.getPosition().add(-(dist / 2) + rand.nextInt(dist), 0, -(dist / 2) + rand.nextInt(dist));
+        BlockPos pos = player.func_233580_cy_().add(-(dist / 2) + rand.nextInt(dist), 0, -(dist / 2) + rand.nextInt(dist));
         ((ServerWorld) world).addLightningBolt(new LightningBoltEntity(world, (double) pos.getX() + 0.5D, pos.getY(), (double) pos.getZ() + 0.5D, false));
     }
 
@@ -87,7 +87,7 @@ public class PlayerHelper {
         boolean spawned = false;
         int range = 8;
         int tries = 8;
-        BlockPos pp = player.getPosition();
+        BlockPos pp = player.func_233580_cy_();
         World world = player.world;
         Random rand = world.rand;
         List<BlockPos> valid = new ArrayList<>();
@@ -137,7 +137,7 @@ public class PlayerHelper {
         // ((ServerPlayerEntity)player).teleport((ServerWorld)world, pos.getX(), pos.getY(), pos.getZ(), player.rotationYaw, player.rotationPitch);
         player.setPositionAndUpdate(pos.getX() + 0.5D, pos.getY() + 1.0D, pos.getZ() + 0.5D);
 
-        BlockPos playerPos = player.getPosition();
+        BlockPos playerPos = player.func_233580_cy_();
 
         while (world.isAirBlock(playerPos.down()) && playerPos.getY() > 0) {
             playerPos = playerPos.down();
@@ -163,7 +163,7 @@ public class PlayerHelper {
 
         teleport(player, pos, dim, (p) -> {
             for (int y = p.world.getHeight(); y > 0; y--) {
-                BlockPos pp = new BlockPos(p.getPosition().getX(), y, p.getPosition().getZ());
+                BlockPos pp = new BlockPos(p.func_233580_cy_().getX(), y, p.func_233580_cy_().getZ());
                 if (p.world.isAirBlock(pp)
                     && !p.world.isAirBlock(pp.down())
                 ) {
@@ -199,7 +199,7 @@ public class PlayerHelper {
         serverworld.removeEntity(serverPlayer, true); //Forge: the player entity is moved to the new world, NOT cloned. So keep the data alive with no matching invalidate call.
         serverPlayer.revive();
 
-        BlockPos playerPos = serverPlayer.getPosition();
+        BlockPos playerPos = serverPlayer.func_233580_cy_();
 
         double d0 = playerPos.getX();
         double d1 = playerPos.getY();

@@ -62,7 +62,7 @@ public class Leeching extends MesonModule {
             final int level = foodStats.getFoodLevel();
             foodStats.setFoodLevel(level + restored);
             heldItem.damageItem(damage, player, p -> { });
-            player.world.playSound(null, player.getPosition(), SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.PLAYERS, 0.34F, 1.0F);
+            player.world.playSound(null, player.func_233580_cy_(), SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.PLAYERS, 0.34F, 1.0F);
         }
     }
 }

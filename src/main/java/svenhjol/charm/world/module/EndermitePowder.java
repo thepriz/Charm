@@ -57,7 +57,7 @@ public class EndermitePowder extends MesonModule {
         ) {
             EndermiteEntity endermite = (EndermiteEntity) event.getEntityLiving();
             ItemStack stack = new ItemStack(item);
-            BlockPos endermitePos = endermite.getPosition();
+            BlockPos endermitePos = endermite.func_233580_cy_();
             event.getDrops().add(new ItemEntity(endermite.getEntityWorld(), endermitePos.getX(), endermitePos.getY(), endermitePos.getZ(), stack));
         }
     }

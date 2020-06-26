@@ -1,5 +1,6 @@
 package svenhjol.charm.world.tileentity;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
@@ -24,9 +25,10 @@ public class RunePortalTileEntity extends TileEntity {
         super(EndPortalRunes.tile);
     }
 
+    // TODO: was #read
     @Override
-    public void read(CompoundNBT tag) {
-        super.read(tag);
+    public void func_230337_a_(BlockState state, CompoundNBT tag) {
+        super.func_230337_a_(state, tag);
         loadFromNBT(tag);
     }
 
@@ -65,7 +67,14 @@ public class RunePortalTileEntity extends TileEntity {
     @Override
     public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
         super.onDataPacket(net, pkt);
-        handleUpdateTag(pkt.getNbtCompound());
+
+        CompoundNBT c = pkt.getNbtCompound();
+        BlockPos blockpos = new BlockPos(c.getInt("x"), c.getInt("y"), c.getInt("z"));
+
+        if (this.world != null) {
+            BlockState state = this.world.getBlockState(blockpos);
+            handleUpdateTag(state, pkt.getNbtCompound());
+        }
     }
 
     @OnlyIn(Dist.CLIENT)

@@ -43,7 +43,7 @@ public class ServerUpdatePlayerState implements IMesonMessage {
                 if (player == null) return;
 
                 ServerWorld world = player.getServerWorld();
-                BlockPos pos = player.getPosition();
+                BlockPos pos = player.func_233580_cy_();
 
                 final long dayTime = world.getDayTime() % 24000;
 

@@ -41,7 +41,7 @@ public class BatBucketItem extends MesonItem {
         double y = pos.getY() + 0.25F + (world.rand.nextFloat() / 2.0F) + facing.getYOffset();
         double z = pos.getZ() + 0.5F + facing.getZOffset();
 
-        world.playSound(null, player.getPosition(), SoundEvents.ENTITY_BAT_TAKEOFF, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+        world.playSound(null, player.func_233580_cy_(), SoundEvents.ENTITY_BAT_TAKEOFF, SoundCategory.NEUTRAL, 1.0F, 1.0F);
 
         if (!player.isCreative()) {
             // spawn the bat

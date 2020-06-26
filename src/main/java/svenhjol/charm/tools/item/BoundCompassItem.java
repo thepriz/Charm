@@ -142,7 +142,7 @@ public class BoundCompassItem extends MesonItem {
 
             @OnlyIn(Dist.CLIENT)
             private double getPosToAngle(Entity entity, BlockPos pos) {
-                BlockPos entityPos = entity.getPosition();
+                BlockPos entityPos = entity.func_233580_cy_();
                 return Math.atan2(pos.getZ() - entityPos.getZ(), pos.getX() - entityPos.getX());
             }
         });
