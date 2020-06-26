@@ -6,9 +6,9 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.mathyeah,.Vec3d;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.server.ServerWorld;
 import svenhjol.charm.world.entity.EndermitePowderEntity;
 import svenhjol.meson.MesonItem;
@@ -41,7 +41,7 @@ public class EndermitePowderItem extends MesonItem {
         // server
         if (!worldIn.isRemote) {
             ServerWorld serverWorld = (ServerWorld)worldIn;
-            BlockPos pos = serverWorld.findNearestStructure(WorldHelper.END_CITY, playerIn.func_233580_cy_(), 1500, true);
+            BlockPos pos = serverWorld.func_241117_a_(Structure.field_236379_o_, playerIn.func_233580_cy_(), 1500, true);
             if (pos != null) {
                 EndermitePowderEntity entity = new EndermitePowderEntity(worldIn, pos.getX(), pos.getZ());
                 Vector3d look = playerIn.getLookVec();

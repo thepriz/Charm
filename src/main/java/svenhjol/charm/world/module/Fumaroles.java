@@ -52,7 +52,8 @@ public class Fumaroles extends MesonModule {
 
     @Override
     public void onCommonSetup(FMLCommonSetupEvent event) {
-        Biomes.NETHER.addFeature(Decoration.UNDERGROUND_DECORATION,
+        // TODO: this will become NETHER_WASTES
+        Biomes.field_235254_j_.addFeature(Decoration.UNDERGROUND_DECORATION,
             feature.withConfiguration(config)
                 .withPlacement(placement.configure(new FrequencyConfig(8))));
     }

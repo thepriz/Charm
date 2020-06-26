@@ -68,7 +68,7 @@ public class CauldronWaterSource extends MesonModule {
                     event.setResult(Event.Result.DENY);
                     PlayerHelper.setHeldItem(player, event.getHand(), item);
                     if (sound != null) {
-                        world.playSound(null, player.getPosition(), sound, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                        world.playSound(null, player.func_233580_cy_(), sound, SoundCategory.BLOCKS, 1.0F, 1.0F);
                     }
                 }
 

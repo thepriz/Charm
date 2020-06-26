@@ -56,6 +56,7 @@ public class WorldHelper {
         return d2 * d2 + d3 * d3;
     }
 
+    // TODO: how do you get dimensions anymore
     public static int getDimensionId(World world) {
         return world.dimension.getType().getId();
     }

@@ -94,7 +94,7 @@ public class StructureMaps extends MesonModule {
 
             if (!world.isRemote) {
                 ServerWorld serverWorld = (ServerWorld) world;
-                BlockPos pos = serverWorld.findNearestStructure(structure.name, new BlockPos(merchant), 500, true);
+                BlockPos pos = serverWorld.func_241117_a_(structure.name, new BlockPos(merchant.getPositionVec()), 500, true);
                 if (pos != null) {
 
                     // generate the map

@@ -6,6 +6,7 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkEvent.Context;
 import svenhjol.charm.Charm;
@@ -48,7 +49,8 @@ public class ServerUpdatePlayerState implements IMesonMessage {
                 final long dayTime = world.getDayTime() % 24000;
 
                 CompoundNBT nbt = new CompoundNBT();
-                nbt.putBoolean("mineshaft", Feature.MINESHAFT.isPositionInsideStructure(world, pos));
+                // TODO: how do you determine position in structure now?
+                nbt.putBoolean("mineshaft", Structure.field_236367_c_.isPositionInsideStructure(world, pos));
                 nbt.putBoolean("stronghold", Feature.STRONGHOLD.isPositionInsideStructure(world, pos));
                 nbt.putBoolean("fortress", Feature.NETHER_BRIDGE.isPositionInsideStructure(world, pos));
                 nbt.putBoolean("shipwreck", Feature.SHIPWRECK.isPositionInsideStructure(world, pos));

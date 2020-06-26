@@ -7,8 +7,8 @@ import net.minecraft.block.IBucketPickupHandler;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.Entity;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.fluid.IFluidState;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.particles.BasicParticleType;
 import net.minecraft.particles.ParticleTypes;
@@ -18,7 +18,6 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -59,7 +58,7 @@ public class FumaroleBlock extends MesonBlock {
         for (Direction direction : Direction.values()) {
             BlockPos next = pos.offset(direction);
             BlockState state = world.getBlockState(next);
-            IFluidState fluid = world.getFluidState(next);
+            FluidState fluid = world.getFluidState(next);
 
             if (fluid.isTagged(FluidTags.LAVA)) {
                 if (state.getBlock() instanceof IBucketPickupHandler

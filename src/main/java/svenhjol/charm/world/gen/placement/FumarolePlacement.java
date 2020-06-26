@@ -1,18 +1,17 @@
 package svenhjol.charm.world.gen.placement;
 
 import com.google.common.collect.Lists;
-import com.mojang.serialization.Dynamic;
+import com.mojang.serialization.Codec;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.placement.FrequencyConfig;
 import net.minecraft.world.gen.placement.SimplePlacement;
 
 import java.util.List;
 import java.util.Random;
-import java.util.function.Function;
 import java.util.stream.Stream;
 
 public class FumarolePlacement extends SimplePlacement<FrequencyConfig> {
-    public FumarolePlacement(Function<Dynamic<?>, ? extends FrequencyConfig> config) {
+    public FumarolePlacement(Codec<FrequencyConfig> config) {
         super(config);
     }
 

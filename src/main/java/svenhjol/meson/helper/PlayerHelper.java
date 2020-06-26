@@ -175,6 +175,7 @@ public class PlayerHelper {
         });
     }
 
+    // TODO: fetch all this from teleporting to the End
     public static void changeDimension(PlayerEntity player, int dim) {
         if (player.world.isRemote) return;
         ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;

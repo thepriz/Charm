@@ -61,7 +61,7 @@ public class RandomAnimalTextures extends MesonModule {
         String texture = getRandomTexture(entity, wolves);
         if (entity.isTamed()) {
             texture += "_tame";
-        } else if (entity.isAngry()) {
+        } else if (entity.func_233678_J__()) {
             texture += "_angry";
         }
 
