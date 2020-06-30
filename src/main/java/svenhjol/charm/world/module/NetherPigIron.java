@@ -11,7 +11,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
-import svenhjol.charm.base.compat.NetherModCompat;
 import svenhjol.charm.world.block.PigIronOreBlock;
 import svenhjol.charm.world.item.PigIronNuggetItem;
 import svenhjol.meson.MesonModule;
@@ -40,7 +39,7 @@ public class NetherPigIron extends MesonModule {
         item = new PigIronNuggetItem(this);
         placement = Placement.COUNT_RANGE.configure(new CountRangeConfig(clusterCount, 10, 20, 128));
         config = new OreFeatureConfig(
-            NetherModCompat.getNetherrackTaggedFillerBlockType(),
+            OreFeatureConfig.FillerBlockType.NETHERRACK,
             block.getDefaultState(),
             veinSize
         );

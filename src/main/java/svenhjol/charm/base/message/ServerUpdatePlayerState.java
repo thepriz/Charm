@@ -5,12 +5,12 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkEvent.Context;
 import svenhjol.charm.Charm;
 import svenhjol.meson.Meson;
+import svenhjol.meson.helper.WorldHelper;
 import svenhjol.meson.iface.IMesonMessage;
 
 import java.util.ArrayList;
@@ -49,12 +49,13 @@ public class ServerUpdatePlayerState implements IMesonMessage {
                 final long dayTime = world.getDayTime() % 24000;
 
                 CompoundNBT nbt = new CompoundNBT();
+
                 // TODO: how do you determine position in structure now?
-                nbt.putBoolean("mineshaft", Structure.field_236367_c_.isPositionInsideStructure(world, pos));
-                nbt.putBoolean("stronghold", Feature.STRONGHOLD.isPositionInsideStructure(world, pos));
-                nbt.putBoolean("fortress", Feature.NETHER_BRIDGE.isPositionInsideStructure(world, pos));
-                nbt.putBoolean("shipwreck", Feature.SHIPWRECK.isPositionInsideStructure(world, pos));
-                nbt.putBoolean("village", Feature.VILLAGE.isPositionInsideStructure(world, pos));
+                nbt.putBoolean("mineshaft", WorldHelper.isPositionInsideStructure(world, pos, Structure.field_236367_c_));
+                nbt.putBoolean("stronghold", WorldHelper.isPositionInsideStructure(world, pos, Structure.field_236375_k_));
+                nbt.putBoolean("fortress", WorldHelper.isPositionInsideStructure(world, pos, Structure.field_236378_n_));
+                nbt.putBoolean("shipwreck", WorldHelper.isPositionInsideStructure(world, pos, Structure.field_236373_i_));
+                nbt.putBoolean("village", WorldHelper.isPositionInsideStructure(world, pos, Structure.field_236381_q_));
                 nbt.putBoolean("day", dayTime > 0 && dayTime < 12700);
 
                 if (Charm.quarkCompat != null && Meson.isModuleEnabled(new ResourceLocation("quark:big_dungeons"))) {

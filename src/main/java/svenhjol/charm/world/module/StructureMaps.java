@@ -11,6 +11,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.storage.MapData;
 import net.minecraft.world.storage.MapDecoration;
@@ -20,6 +21,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.ItemNBTHelper;
+import svenhjol.meson.helper.WorldHelper;
 import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
 
@@ -62,15 +64,16 @@ public class StructureMaps extends MesonModule {
         int gmin = generalMinCost;
         int gmax = generalMaxCost;
 
-        trades.add(new StructureTrade("Desert_Pyramid").setColor(0x866600).setCost(bmin, bmax));
-        trades.add(new StructureTrade("Igloo").setColor(0xA0C0FF).setCost(bmin, bmax));
-        trades.add(new StructureTrade("Jungle_Pyramid").setColor(0x20B020).setCost(bmin, bmax));
-        trades.add(new StructureTrade("Mineshaft").setColor(0x774400).setCost(gmin, gmax));
-        trades.add(new StructureTrade("Ocean_Ruin").setColor(0x0000FF).setCost(gmin, gmax));
-        trades.add(new StructureTrade("Pillager_Outpost").setColor(0xFF0033).setCost(gmin, gmax));
-        trades.add(new StructureTrade("Shipwreck").setColor(0x990000).setCost(gmin, gmax));
-        trades.add(new StructureTrade("Swamp_Hut").setColor(0x107000).setCost(bmin, bmax));
-        trades.add(new StructureTrade("Village").setColor(0xCC2200).setCost(gmin, gmax));
+        trades.add(new StructureTrade(Structure.field_236370_f_).setColor(0x866600).setCost(bmin, bmax));
+        trades.add(new StructureTrade(Structure.field_236371_g_).setColor(0xA0C0FF).setCost(bmin, bmax));
+        trades.add(new StructureTrade(Structure.field_236369_e_).setColor(0x20B020).setCost(bmin, bmax));
+        trades.add(new StructureTrade(Structure.field_236367_c_).setColor(0x774400).setCost(gmin, gmax));
+        trades.add(new StructureTrade(Structure.field_236377_m_).setColor(0x0000FF).setCost(gmin, gmax));
+        trades.add(new StructureTrade(Structure.field_236366_b_).setColor(0xFF0033).setCost(gmin, gmax));
+        trades.add(new StructureTrade(Structure.field_236373_i_).setColor(0x990000).setCost(gmin, gmax));
+        trades.add(new StructureTrade(Structure.field_236374_j_).setColor(0x107000).setCost(bmin, bmax));
+        trades.add(new StructureTrade(Structure.field_236381_q_).setColor(0xCC2200).setCost(gmin, gmax));
+        trades.add(new StructureTrade(Structure.field_236372_h_).setColor(0x551155).setCost(gmin, gmax));
     }
 
     @SubscribeEvent
@@ -89,26 +92,26 @@ public class StructureMaps extends MesonModule {
 
         @Nullable
         public MerchantOffer getOffer(Entity merchant, Random rand) {
-            StructureTrade structure = trades.get(rand.nextInt(trades.size()));
+            StructureTrade structureTrade = trades.get(rand.nextInt(trades.size()));
             World world = merchant.world;
 
             if (!world.isRemote) {
                 ServerWorld serverWorld = (ServerWorld) world;
-                BlockPos pos = serverWorld.func_241117_a_(structure.name, new BlockPos(merchant.getPositionVec()), 500, true);
+                BlockPos pos = WorldHelper.findNearestStructure(serverWorld, structureTrade.structure, new BlockPos(merchant.getPositionVec()), 500, true);
                 if (pos != null) {
 
                     // generate the map
                     ItemStack stack = FilledMapItem.setupNewMap(world, pos.getX(), pos.getZ(), (byte) 2, true, true);
                     FilledMapItem.func_226642_a_(serverWorld, stack);
                     MapData.addTargetDecoration(stack, pos, "+", this.targetType);
-                    stack.setDisplayName(new TranslationTextComponent("map.charm." + structure.name.toLowerCase(Locale.ENGLISH)));
+                    stack.setDisplayName(new TranslationTextComponent("map.charm." + structureTrade.structure.toString().toLowerCase(Locale.ENGLISH)));
 
                     // set map color based on structure
                     CompoundNBT tag = ItemNBTHelper.getCompound(stack, "display");
-                    tag.putInt("MapColor", structure.color);
+                    tag.putInt("MapColor", structureTrade.color);
                     ItemNBTHelper.setCompound(stack, "display", tag);
 
-                    ItemStack in1 = new ItemStack(Items.EMERALD, rand.nextInt(structure.max - structure.min) + structure.min);
+                    ItemStack in1 = new ItemStack(Items.EMERALD, rand.nextInt(structureTrade.max - structureTrade.min) + structureTrade.min);
                     ItemStack in2 = new ItemStack(Items.COMPASS);
                     float multiplier = 0.2F;
                     return new MerchantOffer(in1, in2, stack, maxUses, tradeXp, multiplier);
@@ -120,19 +123,19 @@ public class StructureMaps extends MesonModule {
     }
 
     public static class StructureTrade {
-        public String name;
+        public Structure<?> structure;
         public int dimension;
         public int color;
         public int min;
         public int max;
 
-        public StructureTrade(String name) {
-            this(name, 0, 0);
+        public StructureTrade(Structure<?> structure) {
+            this(structure, 0, 0);
         }
 
-        public StructureTrade(String name, int color, int dimension) {
+        public StructureTrade(Structure<?> structure, int color, int dimension) {
             this.dimension = dimension;
-            this.name = name;
+            this.structure = structure;
             this.color = color;
         }
 

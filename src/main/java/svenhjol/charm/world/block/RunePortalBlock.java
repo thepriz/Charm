@@ -89,7 +89,7 @@ public class RunePortalBlock extends EndPortalBlock implements IMesonBlock {
                 BlockPos foundPortal = EndPortalRunes.findPortal((ServerWorld) world, thisPortal);
                 PlayerEntity player = (PlayerEntity) entity;
                 BlockPos teleportTo = foundPortal == null ? thisPortal : foundPortal;
-                PlayerHelper.teleport(player, teleportTo.add(-2, 1, 0), 0);
+                PlayerHelper.teleport(player, teleportTo.add(-2, 1, 0));
 
                 if (foundPortal != null) {
                     Meson.getInstance(Charm.MOD_ID).getPacketHandler().sendToAll(new ClientRunePortalAction(ClientRunePortalAction.TRAVELLED, foundPortal));

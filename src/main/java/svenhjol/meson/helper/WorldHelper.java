@@ -10,30 +10,12 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.server.ServerWorld;
-import svenhjol.meson.iface.IMesonEnum;
 
 @SuppressWarnings("unused")
 public class WorldHelper {
-    public static final String END_CITY = "EndCity";
 
-    public enum Structure implements IMesonEnum {
-        buried_treasure,
-        desert_pyramid,
-        endcity,
-        igloo,
-        jungle_pyramid,
-        mansion,
-        mineshaft,
-        fortress,
-        monument,
-        ocean_ruin,
-        pillager_outpost,
-        shipwreck,
-        stronghold,
-        swamp_hut,
-        village
-    }
 
     public static BlockRayTraceResult getBlockLookedAt(PlayerEntity player) {
         return getBlockLookedAt(player, 10);
@@ -46,7 +28,6 @@ public class WorldHelper {
     }
 
     public static boolean canSeeSky(IWorld world, BlockPos pos) {
-//        return world.isSkyLightMax(pos); // [1.14]
          return world.canSeeSky(pos); // [1.15]
     }
 
@@ -78,6 +59,14 @@ public class WorldHelper {
             true,
             true
         );
+    }
+
+    public static BlockPos findNearestStructure(ServerWorld world, Structure<?> structure, BlockPos pos, int radius, boolean dunno) {
+        return world.func_241117_a_(structure, pos, radius, dunno);
+    }
+
+    public static boolean isPositionInsideStructure(ServerWorld world, BlockPos pos, Structure<?> structure) {
+        return world.func_241112_a_().func_235010_a_(pos, true, structure).isValid();
     }
 
     public static boolean isSolidBlock(World world, BlockPos pos) {

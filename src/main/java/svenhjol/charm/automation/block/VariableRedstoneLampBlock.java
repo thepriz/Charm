@@ -26,7 +26,7 @@ public class VariableRedstoneLampBlock extends MesonBlock {
             .create(Material.REDSTONE_LIGHT)
             .sound(SoundType.GLASS)
             .hardnessAndResistance(0.3F)
-            .lightValue(0)
+            .func_235838_a_(p -> 0)
         );
 
         setDefaultState(this.getDefaultState().with(LEVEL, 0));
@@ -76,11 +76,6 @@ public class VariableRedstoneLampBlock extends MesonBlock {
     public BlockState getStateForPlacement(BlockItemUseContext context) {
         int power = context.getWorld().isBlockPowered(context.getPos()) ? context.getWorld().getRedstonePowerFromNeighbors(context.getPos()) : 0;
         return this.getDefaultState().with(LEVEL, power);
-    }
-
-    @Override
-    public int getLightValue(BlockState state) {
-        return state.get(LEVEL);
     }
 
     @Override

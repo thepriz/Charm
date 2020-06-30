@@ -1,5 +1,6 @@
 package svenhjol.charm.decoration.tileentity;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.ItemStackHelper;
@@ -25,8 +26,8 @@ public class BookshelfChestTileEntity extends LockableLootTileEntity {
     }
 
     @Override
-    public void read(CompoundNBT tag) {
-        super.read(tag);
+    public void func_230337_a_(BlockState state, CompoundNBT tag) {
+        super.func_230337_a_(state, tag);
         this.items = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
         if (!this.checkLootAndRead(tag)) {
             ItemStackHelper.loadAllItems(tag, this.items);

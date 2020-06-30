@@ -1,10 +1,7 @@
 package svenhjol.charm.base;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.audio.ISound;
-import net.minecraft.client.audio.MusicTicker.MusicType;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.passive.ParrotEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.Container;
@@ -17,9 +14,6 @@ import net.minecraftforge.common.MinecraftForge;
 import svenhjol.charm.decoration.container.BookshelfChestContainer;
 import svenhjol.charm.decoration.container.CrateContainer;
 import svenhjol.charm.enchanting.module.Salvage;
-import svenhjol.charm.mobs.module.ParrotMimicDelay;
-import svenhjol.charm.mobs.module.ParrotsOnEndRods;
-import svenhjol.charm.tweaks.client.AmbientMusicClient;
 import svenhjol.charm.tweaks.module.HuskImprovements;
 import svenhjol.charm.tweaks.module.LanternImprovements;
 import svenhjol.charm.tweaks.module.LeatherArmorInvisibility;
@@ -69,28 +63,8 @@ public class CharmAsmHooks {
         MinecraftForge.EVENT_BUS.post(new ComposterEvent.Output(world, pos, player));
     }
 
-    public static boolean handleMusicTick(ISound currentMusic) {
-        return AmbientMusicClient.isEnabled && AmbientMusicClient.handleTick(currentMusic);
-    }
-
-    public static boolean handleMusicStop() {
-        return AmbientMusicClient.isEnabled && AmbientMusicClient.handleStop();
-    }
-
-    public static boolean handleMusicPlaying(MusicType type) {
-        return AmbientMusicClient.isEnabled && AmbientMusicClient.handlePlaying(type);
-    }
-
     public static boolean stayOnShoulder() {
         return Meson.isModuleEnabled("charm:parrots_stay_on_shoulder");
-    }
-
-    public static void addParrotGoals(ParrotEntity parrot) {
-        ParrotsOnEndRods.addGoals(parrot);
-    }
-
-    public static int parrotMimicDelayChance() {
-        return ParrotMimicDelay.getChance();
     }
 
     public static boolean containersAcceptTransfer(Container container) {

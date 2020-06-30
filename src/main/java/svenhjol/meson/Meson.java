@@ -14,7 +14,6 @@ import org.apache.logging.log4j.MarkerManager;
 import svenhjol.meson.compat.IQuarkCompat;
 import svenhjol.meson.handler.LogHandler;
 import svenhjol.meson.handler.PlayerQueueHandler;
-import svenhjol.meson.helper.ForgeHelper;
 import svenhjol.meson.loader.condition.ModuleEnabledCondition;
 import svenhjol.meson.loader.condition.ModuleNotEnabledCondition;
 
@@ -61,15 +60,15 @@ public class Meson {
     }
 
     public void onCommonSetup(FMLCommonSetupEvent event) {
-        try {
-            if (quarkCompat == null && ForgeHelper.isModLoaded("quark")) {
-                quarkCompat = QuarkCompat.class.newInstance();
-                quarkCompat.onCommonSetup(event, forgeEventBus);
-                LOG.debug("Finished Quark compatibility");
-            }
-        } catch (Exception e) {
-            LOG.error("Error loading QuarkModules");
-        }
+//        try {
+//            if (quarkCompat == null && ForgeHelper.isModLoaded("quark")) {
+//                quarkCompat = QuarkCompat.class.newInstance();
+//                quarkCompat.onCommonSetup(event, forgeEventBus);
+//                LOG.debug("Finished Quark compatibility");
+//            }
+//        } catch (Exception e) {
+//            LOG.error("Error loading QuarkModules");
+//        }
     }
 
     public static MesonInstance getInstance(String modId) {
