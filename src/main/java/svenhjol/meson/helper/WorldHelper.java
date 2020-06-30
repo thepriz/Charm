@@ -7,8 +7,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.DimensionType;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import svenhjol.meson.iface.IMesonEnum;
 
 @SuppressWarnings("unused")
@@ -56,25 +58,26 @@ public class WorldHelper {
         return d2 * d2 + d3 * d3;
     }
 
-    // TODO: how do you get dimensions anymore
-    public static int getDimensionId(World world) {
-        return world.dimension.getType().getId();
+    public static DimensionType getDimension(World world) {
+        return world.func_230315_m_();
     }
 
-    public static void clearWeather(World world) {
-        world.getWorldInfo().setClearWeatherTime(world.rand.nextInt(12000) + 3600);
-        world.getWorldInfo().setRainTime(0);
-        world.getWorldInfo().setThunderTime(0);
-        world.getWorldInfo().setThundering(false);
-        world.getWorldInfo().setRaining(false);
+    public static void clearWeather(ServerWorld world) {
+        world.func_241113_a_(
+            world.rand.nextInt(12000) + 3600,
+            0,
+            false,
+            false
+        );
     }
 
-    public static void stormyWeather(World world) {
-        world.getWorldInfo().setClearWeatherTime(0);
-        world.getWorldInfo().setRainTime(world.rand.nextInt(12000) + 3600);
-        world.getWorldInfo().setRaining(true);
-        world.getWorldInfo().setThunderTime(world.rand.nextInt(12000) + 7200);
-        world.getWorldInfo().setThundering(true);
+    public static void stormyWeather(ServerWorld world) {
+        world.func_241113_a_(
+            0,
+            world.rand.nextInt(12000) + 3600,
+            true,
+            true
+        );
     }
 
     public static boolean isSolidBlock(World world, BlockPos pos) {

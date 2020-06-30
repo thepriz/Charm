@@ -1,6 +1,7 @@
 package svenhjol.meson.helper;
 
 import com.google.common.collect.ImmutableList;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.effect.LightningBoltEntity;
@@ -8,17 +9,13 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.play.server.*;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.server.management.PlayerList;
 import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
-import net.minecraft.world.server.ServerWorld;
-import net.minecraft.world.storage.WorldInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,16 +54,30 @@ public class PlayerHelper {
         World world = player.world;
         Random rand = world.rand;
 
-        if (!WorldHelper.canSeeSky(world, player.func_233580_cy_()))
+        if (player.world.isRemote)
             return;
 
+        if (!WorldHelper.canSeeSky(world, getPosition(player)))
+            return;
+
+        ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
         BlockPos pos = player.func_233580_cy_().add(-(dist / 2) + rand.nextInt(dist), 0, -(dist / 2) + rand.nextInt(dist));
-        ((ServerWorld) world).addLightningBolt(new LightningBoltEntity(world, (double) pos.getX() + 0.5D, pos.getY(), (double) pos.getZ() + 0.5D, false));
+
+        // copypasta from TridentEntity
+        LightningBoltEntity lightning = EntityType.LIGHTNING_BOLT.create(world);
+        lightning.func_233576_c_(Vector3d.func_237492_c_(pos));
+        lightning.setCaster(serverPlayer);
+        world.addEntity(lightning);
+
+        world.playSound(null, pos, SoundEvents.ENTITY_LIGHTNING_BOLT_THUNDER, SoundCategory.WEATHER, 1.0F, 1.0F);
+    }
+
+    public static BlockPos getPosition(PlayerEntity player) {
+        return player.func_233580_cy_();
     }
 
     public static boolean isCrouching(PlayerEntity player) {
-//        return player.isSneaking(); // [1.14]
-         return player.isCrouching(); // [1.15]
+        return player.isCrouching();
     }
 
     public static void setHeldItem(PlayerEntity player, Hand hand, ItemStack item) {
@@ -120,19 +131,16 @@ public class PlayerHelper {
     }
 
     /**
-     * Basic way to teleport a player to co-ordinate in a dimension.
-     * If the player is not in the specified dimension they will be transferred first.
+     * DIMENSIONS ARE BORK, WHAT IS THE SOLUTION
      */
-    public static void teleport(PlayerEntity player, BlockPos pos, int dim) {
-        teleport(player, pos, dim, p -> {
+    public static void teleport(PlayerEntity player, BlockPos pos) {
+        teleport(player, pos, p -> {
         });
     }
 
-    public static void teleport(PlayerEntity player, BlockPos pos, int dim, Consumer<PlayerEntity> onTeleport) {
+    public static void teleport(PlayerEntity player, BlockPos pos, Consumer<PlayerEntity> onTeleport) {
         World world = player.world;
         if (world.isRemote) return;
-
-        changeDimension(player, dim);
 
         // ((ServerPlayerEntity)player).teleport((ServerWorld)world, pos.getX(), pos.getY(), pos.getZ(), player.rotationYaw, player.rotationPitch);
         player.setPositionAndUpdate(pos.getX() + 0.5D, pos.getY() + 1.0D, pos.getZ() + 0.5D);
@@ -161,7 +169,7 @@ public class PlayerHelper {
         World world = player.world;
         if (world.isRemote) return;
 
-        teleport(player, pos, dim, (p) -> {
+        teleport(player, pos, (p) -> {
             for (int y = p.world.getHeight(); y > 0; y--) {
                 BlockPos pp = new BlockPos(p.func_233580_cy_().getX(), y, p.func_233580_cy_().getZ());
                 if (p.world.isAirBlock(pp)
@@ -173,71 +181,5 @@ public class PlayerHelper {
                 }
             }
         });
-    }
-
-    // TODO: fetch all this from teleporting to the End
-    public static void changeDimension(PlayerEntity player, int dim) {
-        if (player.world.isRemote) return;
-        ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
-        DimensionType destination = DimensionType.getById(dim);
-        if (destination == null) return;
-        if (destination.getId() == player.dimension.getId()) return;
-
-        if (!net.minecraftforge.common.ForgeHooks.onTravelToDimension(player, destination)) return;
-
-        DimensionType dimensiontype = serverPlayer.dimension;
-        ServerWorld serverworld = serverPlayer.server.getWorld(dimensiontype);
-        serverPlayer.dimension = destination;
-        ServerWorld serverworld1 = serverPlayer.server.getWorld(destination);
-        WorldInfo worldinfo = serverPlayer.world.getWorldInfo();
-        net.minecraftforge.fml.network.NetworkHooks.sendDimensionDataPacket(serverPlayer.connection.netManager, serverPlayer);
-
-        serverPlayer.connection.sendPacket(new SRespawnPacket(destination, WorldInfo.byHashing(worldinfo.getSeed()), worldinfo.getGenerator(), serverPlayer.interactionManager.getGameType()));
-        serverPlayer.connection.sendPacket(new SServerDifficultyPacket(worldinfo.getDifficulty(), worldinfo.isDifficultyLocked()));
-
-        PlayerList playerlist = serverPlayer.server.getPlayerList();
-        playerlist.updatePermissionLevel(serverPlayer);
-        serverworld.removeEntity(serverPlayer, true); //Forge: the player entity is moved to the new world, NOT cloned. So keep the data alive with no matching invalidate call.
-        serverPlayer.revive();
-
-        BlockPos playerPos = serverPlayer.func_233580_cy_();
-
-        double d0 = playerPos.getX();
-        double d1 = playerPos.getY();
-        double d2 = playerPos.getZ();
-        float f = serverPlayer.rotationPitch;
-        float f1 = serverPlayer.rotationYaw;
-
-        serverworld.getProfiler().startSection("moving");
-        double moveFactor = serverworld.getDimension().getMovementFactor() / serverworld1.getDimension().getMovementFactor();
-        d0 *= moveFactor;
-        d2 *= moveFactor;
-        serverPlayer.setLocationAndAngles(d0, d1, d2, f1, f);
-        serverworld.getProfiler().endSection();
-
-        serverworld.getProfiler().startSection("placing");
-        double d7 = Math.min(-2.9999872E7D, serverworld1.getWorldBorder().minX() + 16.0D);
-        double d4 = Math.min(-2.9999872E7D, serverworld1.getWorldBorder().minZ() + 16.0D);
-        double d5 = Math.min(2.9999872E7D, serverworld1.getWorldBorder().maxX() - 16.0D);
-        double d6 = Math.min(2.9999872E7D, serverworld1.getWorldBorder().maxZ() - 16.0D);
-        d0 = MathHelper.clamp(d0, d7, d5);
-        d2 = MathHelper.clamp(d2, d4, d6);
-        serverPlayer.setLocationAndAngles(d0, d1, d2, f1, f);
-        serverworld.getProfiler().endSection();
-
-        serverPlayer.setWorld(serverworld1);
-        serverworld1.addRespawnedPlayer(serverPlayer);
-        serverPlayer.connection.setPlayerLocation(playerPos.getX(), playerPos.getY(), playerPos.getZ(), f1, f);
-        serverPlayer.interactionManager.setWorld(serverworld1);
-        serverPlayer.connection.sendPacket(new SPlayerAbilitiesPacket(serverPlayer.abilities));
-        playerlist.sendWorldInfo(serverPlayer, serverworld1);
-        playerlist.sendInventory(serverPlayer);
-
-        for (EffectInstance effectinstance : serverPlayer.getActivePotionEffects()) {
-            serverPlayer.connection.sendPacket(new SPlayEntityEffectPacket(serverPlayer.getEntityId(), effectinstance));
-        }
-
-        serverPlayer.connection.sendPacket(new SPlaySoundEventPacket(1032, BlockPos.ZERO, 0, false));
-        net.minecraftforge.fml.hooks.BasicEventHooks.firePlayerChangedDimensionEvent(serverPlayer, dimensiontype, destination);
     }
 }
