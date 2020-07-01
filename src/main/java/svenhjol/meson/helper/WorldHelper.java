@@ -1,8 +1,10 @@
 package svenhjol.meson.helper;
 
+import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.state.Property;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceContext;
@@ -15,8 +17,6 @@ import net.minecraft.world.server.ServerWorld;
 
 @SuppressWarnings("unused")
 public class WorldHelper {
-
-
     public static BlockRayTraceResult getBlockLookedAt(PlayerEntity player) {
         return getBlockLookedAt(player, 10);
     }
@@ -37,6 +37,11 @@ public class WorldHelper {
         double d2 = d0 - pos2.getX();
         double d3 = d1 - pos2.getZ();
         return d2 * d2 + d3 * d3;
+    }
+
+    public static boolean doesStateHaveProp(BlockState state, Property<?> prop) {
+        ImmutableSet<Property<?>> props = state.getValues().keySet();
+        return props.contains(prop);
     }
 
     public static DimensionType getDimension(World world) {
