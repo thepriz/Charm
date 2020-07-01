@@ -26,7 +26,7 @@ public class VariableRedstoneLampBlock extends MesonBlock {
             .create(Material.REDSTONE_LIGHT)
             .sound(SoundType.GLASS)
             .hardnessAndResistance(0.3F)
-            .func_235838_a_(p -> 0)
+            .func_235838_a_(p -> p.get(LEVEL))
         );
 
         setDefaultState(this.getDefaultState().with(LEVEL, 0));

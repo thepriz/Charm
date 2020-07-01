@@ -1,5 +1,6 @@
 package svenhjol.charm.automation.block;
 
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -18,13 +19,15 @@ import svenhjol.meson.MesonModule;
 
 import javax.annotation.Nullable;
 import java.util.Random;
+import java.util.function.ToIntFunction;
 
 public class RedstoneLanternBlock extends BaseLanternBlock {
     public static BooleanProperty LIT = BlockStateProperties.LIT;
 
     public RedstoneLanternBlock(MesonModule module) {
-        super(module, "redstone_lantern", Block.Properties.from(Blocks.LANTERN)
-            .func_235838_a_(p -> 0));
+        super(module, "redstone_lantern", AbstractBlock.Properties.from(Blocks.LANTERN)
+            .func_235838_a_(p -> p.get(BlockStateProperties.LIT) ? 15 : 0)
+        );
 
         this.setDefaultState(getDefaultState().with(LIT, false));
     }
@@ -79,7 +82,7 @@ public class RedstoneLanternBlock extends BaseLanternBlock {
         return true;
     }
 
-    private void checkLit(BlockState state, ServerWorld worldIn, BlockPos pos) {
-
+    private static ToIntFunction<BlockState> func_235420_a_(int i) {
+        return (s) -> s.get(BlockStateProperties.LIT) ? i : 0;
     }
 }
