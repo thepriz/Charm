@@ -5,11 +5,12 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.state.Property;
+import net.minecraft.util.RegistryKey;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.DimensionType;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.structure.Structure;
@@ -44,8 +45,9 @@ public class WorldHelper {
         return props.contains(prop);
     }
 
-    public static DimensionType getDimension(World world) {
-        return world.func_230315_m_();
+    public static boolean isDimension(World world, ResourceLocation dim) {
+        RegistryKey<World> key = world.func_234923_W_();
+        return key.func_240901_a_().equals(dim);
     }
 
     public static void clearWeather(ServerWorld world) {

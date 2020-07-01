@@ -7,7 +7,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.server.ServerWorld;
@@ -27,21 +26,15 @@ public class EndermitePowderItem extends MesonItem {
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         ItemStack stack = playerIn.getHeldItem(handIn);
 
-        DimensionType dim = WorldHelper.getDimension(worldIn);
-
-        // TODO: check that this is a thing
-        if (!dim.toString().equals("minecraft:the_end")) {
+        if (!WorldHelper.isDimension(worldIn, new ResourceLocation("the_end")))
             return new ActionResult<>(ActionResultType.FAIL, stack);
-        }
 
-        if (!playerIn.isCreative()) {
+        if (!playerIn.isCreative())
             stack.shrink(1);
-        }
 
         // client
-        if (worldIn.isRemote) {
+        if (worldIn.isRemote)
             playerIn.swingArm(handIn);
-        }
 
         // server
         if (!worldIn.isRemote) {
