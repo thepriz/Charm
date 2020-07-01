@@ -1,6 +1,7 @@
 package svenhjol.charm.base;
 
 import svenhjol.charm.base.message.ClientUpdatePlayerState;
+import svenhjol.charm.tweaks.message.ServerInteractCauldron;
 import svenhjol.charm.base.message.ServerUpdatePlayerState;
 import svenhjol.charm.brewing.message.ClientCakeAction;
 import svenhjol.charm.tools.message.ClientGlowingAction;
@@ -17,5 +18,6 @@ public class CharmMessages {
         handler.register(ClientRunePortalAction.class, ClientRunePortalAction::encode, ClientRunePortalAction::decode, ClientRunePortalAction.Handler::handle);
         handler.register(ClientUpdatePlayerState.class, ClientUpdatePlayerState::encode, ClientUpdatePlayerState::decode, ClientUpdatePlayerState.Handler::handle);
         handler.register(ServerUpdatePlayerState.class, ServerUpdatePlayerState::encode, ServerUpdatePlayerState::decode, ServerUpdatePlayerState.Handler::handle);
+        handler.register(ServerInteractCauldron.class, ServerInteractCauldron::encode, ServerInteractCauldron::decode, ServerInteractCauldron.Handler::handle);
     }
 }
