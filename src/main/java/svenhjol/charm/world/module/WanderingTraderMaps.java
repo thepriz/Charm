@@ -33,7 +33,7 @@ import java.util.Random;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.WORLD, hasSubscriptions = true,
     description = "Wandering Traders sell Structure Maps that can be used to find additional overworld structures.")
-public class StructureMaps extends MesonModule {
+public class WanderingTraderMaps extends MesonModule {
     @Config(name = "Maximum Maps", description = "Maximum number of structure map types a trader may sell.")
     public static int maxMaps = 3;
 
@@ -87,8 +87,8 @@ public class StructureMaps extends MesonModule {
 
     static class StructureMapForEmeraldsTrade implements VillagerTrades.ITrade {
         private final MapDecoration.Type targetType = MapDecoration.Type.TARGET_X;
-        private final int maxUses = StructureMaps.maxTrades;
-        private final int tradeXp = StructureMaps.tradeXp;
+        private final int maxUses = WanderingTraderMaps.maxTrades;
+        private final int tradeXp = WanderingTraderMaps.tradeXp;
 
         @Nullable
         public MerchantOffer getOffer(Entity merchant, Random rand) {

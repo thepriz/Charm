@@ -50,7 +50,6 @@ public class ServerUpdatePlayerState implements IMesonMessage {
 
                 CompoundNBT nbt = new CompoundNBT();
 
-                // TODO: how do you determine position in structure now?
                 nbt.putBoolean("mineshaft", WorldHelper.isPositionInsideStructure(world, pos, Structure.field_236367_c_));
                 nbt.putBoolean("stronghold", WorldHelper.isPositionInsideStructure(world, pos, Structure.field_236375_k_));
                 nbt.putBoolean("fortress", WorldHelper.isPositionInsideStructure(world, pos, Structure.field_236378_n_));
