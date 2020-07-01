@@ -2,6 +2,6 @@
 	"parent": "block/lantern",
 	"textures": {
 		"particle": "charm:block/white_lantern",
-		"all": "charm:block/white_lantern"
+		"lantern": "charm:block/white_lantern"
 	}
 }

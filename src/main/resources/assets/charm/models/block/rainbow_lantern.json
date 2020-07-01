@@ -2,6 +2,6 @@
   "parent": "block/lantern",
   "textures": {
     "particle": "charm:block/rainbow_lantern",
-    "all": "charm:block/rainbow_lantern"
+    "lantern": "charm:block/rainbow_lantern"
   }
 }
