@@ -62,9 +62,8 @@ public class ComposterImprovements extends MesonModule {
             for (int i = 0; i < num; i++) {
                 String itemStr = strings.get(rand.nextInt(strings.size()));
                 Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemStr));
-                if (item != null) {
+                if (item != null)
                     ComposterHelper.spawnOutput(world, event.getPos(), new ItemStack(item));
-                }
             }
         }
     }

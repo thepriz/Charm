@@ -2,7 +2,6 @@ package svenhjol.charm.base;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
@@ -59,8 +58,8 @@ public class CharmAsmHooks {
         return HuskImprovements.canSeeSky(world, pos);
     }
 
-    public static void composterOutput(World world, BlockPos pos, PlayerEntity player) {
-        MinecraftForge.EVENT_BUS.post(new ComposterEvent.Output(world, pos, player));
+    public static void composterOutput(World world, BlockPos pos) {
+        MinecraftForge.EVENT_BUS.post(new ComposterEvent.Output(world, pos));
     }
 
     public static boolean stayOnShoulder() {

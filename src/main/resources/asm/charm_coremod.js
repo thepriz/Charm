@@ -104,9 +104,9 @@ function initializeCoreMod() {
         'RepairContainer': {
             target: {
                 'type': 'METHOD',
-                'class': 'net.minecraft.inventory.container.RepairContainer$2',
-                'methodName': 'func_82869_a', // canTakeStack
-                'methodDesc': '(Lnet/minecraft/entity/player/PlayerEntity;)Z'
+                'class': 'net.minecraft.inventory.container.RepairContainer',
+                'methodName': 'func_230303_b_', // canTakeStack, or at least used to be in 1.15
+                'methodDesc': '(Lnet/minecraft/entity/player/PlayerEntity;Z)Z'
             },
             transformer: function(method) {
                 var didThing = false;
@@ -344,8 +344,8 @@ function initializeCoreMod() {
             target: {
                 'type': 'METHOD',
                 'class': 'net.minecraft.block.ComposterBlock',
-                'methodName': 'func_225533_a_', // onBlockActivated
-                'methodDesc': '(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Hand;Lnet/minecraft/util/math/BlockRayTraceResult;)Lnet/minecraft/util/ActionResultType;'
+                'methodName': 'func_235489_d_', // func_235489_d_ - they just moved this stuff from onBlockActivated into a separate method
+                'methodDesc': '(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/block/BlockState;'
             },
             transformer: function(method) {
                 var didThing = false;
@@ -358,10 +358,9 @@ function initializeCoreMod() {
                     if (instruction.getOpcode() == Opcodes.INVOKEVIRTUAL
                         && (instruction.name == "func_184133_a" || instruction.name == "playSound")
                     ) {
+                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 1));
                         newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 2));
-                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 3));
-                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 4));
-                        newInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "composterOutput", "(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/player/PlayerEntity;)V", false));
+                        newInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "composterOutput", "(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V", false));
 
                         method.instructions.insert(instruction, newInstructions);
                         didThing = true;
