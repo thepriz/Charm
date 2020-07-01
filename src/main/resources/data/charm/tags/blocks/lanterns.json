@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "charm:gold_lantern",
+    "charm:redstone_lantern",
     "charm:white_lantern",
     "charm:orange_lantern",
     "charm:magenta_lantern",
