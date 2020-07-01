@@ -104,7 +104,7 @@ public class StructureMaps extends MesonModule {
                     ItemStack stack = FilledMapItem.setupNewMap(world, pos.getX(), pos.getZ(), (byte) 2, true, true);
                     FilledMapItem.func_226642_a_(serverWorld, stack);
                     MapData.addTargetDecoration(stack, pos, "+", this.targetType);
-                    stack.setDisplayName(new TranslationTextComponent("map.charm." + structureTrade.structure.toString().toLowerCase(Locale.ENGLISH)));
+                    stack.setDisplayName(new TranslationTextComponent("map.charm." + structureTrade.structure.getStructureName().toLowerCase(Locale.ENGLISH)));
 
                     // set map color based on structure
                     CompoundNBT tag = ItemNBTHelper.getCompound(stack, "display");
