@@ -2,6 +2,7 @@ package svenhjol.charm.base;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.passive.ParrotEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
@@ -14,9 +15,10 @@ import svenhjol.charm.decoration.container.BookshelfChestContainer;
 import svenhjol.charm.decoration.container.CrateContainer;
 import svenhjol.charm.enchanting.module.Salvage;
 import svenhjol.charm.mobs.module.HuskImprovements;
+import svenhjol.charm.mobs.module.MobsAffectedByBeacon;
+import svenhjol.charm.mobs.module.ParrotsOnEndRods;
 import svenhjol.charm.tweaks.module.LanternImprovements;
 import svenhjol.charm.tweaks.module.LeatherArmorInvisibility;
-import svenhjol.charm.mobs.module.MobsAffectedByBeacon;
 import svenhjol.meson.Meson;
 import svenhjol.meson.event.ComposterEvent;
 import svenhjol.meson.helper.WorldHelper;
@@ -64,6 +66,10 @@ public class CharmAsmHooks {
 
     public static boolean stayOnShoulder() {
         return Meson.isModuleEnabled("charm:parrots_stay_on_shoulder");
+    }
+
+    public static void addParrotGoals(ParrotEntity parrot) {
+        ParrotsOnEndRods.addGoals(parrot);
     }
 
     public static boolean containersAcceptTransfer(Container container) {
