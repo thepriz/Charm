@@ -2,6 +2,7 @@ package svenhjol.meson.helper;
 
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeManager;
 import net.minecraft.world.server.ServerWorld;
 
 import java.util.Objects;
@@ -13,8 +14,7 @@ public class BiomeHelper {
     }
 
     public static Biome getBiomeAtPos(ServerWorld world, BlockPos pos) {
-        // world.getBiome() suffers from infinite badness when game loading
-//        return world.getChunkProvider().getChunkGenerator().getBiomeProvider().getBiome(pos); // [1.14]
-         return world.getChunkProvider().getChunkGenerator().getBiomeProvider().getNoiseBiome(pos.getX(), pos.getY(), pos.getZ()); // [1.15]
+        BiomeManager biomeManager = world.getWorldServer().getBiomeManager();
+        return biomeManager.getBiome(pos);
     }
 }
