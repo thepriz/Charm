@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS,
-    description = "Leather armor is invisible and does not increase mob awareness when drinking Potion of Invisibility.")
-public class LeatherArmorInvisibility extends MesonModule {
+    description = "Lightweight armor is invisible and does not increase mob awareness when drinking Potion of Invisibility.")
+public class LightweightArmorInvisibility extends MesonModule {
     public static List<Item> invisibleItems = new ArrayList<>();
 
     @Override
@@ -25,6 +25,10 @@ public class LeatherArmorInvisibility extends MesonModule {
         addInvisibleItem(Items.LEATHER_CHESTPLATE);
         addInvisibleItem(Items.LEATHER_LEGGINGS);
         addInvisibleItem(Items.LEATHER_BOOTS);
+        addInvisibleItem(Items.CHAINMAIL_HELMET);
+        addInvisibleItem(Items.CHAINMAIL_CHESTPLATE);
+        addInvisibleItem(Items.CHAINMAIL_LEGGINGS);
+        addInvisibleItem(Items.CHAINMAIL_BOOTS);
     }
 
     public static void addInvisibleItem(Item item) {

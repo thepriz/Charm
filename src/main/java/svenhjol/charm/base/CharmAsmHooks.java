@@ -18,7 +18,7 @@ import svenhjol.charm.mobs.module.HuskImprovements;
 import svenhjol.charm.mobs.module.MobsAffectedByBeacon;
 import svenhjol.charm.mobs.module.ParrotsOnEndRods;
 import svenhjol.charm.tweaks.module.LanternImprovements;
-import svenhjol.charm.tweaks.module.LeatherArmorInvisibility;
+import svenhjol.charm.tweaks.module.LightweightArmorInvisibility;
 import svenhjol.meson.Meson;
 import svenhjol.meson.event.ComposterEvent;
 import svenhjol.meson.helper.WorldHelper;
@@ -35,8 +35,8 @@ public class CharmAsmHooks {
     }
 
     public static boolean isArmorInvisible(Entity entity, ItemStack stack) {
-        if (!Meson.isModuleEnabled("charm:leather_armor_invisibility")) return false;
-        return LeatherArmorInvisibility.isArmorInvisible(entity, stack);
+        if (!Meson.isModuleEnabled("charm:lightweight_armor_invisibility")) return false;
+        return LightweightArmorInvisibility.isArmorInvisible(entity, stack);
     }
 
     public static void mobsInBeaconRange(World world, int levels, BlockPos pos, Effect primaryEffect, Effect secondaryEffect) {
