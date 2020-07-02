@@ -171,6 +171,24 @@
       "stream": true
     }]
   },
+  "music_disc.chrysopoeia": {
+    "sounds": [{
+      "name": "minecraft:music/game/nether/crimson_forest/chrysopoeia",
+      "stream": true
+    }]
+  },
+  "music_disc.rubedo": {
+    "sounds": [{
+      "name": "minecraft:music/game/nether/nether_wastes/rubedo",
+      "stream": true
+    }]
+  },
+  "music_disc.so_below": {
+    "sounds": [{
+      "name": "minecraft:music/game/nether/soulsand_valley/so_below",
+      "stream": true
+    }]
+  },
   "music_disc.menu1": {
     "sounds": [{
       "name": "minecraft:music/menu/menu1",

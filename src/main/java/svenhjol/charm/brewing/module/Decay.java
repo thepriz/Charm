@@ -16,7 +16,7 @@ public class Decay extends MesonModule {
     public static Effect effect;
 
     @Config(name = "Duration", description = "Duration (in seconds) of the Decay effect.")
-    public static int duration = 10;
+    public static int duration = 20;
 
     @Override
     public void init() {

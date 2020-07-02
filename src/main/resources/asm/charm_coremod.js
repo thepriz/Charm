@@ -140,12 +140,12 @@ function initializeCoreMod() {
         /*
          * ArmorLayer: skip rendering of armor if player is invisible.
          */
-        'ArmorLayer': {
+        'BipedArmorLayer': {
             target: {
                 'type': 'METHOD',
-                'class': 'net.minecraft.client.renderer.entity.layers.ArmorLayer',
-                'methodName': 'func_229129_a_', // renderArmorPart
-                'methodDesc': '(Lcom/mojang/blaze3d/matrix/MatrixStack;Lnet/minecraft/client/renderer/IRenderTypeBuffer;Lnet/minecraft/entity/LivingEntity;FFFFFFLnet/minecraft/inventory/EquipmentSlotType;I)V'
+                'class': 'net.minecraft.client.renderer.entity.layers.BipedArmorLayer',
+                'methodName': 'func_241739_a_', // renderArmorPart
+                'methodDesc': '(Lcom/mojang/blaze3d/matrix/MatrixStack;Lnet/minecraft/client/renderer/IRenderTypeBuffer;Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/inventory/EquipmentSlotType;ILnet/minecraft/client/renderer/entity/model/BipedModel;)V'
             },
             transformer: function(method) {
                 var didThing = false;
@@ -157,7 +157,7 @@ function initializeCoreMod() {
                     if (instruction.getOpcode() == Opcodes.ASTORE) {
                         var label = new LabelNode();
                         newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 3));
-                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 12));
+                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 7));
                         newInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "isArmorInvisible", "(Lnet/minecraft/entity/Entity;Lnet/minecraft/item/ItemStack;)Z", false));
                         newInstructions.add(new JumpInsnNode(Opcodes.IFEQ, label));
                         newInstructions.add(new InsnNode(Opcodes.RETURN));
@@ -170,9 +170,9 @@ function initializeCoreMod() {
                 }
 
                 if (didThing) {
-                    print("[Charm ASM] Transformed ArmorLayer");
+                    print("[Charm ASM] Transformed BipedArmorLayer");
                 } else {
-                    print("[Charm ASM] Failed to transform ArmorLayer")
+                    print("[Charm ASM] Failed to transform BipedArmorLayer")
                 }
 
                 return method;
@@ -186,7 +186,7 @@ function initializeCoreMod() {
             target: {
                 'type': 'METHOD',
                 'class': 'net.minecraft.entity.LivingEntity',
-                'methodName': 'func_213343_cS', // func_213343_cS
+                'methodName': 'func_213343_cS', // getArmorCoverPercentage
                 'methodDesc': '()F'
             },
             transformer: function(method) {
@@ -373,6 +373,80 @@ function initializeCoreMod() {
                 } else {
                     print("[Charm ASM] Failed to transform ComposterBlock");
                 }
+
+                return method;
+            }
+        },
+
+
+        /*
+         * PlayerEntity: prevent parrot from flying away when jumping/falling
+         */
+        'PlayerEntity': {
+            target: {
+                'type': 'METHOD',
+                'class': 'net.minecraft.entity.player.PlayerEntity',
+                'methodName': 'func_192030_dh', // spawnShoulderEntities
+                'methodDesc': '()V'
+            },
+            transformer: function(method) {
+                var didThing = false;
+                var arrayLength = method.instructions.size();
+
+                for (var i = 0; i < arrayLength; ++i) {
+                    var instruction = method.instructions.get(i);
+                    var newInstructions = new InsnList();
+
+                    if (instruction.getOpcode() == Opcodes.IFGE) {
+                        var label = new LabelNode();
+                        newInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "stayOnShoulder", "()Z", false));
+                        newInstructions.add(new JumpInsnNode(Opcodes.IFEQ, label));
+                        newInstructions.add(new InsnNode(Opcodes.RETURN));
+                        newInstructions.add(label);
+
+                        method.instructions.insert(instruction, newInstructions);
+                        didThing = true;
+                        break;
+                    }
+                }
+
+                method.instructions.insertBefore(instruction, newInstructions);
+                print("[Charm ASM] Transformed PlayerEntity spawnShoulderEntities");
+
+                return method;
+            }
+        },
+
+        /*
+         * ParrotEntity: add extra goals
+         */
+        'ParrotEntityRegisterGoals': {
+            target: {
+                'type': 'METHOD',
+                'class': 'net.minecraft.entity.passive.ParrotEntity',
+                'methodName': 'func_184651_r', // registerGoals
+                'methodDesc': '()V'
+            },
+            transformer: function(method) {
+                var didThing = false;
+                var arrayLength = method.instructions.size();
+
+                for (var i = 0; i < arrayLength; ++i) {
+                    var instruction = method.instructions.get(i);
+                    var newInstructions = new InsnList();
+
+                    if (instruction.getOpcode() == Opcodes.RETURN) {
+                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
+                        newInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "addParrotGoals", "(Lnet/minecraft/entity/passive/ParrotEntity;)V", false));
+
+                        method.instructions.insertBefore(instruction, newInstructions);
+                        didThing = true;
+                        break;
+                    }
+                }
+
+                method.instructions.insertBefore(instruction, newInstructions);
+                print("[Charm ASM] Transformed ParrotEntity registerGoals");
 
                 return method;
             }

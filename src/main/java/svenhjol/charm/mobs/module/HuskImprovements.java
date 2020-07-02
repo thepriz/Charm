@@ -1,4 +1,4 @@
-package svenhjol.charm.tweaks.module;
+package svenhjol.charm.mobs.module;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
@@ -15,7 +15,7 @@ import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS, hasSubscriptions = true,
+@Module(mod = Charm.MOD_ID, category = CharmCategories.MOBS, hasSubscriptions = true,
     description = "Husks spawn anywhere within their biome and drop sand, making them easier to farm.")
 public class HuskImprovements extends MesonModule {
     @Config(name = "Spawn anywhere in biome", description = "If true, husks can spawn anywhere within their biome rather than just the surface.")

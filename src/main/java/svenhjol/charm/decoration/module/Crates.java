@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -18,6 +19,7 @@ import svenhjol.charm.base.CharmCategories;
 import svenhjol.charm.decoration.block.CrateBaseBlock;
 import svenhjol.charm.decoration.block.CrateOpenBlock;
 import svenhjol.charm.decoration.block.CrateSealedBlock;
+import svenhjol.charm.decoration.client.CratesClient;
 import svenhjol.charm.decoration.container.CrateContainer;
 import svenhjol.charm.decoration.inventory.CrateScreen;
 import svenhjol.charm.decoration.tileentity.CrateTileEntity;
@@ -51,6 +53,8 @@ public class Crates extends MesonModule {
     @Config(name = "Show tooltips", description = "If true, hovering over a crate will show its contents in a tooltip.")
     public static boolean showTooltips = true;
 
+    public static CratesClient client;
+
     @SuppressWarnings("ConstantConditions")
     @Override
     public void init() {
@@ -77,6 +81,8 @@ public class Crates extends MesonModule {
     @Override
     public void onClientSetup(FMLClientSetupEvent event) {
         ScreenManager.registerFactory(container, CrateScreen::new);
+        client = new CratesClient();
+        MinecraftForge.EVENT_BUS.register(client);
     }
 
     public static boolean canInsertItem(ItemStack stack) {
