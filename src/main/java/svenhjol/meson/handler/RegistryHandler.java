@@ -77,6 +77,10 @@ public class RegistryHandler {
 
     public static void registerFeature(Feature<?> feature, Placement<?> placement, ResourceLocation res) {
         registerFeature(feature, res);
+        registerPlacement(placement, res);
+    }
+
+    public static void registerPlacement(Placement<?> placement, ResourceLocation res) {
         addRegisterable(placement, res);
     }
 
