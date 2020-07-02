@@ -1,4 +1,4 @@
-package svenhjol.charm.tweaks.module;
+package svenhjol.charm.mobs.module;
 
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.passive.AnimalEntity;
@@ -16,7 +16,7 @@ import svenhjol.meson.iface.Module;
 
 import java.util.List;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS,
+@Module(mod = Charm.MOD_ID, category = CharmCategories.MOBS,
     description = "Animals will heal within range of a beacon with the regeneration effect.\n" +
         "Monsters will be weakened within range of a beacon with the strength effect.")
 public class MobsAffectedByBeacon extends MesonModule {

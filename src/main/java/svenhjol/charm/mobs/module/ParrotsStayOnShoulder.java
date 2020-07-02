@@ -1,4 +1,4 @@
-package svenhjol.charm.tweaks.module;
+package svenhjol.charm.mobs.module;
 
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
@@ -11,7 +11,7 @@ import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.PlayerHelper;
 import svenhjol.meson.iface.Module;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS, hasSubscriptions = true,
+@Module(mod = Charm.MOD_ID, category = CharmCategories.MOBS, hasSubscriptions = true,
     description = "Parrots stay on your shoulder when jumping and falling. Crouch to make them dismount.")
 public class ParrotsStayOnShoulder extends MesonModule {
     @SubscribeEvent

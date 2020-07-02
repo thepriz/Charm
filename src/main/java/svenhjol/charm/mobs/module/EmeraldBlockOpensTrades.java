@@ -1,4 +1,4 @@
-package svenhjol.charm.tweaks.module;
+package svenhjol.charm.mobs.module;
 
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -14,7 +14,7 @@ import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.PlayerHelper;
 import svenhjol.meson.iface.Module;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS, hasSubscriptions = true,
+@Module(mod = Charm.MOD_ID, category = CharmCategories.MOBS, hasSubscriptions = true,
     description = "Sneak right-clicking a villager with a block of emerald opens all the villager's closed trades and regenerates some health.")
 public class EmeraldBlockOpensTrades extends MesonModule {
     @SubscribeEvent

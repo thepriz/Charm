@@ -1,4 +1,4 @@
-package svenhjol.charm.tweaks.module;
+package svenhjol.charm.mobs.module;
 
 import net.minecraft.entity.merchant.villager.VillagerData;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
@@ -11,7 +11,7 @@ import svenhjol.meson.Meson;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Module;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS, hasSubscriptions = true,
+@Module(mod = Charm.MOD_ID, category = CharmCategories.MOBS, hasSubscriptions = true,
     description = "When any action would cause a villager to become a nitwit, it becomes an unemployed villager instead.")
 public class RemoveNitwits extends MesonModule {
     @SubscribeEvent

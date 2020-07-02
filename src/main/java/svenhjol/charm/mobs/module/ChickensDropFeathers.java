@@ -1,4 +1,4 @@
-package svenhjol.charm.tweaks.module;
+package svenhjol.charm.mobs.module;
 
 import net.minecraft.entity.passive.ChickenEntity;
 import net.minecraft.item.Items;
@@ -10,7 +10,7 @@ import svenhjol.charm.base.CharmCategories;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Module;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS, hasSubscriptions = true,
+@Module(mod = Charm.MOD_ID, category = CharmCategories.MOBS, hasSubscriptions = true,
     description = "Chickens randomly drop feathers.")
 public class ChickensDropFeathers extends MesonModule {
     @SubscribeEvent
