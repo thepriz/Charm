@@ -27,11 +27,11 @@ public class BookshelfChestScreen extends ContainerScreen<BookshelfChestContaine
         this.func_230459_a_(matrix, mouseX, mouseY);
     }
 
-//    @Override
-//    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-//        this.font.drawString(this.title.getFormattedText(), 8.0F, 6.0F, 4210752);
-//        this.font.drawString(this.playerInventory.getDisplayName().getFormattedText(), 8.0F, (float) (this.ySize - 96 + 2), 4210752);
-//    }
+    @Override
+    protected void func_230451_b_(MatrixStack matrix, int mouseX, int mouseY) {
+        this.field_230712_o_.func_238422_b_(matrix, this.field_230704_d_, 8.0F, 6.0F, 4210752);
+        this.field_230712_o_.func_238422_b_(matrix, this.playerInventory.getDisplayName(), 8.0F, (float) (this.ySize - 96 + 2), 4210752);
+    }
 
     @Override
     protected void func_230450_a_(MatrixStack matrix, float partialTicks, int mouseX, int mouseY) {
