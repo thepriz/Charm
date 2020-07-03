@@ -10,7 +10,8 @@ if [ -z "$1" ]; then
   exit 1
 fi
 
-ASSETS="../src/main/resources/assets/charm"
+THISMOD="charm"
+ASSETS="../src/main/resources/assets/${THISMOD}"
 A=(${1//:/ })
 
 if [ -z "${A[1]}" ]; then
@@ -29,6 +30,7 @@ copy_replace() {
   cp "${SRC}" "${DEST}"
   sed -i "s/TYPE/${TYPE}/g" "${DEST}"
   sed -i "s/NAMESPACE/${NAMESPACE}/g" "${DEST}"
+  sed -i "s/THISMOD/${THISMOD}/g" "${DEST}"
 
   if [ -n "${IT}" ]; then
     sed -i "s/?/${IT}/g" "${DEST}"
@@ -43,10 +45,10 @@ add_lang_strings() {
 
   # add new lang entries
   {
-    echo "  \"block.charm.${TYPE}_barrel\": \"${NAME} Barrel\",";
-    echo "  \"block.charm.${TYPE}_bookshelf_chest\": \"${NAME} Bookshelf Chest\","
-    echo "  \"block.charm.${TYPE}_crate_open\": \"${NAME} Crate\",";
-    echo "  \"block.charm.${TYPE}_crate_sealed\": \"${NAME} Sealed Crate\""
+    echo "  \"block.${THISMOD}.${TYPE}_barrel\": \"${NAME} Barrel\",";
+    echo "  \"block.${THISMOD}.${TYPE}_bookshelf_chest\": \"${NAME} Bookshelf Chest\","
+    echo "  \"block.${THISMOD}.${TYPE}_crate_open\": \"${NAME} Crate\",";
+    echo "  \"block.${THISMOD}.${TYPE}_crate_sealed\": \"${NAME} Sealed Crate\""
     echo "}"
   } >> $LANGFILE
 }

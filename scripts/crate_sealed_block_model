@@ -1,8 +1,8 @@
 {
   "parent": "block/cube_bottom_top",
   "textures": {
-    "top": "charm:block/TYPE_crate_sealed_top",
-    "side": "charm:block/TYPE_crate_sealed_side",
-    "bottom": "charm:block/TYPE_crate_top"
+    "top": "THISMOD:block/TYPE_crate_sealed_top",
+    "side": "THISMOD:block/TYPE_crate_sealed_side",
+    "bottom": "THISMOD:block/TYPE_crate_top"
   }
 }

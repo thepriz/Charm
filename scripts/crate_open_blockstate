@@ -1,5 +1,5 @@
 {
   "variants": {
-    "": { "model": "charm:block/TYPE_crate_open" }
+    "": { "model": "THISMOD:block/TYPE_crate_open" }
   }
 }
