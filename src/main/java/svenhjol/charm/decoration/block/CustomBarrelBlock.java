@@ -12,16 +12,16 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.world.IBlockReader;
 import svenhjol.charm.decoration.tileentity.CustomBarrelTileEntity;
 import svenhjol.meson.MesonModule;
-import svenhjol.meson.enums.IWoodType;
+import svenhjol.meson.enums.IChestMaterialType;
 import svenhjol.meson.iface.IMesonBlock;
 
 import javax.annotation.Nullable;
 
 public class CustomBarrelBlock extends BarrelBlock implements IMesonBlock {
-    public IWoodType wood;
+    public IChestMaterialType wood;
     protected MesonModule module;
 
-    public CustomBarrelBlock(MesonModule module, IWoodType wood) {
+    public CustomBarrelBlock(MesonModule module, IChestMaterialType wood) {
         super(Block.Properties
             .create(Material.WOOD)
             .hardnessAndResistance(2.5F)
