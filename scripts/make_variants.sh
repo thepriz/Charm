@@ -11,7 +11,9 @@ if [ -z "$1" ]; then
 fi
 
 THISMOD="charm"
+DATAROOT="../src/main/resources/data"
 ASSETS="../src/main/resources/assets/${THISMOD}"
+DATA="${DATAROOT}/${THISMOD}"
 A=(${1//:/ })
 
 if [ -z "${A[1]}" ]; then
@@ -40,8 +42,7 @@ copy_replace() {
 add_lang_strings() {
   NAME="$(tr '[:lower:]' '[:upper:]' <<< ${TYPE:0:1})${TYPE:1}"
   LANGFILE="${ASSETS}/lang/en_us.json"
-  sed -i ':a;N;$!ba;s/"\n/",\n/g' "${LANGFILE}" # add a comma after the last entry
-  sed -i 's/}//g' "${LANGFILE}" # remove the closing brace
+  remove_last_entry "${LANGFILE}" "}"
 
   # add new lang entries
   {
@@ -53,11 +54,71 @@ add_lang_strings() {
   } >> $LANGFILE
 }
 
+add_tags() {
+  # barrels
+  for f in "${DATAROOT}/forge/tags/blocks/barrels.json" "${DATAROOT}/forge/tags/items/barrels.json"
+  do
+    if [ -e "$f" ]; then
+      remove_last_entry "${f}" "]" "}"
+
+      {
+        echo "    \"${THISMOD}:${TYPE}_barrel\"";
+        echo "  ]"
+        echo "}"
+      } >> $f
+      strip_empty_lines $f
+    fi
+  done
+
+  # bookshelves
+  for f in "${DATAROOT}/forge/tags/blocks/bookshelves.json" "${DATAROOT}/forge/tags/items/bookshelves.json"
+  do
+    if [ -e "$f" ]; then
+      remove_last_entry "${f}" "]" "}"
+
+      {
+        echo "    \"${THISMOD}:${TYPE}_bookshelf_chest\"";
+        echo "  ]"
+        echo "}"
+      } >> $f
+      strip_empty_lines $f
+    fi
+  done
+
+  # crates
+  TAGFILE="${DATA}/tags/blocks/crates.json"
+  if [ -e "$TAGFILE" ]; then
+    remove_last_entry "${TAGFILE}" "]" "}"
+
+    {
+      echo "    \"${THISMOD}:${TYPE}_crate_open\",";
+      echo "    \"${THISMOD}:${TYPE}_crate_sealed\"";
+      echo "  ]"
+      echo "}"
+    } >> $TAGFILE
+    strip_empty_lines $TAGFILE
+  fi
+}
+
+remove_last_entry() {
+  sed -i ':a;N;$!ba;s/"\n/",\n/g' "${1}" # add a comma after the last entry
+  sed -i "s/${2}//g" "${1}" # remove bracket
+  if [ -n "$3" ]; then
+    sed -i "s/${3}//g" "${1}" # remove bracket
+  fi
+}
+
+strip_empty_lines() {
+  sed -i '/^ *$/d' "${1}"
+}
+
 # barrels
 copy_replace "barrel_blockstate" "${ASSETS}/blockstates/${TYPE}_barrel.json"
 copy_replace "barrel_item_model" "${ASSETS}/models/item/${TYPE}_barrel.json"
 copy_replace "barrel_block_model" "${ASSETS}/models/block/${TYPE}_barrel.json"
 copy_replace "barrel_open_block_model" "${ASSETS}/models/block/${TYPE}_barrel_open.json"
+copy_replace "barrel_loot_table" "${DATA}/loot_tables/blocks/${TYPE}_barrel.json"
+copy_replace "barrel_recipe" "${DATA}/recipes/crafting/${TYPE}_barrel.json"
 
 # bookshelf chests
 copy_replace "bookshelf_chest_blockstate" "${ASSETS}/blockstates/${TYPE}_bookshelf_chest.json"
@@ -76,4 +137,5 @@ copy_replace "crate_sealed_blockstate" "${ASSETS}/blockstates/${TYPE}_crate_seal
 copy_replace "crate_sealed_block_model" "${ASSETS}/models/block/${TYPE}_crate_sealed.json"
 copy_replace "crate_sealed_item_model" "${ASSETS}/models/item/${TYPE}_crate_sealed.json"
 
+add_tags
 add_lang_strings
