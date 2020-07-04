@@ -3,17 +3,15 @@ package svenhjol.charm.world.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.IBucketPickupHandler;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.Entity;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.particles.BasicParticleType;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.tags.FluidTags;
-import net.minecraft.util.Direction;
+import net.minecraft.state.BooleanProperty;
+import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -32,12 +30,16 @@ import java.util.function.Predicate;
 
 @SuppressWarnings("deprecation")
 public class FumaroleBlock extends MesonBlock {
+    public static BooleanProperty TRIGGERED = BlockStateProperties.TRIGGERED;
+
     public FumaroleBlock(MesonModule module) {
         super(module, "fumarole", Properties
             .create(Material.ROCK, MaterialColor.NETHERRACK)
             .hardnessAndResistance(0.4F)
             .tickRandomly()
         );
+
+        this.setDefaultState(getDefaultState().with(TRIGGERED, false));
     }
 
     @Override
@@ -47,38 +49,22 @@ public class FumaroleBlock extends MesonBlock {
 
     @Override
     public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
-        if (tryAbsorb(worldIn, pos)) {
+        boolean flag = worldIn.isBlockPowered(pos) || worldIn.isBlockPowered(pos.up());
+        boolean flag1 = state.get(TRIGGERED);
+        if (flag && !flag1) {
+            worldIn.getPendingBlockTicks().scheduleTick(pos, this, 4);
             erupt(worldIn, pos);
+            worldIn.setBlockState(pos, state.with(TRIGGERED, true), 4);
+        } else if (!flag && flag1) {
+            worldIn.setBlockState(pos, state.with(TRIGGERED, false), 4);
         }
-    }
-
-    protected boolean tryAbsorb(World world, BlockPos pos) {
-        boolean absorbed = false;
-
-        for (Direction direction : Direction.values()) {
-            BlockPos next = pos.offset(direction);
-            BlockState state = world.getBlockState(next);
-            FluidState fluid = world.getFluidState(next);
-
-            if (fluid.isTagged(FluidTags.LAVA)) {
-                if (state.getBlock() instanceof IBucketPickupHandler
-                    && ((IBucketPickupHandler) state.getBlock()).pickupFluid(world, next, state) != Fluids.EMPTY
-                ) {
-                    absorbed = true;
-                } else if (state.getBlock() == Blocks.LAVA) {
-                    absorbed = true;
-                }
-            }
-        }
-
-        return absorbed;
     }
 
     protected void erupt(World world, BlockPos pos) {
-        if (!world.isAirBlock(pos.up()) || world.isAirBlock(pos.down())) return;
+        if (!world.isAirBlock(pos.up()))
+            return;
 
         Random rand = world.rand;
-        if (rand.nextFloat() < 0.5F) return;
 
         if (!world.isRemote) {
             ServerWorld serverWorld = (ServerWorld) world;
@@ -106,6 +92,13 @@ public class FumaroleBlock extends MesonBlock {
     @Override
     public void tick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
         super.tick(state, world, pos, rand);
+
+        if (rand.nextFloat() < 0.5F)
+            return;
+
+        if (!isNaturallyActive(world, pos))
+            return;
+
         erupt(world, pos);
     }
 
@@ -113,11 +106,11 @@ public class FumaroleBlock extends MesonBlock {
     public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
         super.animateTick(state, world, pos, rand);
 
-        if (rand.nextFloat() < 0.1F) {
-            world.playSound(pos.getX(), pos.getY(), pos.getZ(), CharmSounds.FUMAROLE_BUBBLING, SoundCategory.BLOCKS, 0.13F, 0.9F + (world.rand.nextFloat()) * 0.2F, false);
-        }
+        if (!isNaturallyActive(world, pos))
+            return;
 
-        if (!world.isAirBlock(pos.up())) return;
+        if (rand.nextFloat() < 0.1F)
+            world.playSound(pos.getX(), pos.getY(), pos.getZ(), CharmSounds.FUMAROLE_BUBBLING, SoundCategory.BLOCKS, 0.18F, 0.9F + (world.rand.nextFloat()) * 0.2F, false);
 
         if (rand.nextInt(3) == 0) {
             float spread = 0.5F;
@@ -135,5 +128,15 @@ public class FumaroleBlock extends MesonBlock {
 
             world.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.BLOCKS, 0.13F, 0.75F + (rand.nextFloat() * 0.25F), false);
         }
+    }
+
+    @Override
+    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+        super.fillStateContainer(builder);
+        builder.add(TRIGGERED);
+    }
+
+    private boolean isNaturallyActive(World world, BlockPos pos) {
+        return world.isAirBlock(pos.up()) && world.getBlockState(pos.down()).getBlock() != Blocks.PACKED_ICE;
     }
 }
