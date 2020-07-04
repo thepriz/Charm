@@ -1,6 +1,8 @@
 package svenhjol.charm.base;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.audio.BackgroundMusicSelector;
+import net.minecraft.client.audio.ISound;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.ParrotEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -17,6 +19,7 @@ import svenhjol.charm.enchanting.module.Salvage;
 import svenhjol.charm.mobs.module.HuskImprovements;
 import svenhjol.charm.mobs.module.MobsAffectedByBeacon;
 import svenhjol.charm.mobs.module.ParrotsOnEndRods;
+import svenhjol.charm.tweaks.client.AmbientMusicClient;
 import svenhjol.charm.tweaks.module.LanternImprovements;
 import svenhjol.charm.tweaks.module.LightweightArmorInvisibility;
 import svenhjol.meson.Meson;
@@ -79,5 +82,17 @@ public class CharmAsmHooks {
 
     public static boolean bypassStateCheck(Block block) {
         return LanternImprovements.bypassStateCheck(block);
+    }
+
+    public static boolean handleMusicTick(ISound currentMusic) {
+        return AmbientMusicClient.isEnabled && AmbientMusicClient.handleTick(currentMusic);
+    }
+
+    public static boolean handleMusicStop() {
+        return AmbientMusicClient.isEnabled && AmbientMusicClient.handleStop();
+    }
+
+    public static boolean handleMusicPlaying(BackgroundMusicSelector music) {
+        return AmbientMusicClient.isEnabled && AmbientMusicClient.handlePlaying(music);
     }
 }

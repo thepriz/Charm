@@ -417,6 +417,97 @@ function initializeCoreMod() {
             }
         },
 
+
+        /*
+         * MusicTicker: override music ticker tick
+         */
+        'MusicTickerTick': {
+            target: {
+                'type': 'METHOD',
+                'class': 'net.minecraft.client.audio.MusicTicker',
+                'methodName': 'func_73660_a', // tick
+                'methodDesc': '()V'
+            },
+            transformer: function(method) {
+                var didThing = false;
+                var instruction = method.instructions.get(0);
+                var newInstructions = new InsnList();
+
+                var label = new LabelNode();
+                newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
+                newInstructions.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/client/audio/MusicTicker", ASM.mapField("field_147678_c"), "Lnet/minecraft/client/audio/ISound;")); // currentMusic
+                newInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "handleMusicTick", "(Lnet/minecraft/client/audio/ISound;)Z", false));
+                newInstructions.add(new JumpInsnNode(Opcodes.IFEQ, label));
+                newInstructions.add(new InsnNode(Opcodes.RETURN));
+                newInstructions.add(label);
+
+                method.instructions.insertBefore(instruction, newInstructions);
+                print("[Charm ASM] Transformed MusicTicker tick");
+
+                return method;
+            }
+        },
+
+
+        /*
+         * MusicTicker: override music ticker stop
+         */
+        'MusicTickerStop': {
+            target: {
+                'type': 'METHOD',
+                'class': 'net.minecraft.client.audio.MusicTicker',
+                'methodName': 'func_209200_a', // stop
+                'methodDesc': '()V'
+            },
+            transformer: function(method) {
+                var didThing = false;
+                var instruction = method.instructions.get(0);
+                var newInstructions = new InsnList();
+
+                var label = new LabelNode();
+                newInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "handleMusicStop", "()Z", false));
+                newInstructions.add(new JumpInsnNode(Opcodes.IFEQ, label));
+                newInstructions.add(new InsnNode(Opcodes.RETURN));
+                newInstructions.add(label);
+
+                method.instructions.insertBefore(instruction, newInstructions);
+                print("[Charm ASM] Transformed MusicTicker stop");
+
+                return method;
+            }
+        },
+
+
+        /*
+         * MusicTicker: override music ticker isPlaying
+         */
+        'MusicTickerPlaying': {
+            target: {
+                'type': 'METHOD',
+                'class': 'net.minecraft.client.audio.MusicTicker',
+                'methodName': 'func_239540_b_', // isPlaying
+                'methodDesc': '(Lnet/minecraft/client/audio/BackgroundMusicSelector;)Z'
+            },
+            transformer: function(method) {
+                var didThing = false;
+                var instruction = method.instructions.get(0);
+                var newInstructions = new InsnList();
+
+                var label = new LabelNode();
+                newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 1));
+                newInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "handleMusicPlaying", "(Lnet/minecraft/client/audio/BackgroundMusicSelector;)Z", false));
+                newInstructions.add(new JumpInsnNode(Opcodes.IFEQ, label));
+                newInstructions.add(new InsnNode(Opcodes.ICONST_1));
+                newInstructions.add(new InsnNode(Opcodes.IRETURN));
+                newInstructions.add(label);
+
+                method.instructions.insertBefore(instruction, newInstructions);
+                print("[Charm ASM] Transformed MusicTicker isPlaying");
+
+                return method;
+            }
+        },
+
         /*
          * ParrotEntity: add extra goals
          */
