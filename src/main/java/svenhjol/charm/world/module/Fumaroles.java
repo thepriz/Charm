@@ -62,7 +62,7 @@ public class Fumaroles extends MesonModule {
         Biomes.field_235254_j_.addFeature(Decoration.UNDERGROUND_DECORATION,
             Feature.RANDOM_PATCH
                 .withConfiguration(feature)
-                .withPlacement(placement.configure(new FrequencyConfig(4))));
+                .withPlacement(placement.configure(new FrequencyConfig(2))));
     }
 
     // This uses code from Quark's CampfiresBoostElytra
