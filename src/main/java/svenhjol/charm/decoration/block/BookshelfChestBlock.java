@@ -35,7 +35,7 @@ public class BookshelfChestBlock extends MesonBlock {
     protected IChestMaterialType wood;
 
     public BookshelfChestBlock(MesonModule module, IChestMaterialType wood) {
-        super(module, "bookshelf_chest_" + wood.getName(), Block.Properties
+        super(module, wood.getName() + "_bookshelf_chest", Block.Properties
             .create(Material.WOOD)
             .sound(SoundType.WOOD)
             .hardnessAndResistance(1.5F)

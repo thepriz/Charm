@@ -15,7 +15,7 @@ import svenhjol.meson.enums.IChestMaterialType;
 
 public class CrateSealedBlock extends CrateBaseBlock {
     public CrateSealedBlock(MesonModule module, IChestMaterialType wood) {
-        super(module, "crate_sealed_" + wood.getName(), wood);
+        super(module, wood.getName() + "_crate_sealed", wood);
     }
 
     @Override

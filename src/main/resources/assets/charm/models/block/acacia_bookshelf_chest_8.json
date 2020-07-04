@@ -1,0 +1,6 @@
+{
+  "parent": "charm:block/acacia_bookshelf_chest_0",
+  "textures": {
+    "side": "charm:block/acacia_bookshelf_chest_8"
+  }
+}

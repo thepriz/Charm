@@ -27,7 +27,7 @@ public class CrateOpenBlock extends CrateBaseBlock {
     public static final ResourceLocation CONTENTS = new ResourceLocation("contents");
 
     public CrateOpenBlock(MesonModule module, IChestMaterialType wood) {
-        super(module, "crate_open_" + wood.getName(), wood);
+        super(module, wood.getName() + "_crate_open", wood);
     }
 
     @Override

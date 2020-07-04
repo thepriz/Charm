@@ -1,0 +1,6 @@
+{
+  "parent": "charm:block/dark_oak_bookshelf_chest_0",
+  "textures": {
+    "side": "charm:block/dark_oak_bookshelf_chest_4"
+  }
+}

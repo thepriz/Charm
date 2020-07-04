@@ -1,11 +1,13 @@
 {
   "replace": false,
   "values": [
-    "charm:bookshelf_chest_acacia",
-    "charm:bookshelf_chest_birch",
-    "charm:bookshelf_chest_dark_oak",
-    "charm:bookshelf_chest_jungle",
-    "charm:bookshelf_chest_oak",
-    "charm:bookshelf_chest_spruce"
+    "charm:acacia_bookshelf_chest",
+    "charm:birch_bookshelf_chest",
+    "charm:crimson_bookshelf_chest",
+    "charm:dark_oak_bookshelf_chest",
+    "charm:jungle_bookshelf_chest",
+    "charm:oak_bookshelf_chest",
+    "charm:spruce_bookshelf_chest",
+    "charm:warped_bookshelf_chest"
   ]
 }

@@ -144,7 +144,7 @@ public class CratesClient {
             return false;
 
         final String itemName = itemRegName.toString();
-        return itemName.contains("charm:crate_") || itemName.contains("covalent:crate_");
+        return itemName.contains("_crate_open");
     }
 
     private static final int CORNER = 5;

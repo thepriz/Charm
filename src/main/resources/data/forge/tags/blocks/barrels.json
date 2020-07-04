@@ -1,11 +1,13 @@
 {
   "replace": false,
   "values": [
-    "charm:barrel_acacia",
-    "charm:barrel_birch",
-    "charm:barrel_dark_oak",
-    "charm:barrel_jungle",
-    "charm:barrel_spruce",
-    "charm:barrel_oak"
+    "charm:acacia_barrel",
+    "charm:birch_barrel",
+    "charm:crimson_barrel",
+    "charm:dark_oak_barrel",
+    "charm:jungle_barrel",
+    "charm:oak_barrel",
+    "charm:spruce_barrel",
+    "charm:warped_barrel"
   ]
 }

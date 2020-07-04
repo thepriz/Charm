@@ -1,16 +1,4 @@
 {
-  "block.charm.barrel_acacia": "Acacia Barrel",
-  "block.charm.barrel_birch": "Birch Barrel",
-  "block.charm.barrel_dark_oak": "Dark Oak Barrel",
-  "block.charm.barrel_jungle": "Jungle Barrel",
-  "block.charm.barrel_oak": "Oak Barrel",
-  "block.charm.barrel_spruce": "Spruce Barrel",
-  "block.charm.bookshelf_chest_acacia": "Acacia Bookshelf Chest",
-  "block.charm.bookshelf_chest_birch": "Birch Bookshelf Chest",
-  "block.charm.bookshelf_chest_dark_oak": "Dark Oak Bookshelf Chest",
-  "block.charm.bookshelf_chest_jungle": "Jungle Bookshelf Chest",
-  "block.charm.bookshelf_chest_oak": "Oak Bookshelf Chest",
-  "block.charm.bookshelf_chest_spruce": "Spruce Bookshelf Chest",
   "block.charm.cake_danger_sight": "Cake of Presence",
   "block.charm.cake_fire_resistance": "Cake of Fire Resistance",
   "block.charm.cake_invisibility": "Cake of Invisibility",
@@ -22,18 +10,6 @@
   "block.charm.cake_strength": "Cake of Strength",
   "block.charm.cake_swiftness": "Cake of Swiftness",
   "block.charm.cake_water_breathing": "Cake of Water Breathing",
-  "block.charm.crate_open_acacia": "Acacia Crate",
-  "block.charm.crate_open_birch": "Birch Crate",
-  "block.charm.crate_open_dark_oak": "Dark Oak Crate",
-  "block.charm.crate_open_jungle": "Jungle Crate",
-  "block.charm.crate_open_oak": "Oak Crate",
-  "block.charm.crate_open_spruce": "Spruce Crate",
-  "block.charm.crate_sealed_acacia": "Acacia Sealed Crate",
-  "block.charm.crate_sealed_birch": "Birch Sealed Crate",
-  "block.charm.crate_sealed_dark_oak": "Dark Oak Sealed Crate",
-  "block.charm.crate_sealed_jungle": "Jungle Sealed Crate",
-  "block.charm.crate_sealed_oak": "Oak Sealed Crate",
-  "block.charm.crate_sealed_spruce": "Spruce Sealed Crate",
   "block.charm.ender_pearl_block": "Ender Pearl Block",
   "block.charm.fumarole": "Fumarole",
   "block.charm.gold_lantern": "Gold Lantern",
@@ -173,5 +149,45 @@
   "map.charm.ruined_portal": "Ruined Portal Map",
 
   "tile.charm.bookshelf_chest": "Bookshelf Chest",
-  "tile.charm.crate": "Crate"
+  "tile.charm.crate": "Crate",
+
+  "block.charm.acacia_barrel": "Acacia Barrel",
+  "block.charm.acacia_bookshelf_chest": "Acacia Bookshelf Chest",
+  "block.charm.acacia_crate_open": "Acacia Crate",
+  "block.charm.acacia_crate_sealed": "Acacia Sealed Crate",
+
+  "block.charm.birch_barrel": "Birch Barrel",
+  "block.charm.birch_bookshelf_chest": "Birch Bookshelf Chest",
+  "block.charm.birch_crate_open": "Birch Crate",
+  "block.charm.birch_crate_sealed": "Birch Sealed Crate",
+
+  "block.charm.crimson_barrel": "Crimson Barrel",
+  "block.charm.crimson_bookshelf_chest": "Crimson Bookshelf Chest",
+  "block.charm.crimson_crate_open": "Crimson Crate",
+  "block.charm.crimson_crate_sealed": "Crimson Sealed Crate",
+
+  "block.charm.dark_oak_barrel": "Dark Oak Barrel",
+  "block.charm.dark_oak_bookshelf_chest": "Dark Oak Bookshelf Chest",
+  "block.charm.dark_oak_crate_open": "Dark Oak Crate",
+  "block.charm.dark_oak_crate_sealed": "Dark Oak Sealed Crate",
+
+  "block.charm.jungle_barrel": "Jungle Barrel",
+  "block.charm.jungle_bookshelf_chest": "Jungle Bookshelf Chest",
+  "block.charm.jungle_crate_open": "Jungle Crate",
+  "block.charm.jungle_crate_sealed": "Jungle Sealed Crate",
+
+  "block.charm.oak_barrel": "Oak Barrel",
+  "block.charm.oak_bookshelf_chest": "Oak Bookshelf Chest",
+  "block.charm.oak_crate_open": "Oak Crate",
+  "block.charm.oak_crate_sealed": "Oak Sealed Crate",
+
+  "block.charm.spruce_barrel": "Spruce Barrel",
+  "block.charm.spruce_bookshelf_chest": "Spruce Bookshelf Chest",
+  "block.charm.spruce_crate_open": "Spruce Crate",
+  "block.charm.spruce_crate_sealed": "Spruce Sealed Crate",
+
+  "block.charm.warped_barrel": "Warped Barrel",
+  "block.charm.warped_bookshelf_chest": "Warped Bookshelf Chest",
+  "block.charm.warped_crate_open": "Warped Crate",
+  "block.charm.warped_crate_sealed": "Warped Sealed Crate"
 }

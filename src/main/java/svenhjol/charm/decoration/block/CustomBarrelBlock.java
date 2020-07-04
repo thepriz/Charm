@@ -29,7 +29,7 @@ public class CustomBarrelBlock extends BarrelBlock implements IMesonBlock {
 
         this.module = module;
         this.wood = wood;
-        register(module, "barrel_" + wood.getName());
+        register(module, wood.getName() + "_barrel");
         setDefaultState(getStateContainer().getBaseState().with(PROPERTY_FACING, Direction.NORTH).with(PROPERTY_OPEN, false));
     }
 
