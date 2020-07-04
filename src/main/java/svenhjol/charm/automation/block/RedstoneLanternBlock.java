@@ -19,7 +19,6 @@ import svenhjol.meson.MesonModule;
 
 import javax.annotation.Nullable;
 import java.util.Random;
-import java.util.function.ToIntFunction;
 
 public class RedstoneLanternBlock extends BaseLanternBlock {
     public static BooleanProperty LIT = BlockStateProperties.LIT;
@@ -80,9 +79,5 @@ public class RedstoneLanternBlock extends BaseLanternBlock {
     @Override
     public boolean canEntityDestroy(BlockState state, IBlockReader world, BlockPos pos, Entity entity) {
         return true;
-    }
-
-    private static ToIntFunction<BlockState> func_235420_a_(int i) {
-        return (s) -> s.get(BlockStateProperties.LIT) ? i : 0;
     }
 }
