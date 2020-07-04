@@ -86,18 +86,20 @@ add_tags() {
   done
 
   # crates
-  TAGFILE="${DATA}/tags/blocks/crates.json"
-  if [ -e "$TAGFILE" ]; then
-    remove_last_entry "${TAGFILE}" "]" "}"
+  for f in "${DATA}/tags/blocks/crates.json" "${DATA}/tags/items/crates.json"
+  do
+    if [ -e "$f" ]; then
+      remove_last_entry "${f}" "]" "}"
 
-    {
-      echo "    \"${THISMOD}:${TYPE}_crate_open\",";
-      echo "    \"${THISMOD}:${TYPE}_crate_sealed\"";
-      echo "  ]"
-      echo "}"
-    } >> $TAGFILE
-    strip_empty_lines $TAGFILE
-  fi
+      {
+        echo "    \"${THISMOD}:${TYPE}_crate_open\",";
+        echo "    \"${THISMOD}:${TYPE}_crate_sealed\"";
+        echo "  ]"
+        echo "}"
+      } >> $f
+      strip_empty_lines $f
+    fi
+  done
 }
 
 remove_last_entry() {

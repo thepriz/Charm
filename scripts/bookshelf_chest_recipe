@@ -10,7 +10,7 @@
       "item": "NAMESPACE:TYPE_planks"
     },
     "#": {
-      "item": "NAMESPACE:bookshelf"
+      "tag": "forge:bookshelves"
     }
   },
   "result": {
