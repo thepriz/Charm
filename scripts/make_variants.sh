@@ -122,12 +122,14 @@ copy_replace "barrel_recipe" "${DATA}/recipes/crafting/${TYPE}_barrel.json"
 
 # bookshelf chests
 copy_replace "bookshelf_chest_blockstate" "${ASSETS}/blockstates/${TYPE}_bookshelf_chest.json"
-copy_replace "bookshelf_chest_0_item_model" "${ASSETS}/models/item/${TYPE}_bookshelf_chest_0.json"
+copy_replace "bookshelf_chest_item_model" "${ASSETS}/models/item/${TYPE}_bookshelf_chest.json"
 copy_replace "bookshelf_chest_0_block_model" "${ASSETS}/models/block/${TYPE}_bookshelf_chest_0.json"
 for i in {1..9}
 do
   copy_replace "bookshelf_chest_x_block_model" "${ASSETS}/models/block/${TYPE}_bookshelf_chest_${i}.json" $i
 done
+copy_replace "bookshelf_chest_loot_table" "${DATA}/loot_tables/blocks/${TYPE}_bookshelf_chest.json"
+copy_replace "bookshelf_chest_recipe" "${DATA}/recipes/crafting/${TYPE}_bookshelf_chest.json"
 
 # crates
 copy_replace "crate_open_blockstate" "${ASSETS}/blockstates/${TYPE}_crate_open.json"
@@ -136,6 +138,8 @@ copy_replace "crate_open_item_model" "${ASSETS}/models/item/${TYPE}_crate_open.j
 copy_replace "crate_sealed_blockstate" "${ASSETS}/blockstates/${TYPE}_crate_sealed.json"
 copy_replace "crate_sealed_block_model" "${ASSETS}/models/block/${TYPE}_crate_sealed.json"
 copy_replace "crate_sealed_item_model" "${ASSETS}/models/item/${TYPE}_crate_sealed.json"
+copy_replace "crate_open_loot_table" "${DATA}/loot_tables/blocks/${TYPE}_crate_open.json"
+copy_replace "crate_open_recipe" "${DATA}/recipes/crafting/${TYPE}_crate_open.json"
 
 add_tags
 add_lang_strings
