@@ -40,7 +40,7 @@ public class CustomBarrelBlock extends BarrelBlock implements IMesonBlock {
 
     @Nullable
     public TileEntity createNewTileEntity(IBlockReader worldIn) {
-        return new CustomBarrelTileEntity(this.wood);
+        return new CustomBarrelTileEntity(this.module.mod, this.wood);
     }
 
     @Override
