@@ -7,21 +7,25 @@ import net.minecraft.tileentity.ChestTileEntity;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import svenhjol.charm.Charm;
 import svenhjol.charm.decoration.module.AllTheBarrels;
 import svenhjol.meson.enums.IChestMaterialType;
 import svenhjol.meson.enums.VanillaChestMaterialType;
 
 public class CustomBarrelTileEntity extends BarrelTileEntity {
     public IChestMaterialType wood;
+    public String mod;
 
     public CustomBarrelTileEntity() {
-        this(VanillaChestMaterialType.OAK);
+        this(Charm.MOD_ID, VanillaChestMaterialType.OAK);
     }
 
-    public CustomBarrelTileEntity(IChestMaterialType wood) {
+    public CustomBarrelTileEntity(String mod, IChestMaterialType wood) {
         super(AllTheBarrels.tile);
         this.wood = wood;
-        this.setCustomName(new TranslationTextComponent("block.charm." + this.wood.getName() + "_barrel"));
+        this.mod = mod;
+
+        this.setCustomName(new TranslationTextComponent("block." + this.mod + "." + this.wood.getName() + "_barrel"));
     }
 
     /**
@@ -55,6 +59,6 @@ public class CustomBarrelTileEntity extends BarrelTileEntity {
 
     @Override
     protected ITextComponent getDefaultName() {
-        return new TranslationTextComponent("block.charm." + this.wood.getName() + "_barrel");
+        return new TranslationTextComponent("block." + this.mod + "." + this.wood.getName() + "_barrel");
     }
 }

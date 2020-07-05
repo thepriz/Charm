@@ -31,4 +31,8 @@ public abstract class MesonBlock extends Block implements IMesonBlock {
     public boolean isEnabled() {
         return module.enabled;
     }
+
+    public MesonModule getModule() {
+        return this.module;
+    }
 }
