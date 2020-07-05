@@ -6,7 +6,7 @@ import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.CORE, hasSubscriptions = true,
+@Module(mod = Charm.MOD_ID, category = CharmCategories.CORE, hasSubscriptions = true, enabledByDefault = false,
     description = "Internal debugging tests for Charm.")
 public class Debug extends MesonModule {
 
