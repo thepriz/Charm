@@ -22,6 +22,6 @@ authors="svenhjol, warlordwossman"
 [[dependencies.charm]]
     modId="quark"
     mandatory=false
-    versionRange="[r2.0-199,)"
+    versionRange="[r2.2,)"
     ordering="BEFORE"
     side="BOTH"
