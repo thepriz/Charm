@@ -50,6 +50,9 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:jei-${jei}:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${jei}")
 
+    compile fg.deobf("vazkii.autoreglib:AutoRegLib:${arl}")
+    compile fg.deobf("vazkii.quark:Quark:${quark}")
+
     // for testing botania
 //    compile fg.deobf("curse.maven:botania:2953670")
 //    compile fg.deobf("curse.maven:patchouli:2945108")
