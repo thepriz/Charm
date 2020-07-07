@@ -43,7 +43,7 @@ public class CratesClient {
                 tag = tag.copy();
                 tag.putString("id", "charm:crate");
             }
-            TileEntity tile = TileEntity.func_235657_b_(null, tag);
+            TileEntity tile = TileEntity.readTileEntity(null, tag);
             if (tile != null && tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).isPresent()) {
                 List<ITextComponent> toolTip = event.getToolTip();
                 List<ITextComponent> toolTipCopy = new ArrayList<>(toolTip);
@@ -79,7 +79,7 @@ public class CratesClient {
                 tag = tag.copy();
                 tag.putString("id", "charm:crate");
             }
-            TileEntity tile = TileEntity.func_235657_b_(null, tag);
+            TileEntity tile = TileEntity.readTileEntity(null, tag);
             if (tile != null) {
                 final LazyOptional<IItemHandler> handler = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
                 handler.ifPresent(cap -> {
@@ -162,36 +162,36 @@ public class CratesClient {
 
         RenderHelper.disableStandardItemLighting();
 
-        AbstractGui.func_238463_a_(matrix, x, y,
+        AbstractGui.blit(matrix, x, y,
             0, 0,
             CORNER, CORNER, 256, 256);
-        AbstractGui.func_238463_a_(matrix, x + CORNER + EDGE * width, y + CORNER + EDGE * height,
+        AbstractGui.blit(matrix, x + CORNER + EDGE * width, y + CORNER + EDGE * height,
             CORNER + BUFFER + EDGE + BUFFER, CORNER + BUFFER + EDGE + BUFFER,
             CORNER, CORNER, 256, 256);
-        AbstractGui.func_238463_a_(matrix, x + CORNER + EDGE * width, y,
+        AbstractGui.blit(matrix, x + CORNER + EDGE * width, y,
             CORNER + BUFFER + EDGE + BUFFER, 0,
             CORNER, CORNER, 256, 256);
-        AbstractGui.func_238463_a_(matrix, x, y + CORNER + EDGE * height,
+        AbstractGui.blit(matrix, x, y + CORNER + EDGE * height,
             0, CORNER + BUFFER + EDGE + BUFFER,
             CORNER, CORNER, 256, 256);
         for (int row = 0; row < height; row++) {
-            AbstractGui.func_238463_a_(matrix, x, y + CORNER + EDGE * row,
+            AbstractGui.blit(matrix, x, y + CORNER + EDGE * row,
                 0, CORNER + BUFFER,
                 CORNER, EDGE, 256, 256);
-            AbstractGui.func_238463_a_(matrix, x + CORNER + EDGE * width, y + CORNER + EDGE * row,
+            AbstractGui.blit(matrix, x + CORNER + EDGE * width, y + CORNER + EDGE * row,
                 CORNER + BUFFER + EDGE + BUFFER, CORNER + BUFFER,
                 CORNER, EDGE, 256, 256);
             for (int col = 0; col < width; col++) {
                 if (row == 0) {
-                    AbstractGui.func_238463_a_(matrix, x + CORNER + EDGE * col, y,
+                    AbstractGui.blit(matrix, x + CORNER + EDGE * col, y,
                         CORNER + BUFFER, 0,
                         EDGE, CORNER, 256, 256);
-                    AbstractGui.func_238463_a_(matrix, x + CORNER + EDGE * col, y + CORNER + EDGE * height,
+                    AbstractGui.blit(matrix, x + CORNER + EDGE * col, y + CORNER + EDGE * height,
                         CORNER + BUFFER, CORNER + BUFFER + EDGE + BUFFER,
                         EDGE, CORNER, 256, 256);
                 }
 
-                AbstractGui.func_238463_a_(matrix, x + CORNER + EDGE * col, y + CORNER + EDGE * row,
+                AbstractGui.blit(matrix, x + CORNER + EDGE * col, y + CORNER + EDGE * row,
                     CORNER + BUFFER, CORNER + BUFFER,
                     EDGE, EDGE, 256, 256);
             }

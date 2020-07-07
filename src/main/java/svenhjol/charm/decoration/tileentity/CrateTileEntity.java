@@ -24,12 +24,12 @@ public class CrateTileEntity extends LockableLootTileEntity implements ICapabili
     private NonNullList<ItemStack> items = NonNullList.withSize(SIZE, ItemStack.EMPTY);
 
     public CrateTileEntity() {
-        super(Crates.tile); // TODO set wood type so we can display name
+        super(Crates.tile);
     }
 
     @Override
-    public void func_230337_a_(BlockState state, CompoundNBT tag) {
-        super.func_230337_a_(state, tag);
+    public void read(BlockState state, CompoundNBT tag) {
+        super.read(state, tag);
         this.items = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
         if (!this.checkLootAndRead(tag)) {
             ItemStackHelper.loadAllItems(tag, this.items);

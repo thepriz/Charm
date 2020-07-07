@@ -12,6 +12,6 @@ public class ColoredLanternBlock extends BaseLanternBlock {
             .create(Material.IRON)
             .hardnessAndResistance(3.5F)
             .sound(SoundType.LANTERN)
-            .func_235838_a_((p_235447_0_) -> 15));
+            .setLightLevel((p_235447_0_) -> 15));
     }
 }

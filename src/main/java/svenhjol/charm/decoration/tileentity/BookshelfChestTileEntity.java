@@ -26,8 +26,8 @@ public class BookshelfChestTileEntity extends LockableLootTileEntity {
     }
 
     @Override
-    public void func_230337_a_(BlockState state, CompoundNBT tag) {
-        super.func_230337_a_(state, tag);
+    public void read(BlockState state, CompoundNBT tag) {
+        super.read(state, tag);
         this.items = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
         if (!this.checkLootAndRead(tag)) {
             ItemStackHelper.loadAllItems(tag, this.items);

@@ -71,7 +71,7 @@ public class Homing extends MesonModule {
             Blocks.DIAMOND_ORE);
 
         addHomingBlock(ItemTier.NETHERITE,
-            Blocks.field_235398_nh_);
+            Blocks.ANCIENT_DEBRIS);
     }
 
     public static void addHomingBlock(ItemTier tier, Block... blocks) {

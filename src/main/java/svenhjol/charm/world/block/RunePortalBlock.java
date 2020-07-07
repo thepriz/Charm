@@ -42,7 +42,7 @@ public class RunePortalBlock extends EndPortalBlock implements IMesonBlock {
         super(Properties
             .create(Material.PORTAL, MaterialColor.BLACK)
             .doesNotBlockMovement()
-            .func_235838_a_((p_235447_0_) -> 15)
+            .setLightLevel((p_235447_0_) -> 15)
             .hardnessAndResistance(-1.0F, 3600000.0F)
             .noDrops()
         );

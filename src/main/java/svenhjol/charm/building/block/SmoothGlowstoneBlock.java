@@ -11,7 +11,7 @@ public class SmoothGlowstoneBlock extends MesonBlock {
     public SmoothGlowstoneBlock(MesonModule module) {
         super(module, "smooth_glowstone", Block.Properties
             .create(Material.GLASS)
-            .func_235838_a_((p_235447_0_) -> 15)
+            .setLightLevel((p_235447_0_) -> 15)
             .sound(SoundType.GLASS)
             .hardnessAndResistance(0.3F)
         );

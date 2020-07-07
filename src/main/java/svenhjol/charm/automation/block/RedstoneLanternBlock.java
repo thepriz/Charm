@@ -25,7 +25,7 @@ public class RedstoneLanternBlock extends BaseLanternBlock {
 
     public RedstoneLanternBlock(MesonModule module) {
         super(module, "redstone_lantern", AbstractBlock.Properties.from(Blocks.LANTERN)
-            .func_235838_a_(p -> p.get(BlockStateProperties.LIT) ? 15 : 0)
+            .setLightLevel(p -> p.get(BlockStateProperties.LIT) ? 15 : 0)
         );
 
         this.setDefaultState(getDefaultState().with(LIT, false));

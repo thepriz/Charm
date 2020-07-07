@@ -82,7 +82,7 @@ public class QuarkCompat implements IQuarkCompat {
 
     public void applyColor(ItemStack stack, DyeColor color) {
         // get the rune
-        Item runeItem = ForgeRegistries.ITEMS.getValue(new ResourceLocation(Quark.MOD_ID, color.func_176610_l() + "_rune"));
+        Item runeItem = ForgeRegistries.ITEMS.getValue(new ResourceLocation(Quark.MOD_ID, color.getString() + "_rune"));
         if (runeItem instanceof RuneItem) {
             ItemStack rune = new ItemStack(runeItem);
             ItemNBTHelper.setBoolean(stack, ColorRunesModule.TAG_RUNE_ATTACHED, true);

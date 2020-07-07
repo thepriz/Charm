@@ -30,7 +30,7 @@ public class CharmClient {
     public static void onClientTick(ClientTickEvent event) {
         if (event.phase == TickEvent.Phase.END) {
             Screen currentScreen = Minecraft.getInstance().currentScreen;
-            if (currentScreen == null || !currentScreen.func_231178_ax__()) {
+            if (currentScreen == null || !currentScreen.isPauseScreen()) {
                 ++clientTicks;
             }
         }
