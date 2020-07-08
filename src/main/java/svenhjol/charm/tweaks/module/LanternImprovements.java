@@ -18,18 +18,27 @@ import svenhjol.meson.iface.Module;
     description = "Vanilla lanterns are now waterloggable and obey gravity.")
 public class LanternImprovements extends MesonModule {
     public static Block lanternBlock;
+    public static Block soulLanternBlock;
     public static Item lanternItem;
+    public static Item soulLanternItem;
     public static final ResourceLocation LANTERN_ID = new ResourceLocation("lantern");
+    public static final ResourceLocation SOUL_LANTERN_ID = new ResourceLocation("soul_lantern");
 
     @Override
     public void init() {
         Block.Properties props = Block.Properties.from(Blocks.LANTERN);
+
         lanternBlock = new ImprovedLanternBlock(props);
         lanternItem = new BlockItem(lanternBlock, (new Item.Properties().group(ItemGroup.DECORATIONS)));
+
+        soulLanternBlock = new ImprovedLanternBlock(props);
+        soulLanternItem = new BlockItem(soulLanternBlock, (new Item.Properties().group(ItemGroup.DECORATIONS)));
 
         if (enabled) {
             OverrideHandler.changeVanillaBlock(lanternBlock, LANTERN_ID);
             OverrideHandler.changeVanillaItem(lanternItem, LANTERN_ID);
+            OverrideHandler.changeVanillaBlock(soulLanternBlock, SOUL_LANTERN_ID);
+            OverrideHandler.changeVanillaItem(soulLanternItem, SOUL_LANTERN_ID);
         }
     }
 
