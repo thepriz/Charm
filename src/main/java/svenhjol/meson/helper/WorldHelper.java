@@ -36,6 +36,13 @@ public class WorldHelper {
         return player.world.rayTraceBlocks(new RayTraceContext(vec3d, vec3d.add(vec3d1.x * distance, vec3d1.y * distance, vec3d1.z * distance), RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.NONE, player));
     }
 
+    /**
+     * @see net.minecraft.state.StateHolder#func_235901_b_
+     */
+    public static <T extends Comparable<T>> boolean stateHas(BlockState state, Property<T> prop) {
+        return state.func_235901_b_(prop);
+    }
+
     public static boolean canSeeSky(IWorld world, BlockPos pos) {
          return world.canSeeSky(pos); // [1.15]
     }
