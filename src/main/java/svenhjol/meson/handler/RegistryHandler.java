@@ -20,6 +20,7 @@ import net.minecraft.village.PointOfInterestType;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.structure.IStructurePieceType;
 import net.minecraft.world.gen.feature.structure.Structure;
+import net.minecraft.world.gen.feature.template.IStructureProcessorType;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -112,6 +113,11 @@ public class RegistryHandler {
     public static void registerStructurePiece(IStructurePieceType piece, ResourceLocation res) {
         Registry.register(Registry.STRUCTURE_PIECE, res, piece);
     }
+
+    public static void registerStructureProcessor(IStructureProcessorType<?> processor, ResourceLocation res) {
+        Registry.register(Registry.STRUCTURE_PROCESSOR, res, processor);
+    }
+
 
     public static void registerTile(TileEntityType<?> tile, ResourceLocation res) {
         addRegisterable(tile, res);
