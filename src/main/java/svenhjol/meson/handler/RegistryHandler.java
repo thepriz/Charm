@@ -7,6 +7,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.merchant.villager.VillagerProfession;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
+import net.minecraft.loot.LootFunctionType;
 import net.minecraft.particles.ParticleType;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.Potion;
@@ -78,6 +79,10 @@ public class RegistryHandler {
     public static void registerFeature(Feature<?> feature, Placement<?> placement, ResourceLocation res) {
         registerFeature(feature, res);
         registerPlacement(placement, res);
+    }
+
+    public static void registerLootFunction(LootFunctionType type, ResourceLocation res) {
+        Registry.register(Registry.field_239694_aZ_, res, type);
     }
 
     public static void registerPlacement(Placement<?> placement, ResourceLocation res) {
