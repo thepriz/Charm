@@ -17,6 +17,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -49,6 +50,15 @@ public class PlayerHelper {
         return ImmutableList.of(inventory.mainInventory, inventory.armorInventory, inventory.offHandInventory);
     }
 
+    public static void doLightning(World world, BlockPos pos, @Nullable ServerPlayerEntity caster) {
+        // copypasta from TridentEntity
+        LightningBoltEntity lightning = EntityType.LIGHTNING_BOLT.create(world);
+        lightning.func_233576_c_(Vector3d.func_237492_c_(pos));
+        lightning.setCaster(caster);
+        world.addEntity(lightning);
+        world.playSound(null, pos, SoundEvents.ENTITY_LIGHTNING_BOLT_THUNDER, SoundCategory.WEATHER, 1.0F, 1.0F);
+    }
+
     public static void doLightningNearPlayer(PlayerEntity player) {
         int dist = 24;
         World world = player.world;
@@ -63,13 +73,7 @@ public class PlayerHelper {
         ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
         BlockPos pos = player.func_233580_cy_().add(-(dist / 2) + rand.nextInt(dist), 0, -(dist / 2) + rand.nextInt(dist));
 
-        // copypasta from TridentEntity
-        LightningBoltEntity lightning = EntityType.LIGHTNING_BOLT.create(world);
-        lightning.func_233576_c_(Vector3d.func_237492_c_(pos));
-        lightning.setCaster(serverPlayer);
-        world.addEntity(lightning);
-
-        world.playSound(null, pos, SoundEvents.ENTITY_LIGHTNING_BOLT_THUNDER, SoundCategory.WEATHER, 1.0F, 1.0F);
+        doLightning(world, pos, (ServerPlayerEntity)player);
     }
 
     public static BlockPos getPosition(PlayerEntity player) {
