@@ -54,8 +54,12 @@ public class WorldHelper {
     }
 
     public static boolean isDimension(World world, ResourceLocation dim) {
+        return getDimension(world).equals(dim);
+    }
+
+    public static ResourceLocation getDimension(World world) {
         RegistryKey<World> key = world.func_234923_W_();
-        return key.func_240901_a_().equals(dim);
+        return key.func_240901_a_();
     }
 
     public static void clearWeather(ServerWorld world) {
