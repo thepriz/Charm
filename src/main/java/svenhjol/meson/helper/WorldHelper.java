@@ -3,10 +3,15 @@ package svenhjol.meson.helper;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.effect.LightningBoltEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.state.Property;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceContext;
@@ -15,6 +20,9 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.registries.ForgeRegistries;
+
+import javax.annotation.Nullable;
 
 @SuppressWarnings("unused")
 public class WorldHelper {
@@ -68,6 +76,24 @@ public class WorldHelper {
         );
     }
 
+    public static void doLightning(World world, BlockPos pos, @Nullable ServerPlayerEntity caster) {
+        // copypasta from TridentEntity
+        LightningBoltEntity lightning = EntityType.LIGHTNING_BOLT.create(world);
+        lightning.func_233576_c_(Vector3d.func_237492_c_(pos));
+        lightning.setCaster(caster);
+        world.addEntity(lightning);
+        world.playSound(null, pos, SoundEvents.ENTITY_LIGHTNING_BOLT_THUNDER, SoundCategory.WEATHER, 1.0F, 1.0F);
+    }
+
+    @Nullable
+    public static BlockPos findNearestStructure(ServerWorld world, ResourceLocation res, BlockPos pos, int radius, boolean dunno) {
+        Structure<?> structure = getStructureByResourceLocation(res);
+        if (structure == null)
+            return null;
+
+        return findNearestStructure(world, structure, pos, radius, dunno);
+    }
+
     public static BlockPos findNearestStructure(ServerWorld world, Structure<?> structure, BlockPos pos, int radius, boolean dunno) {
         return world.func_241117_a_(structure, pos, radius, dunno);
     }
@@ -104,5 +130,10 @@ public class WorldHelper {
             || state.getMaterial() == Material.PLANTS
             || state.getMaterial() == Material.LEAVES
             || state.getMaterial() == Material.ORGANIC;
+    }
+
+    @Nullable
+    public static Structure<?> getStructureByResourceLocation(ResourceLocation res) {
+        return ForgeRegistries.STRUCTURE_FEATURES.getValue(res);
     }
 }
