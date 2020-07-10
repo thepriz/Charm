@@ -7,6 +7,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.BackgroundMusicSelector;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.SimpleSound;
+import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.MusicDiscItem;
 import net.minecraft.util.ResourceLocation;
@@ -38,6 +39,7 @@ public class AmbientMusicClient {
     private int ticksBeforeStop;
     private ISound musicToStop = null;
     public static boolean isEnabled = true;
+    public static ResourceLocation dim = null;
 
     public void setupClient(FMLClientSetupEvent event) {
         isEnabled = Meson.isModuleEnabled("charm:ambient_music_improvements");
@@ -91,6 +93,10 @@ public class AmbientMusicClient {
         }
     }
 
+    /**
+     * @see net.minecraft.client.audio.MusicTicker#tick
+     * @see net.minecraft.client.audio.MusicTicker#func_239539_a_
+     */
     public static boolean handleTick(@Nullable ISound current) {
         if (mc.world == null) return false;
         AmbientMusicCondition ambient = getAmbientMusicType();
@@ -102,6 +108,10 @@ public class AmbientMusicClient {
 //                timeUntilNextMusic = MathHelper.nextInt(random, 0, ambient.getMinDelay() / 2);
 //            }
 
+            if (!WorldHelper.isDimension(mc.world, dim)) {
+                forceStop();
+            }
+
             if (!mc.getSoundHandler().isPlaying(currentMusic)) {
                 currentMusic = null;
                 int max = AmbientMusicImprovements.maxDelayOverride == 0 ? ambient.getMaxDelay() : AmbientMusicImprovements.maxDelayOverride;
@@ -112,9 +122,13 @@ public class AmbientMusicClient {
         timeUntilNextMusic = Math.min(timeUntilNextMusic, ambient.getMaxDelay());
 
         if (currentMusic == null && timeUntilNextMusic-- <= 0) {
+            dim = WorldHelper.getDimension(mc.world);
             currentMusic = SimpleSound.music(ambient.getSound());
-            mc.getSoundHandler().play(currentMusic);
-            timeUntilNextMusic = Integer.MAX_VALUE;
+
+            if (currentMusic.getSound() != SoundHandler.MISSING_SOUND) {
+                mc.getSoundHandler().play(currentMusic);
+                timeUntilNextMusic = Integer.MAX_VALUE;
+            }
         }
 
         return true;
