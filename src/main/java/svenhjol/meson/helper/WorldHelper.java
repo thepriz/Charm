@@ -69,6 +69,10 @@ public class WorldHelper {
         return key.func_240901_a_();
     }
 
+    public static BlockPos getSpawnPoint(ServerWorld world) {
+        return world.func_241135_u_();
+    }
+
     public static void clearWeather(ServerWorld world) {
         world.func_241113_a_(
             world.rand.nextInt(12000) + 3600,
