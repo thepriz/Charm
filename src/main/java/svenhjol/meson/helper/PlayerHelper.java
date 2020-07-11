@@ -9,8 +9,11 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.RegistryKey;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +36,35 @@ public class PlayerHelper {
             return false;
         }
         return true;
+    }
+
+    public static void changeDimension(ServerPlayerEntity player, ResourceLocation dimension) {
+        ServerWorld world = (ServerWorld)player.world;
+
+        if (!WorldHelper.isDimension(world, dimension)) {
+            RegistryKey<World> key;
+            String s = dimension.toString();
+
+            // TODO: how do you get dimensions dynamically? This won't work with custom dimensions.
+            switch (s) {
+                case "minecraft:the_nether":
+                    key = ServerWorld.field_234919_h_;
+                    break;
+
+                case "minecraft:the_end":
+                    key = ServerWorld.field_234920_i_;
+                    break;
+
+                case "minecraft:overworld":
+                default:
+                    key = ServerWorld.field_234918_g_;
+                    break;
+            }
+
+            ServerWorld toDimension = world.getServer().getWorld(key);
+            if (toDimension != null)
+                player.func_241206_a_(toDimension);
+        }
     }
 
     public static void damageHeldItem(PlayerEntity player, Hand hand, ItemStack stack, int damage) {
@@ -119,17 +151,16 @@ public class PlayerHelper {
         return true;
     }
 
-    /**
-     * DIMENSIONS ARE BORK, WHAT IS THE SOLUTION
-     */
-    public static void teleport(PlayerEntity player, BlockPos pos) {
-        teleport(player, pos, p -> {
+    public static void teleport(PlayerEntity player, BlockPos pos, String dim) {
+        teleport(player, pos, dim, p -> {
         });
     }
 
-    public static void teleport(PlayerEntity player, BlockPos pos, Consumer<PlayerEntity> onTeleport) {
+    public static void teleport(PlayerEntity player, BlockPos pos, String dim, Consumer<PlayerEntity> onTeleport) {
         World world = player.world;
         if (world.isRemote) return;
+
+        PlayerHelper.changeDimension((ServerPlayerEntity)player, new ResourceLocation(dim));
 
         // ((ServerPlayerEntity)player).teleport((ServerWorld)world, pos.getX(), pos.getY(), pos.getZ(), player.rotationYaw, player.rotationPitch);
         player.setPositionAndUpdate(pos.getX() + 0.5D, pos.getY() + 1.0D, pos.getZ() + 0.5D);
@@ -149,16 +180,16 @@ public class PlayerHelper {
         onTeleport.accept(player);
     }
 
-    public static void teleportSurface(PlayerEntity player, BlockPos pos, int dim) {
+    public static void teleportSurface(PlayerEntity player, BlockPos pos, String dim) {
         teleportSurface(player, pos, dim, p -> {
         });
     }
 
-    public static void teleportSurface(PlayerEntity player, BlockPos pos, int dim, Consumer<PlayerEntity> onTeleport) {
-        World world = player.world;
-        if (world.isRemote) return;
+    public static void teleportSurface(PlayerEntity player, BlockPos pos, String dim, Consumer<PlayerEntity> onTeleport) {
+        if (player.world.isRemote) return;
+        ServerWorld world = (ServerWorld)player.world;
 
-        teleport(player, pos, (p) -> {
+        teleport(player, pos, dim, (p) -> {
             for (int y = p.world.getHeight(); y > 0; y--) {
                 BlockPos pp = new BlockPos(p.func_233580_cy_().getX(), y, p.func_233580_cy_().getZ());
                 if (p.world.isAirBlock(pp)
