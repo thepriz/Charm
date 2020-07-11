@@ -42,26 +42,9 @@ public class PlayerHelper {
         ServerWorld world = (ServerWorld)player.world;
 
         if (!WorldHelper.isDimension(world, dimension)) {
-            RegistryKey<World> key;
-            String s = dimension.toString();
-
-            // TODO: how do you get dimensions dynamically? This won't work with custom dimensions.
-            switch (s) {
-                case "minecraft:the_nether":
-                    key = ServerWorld.field_234919_h_;
-                    break;
-
-                case "minecraft:the_end":
-                    key = ServerWorld.field_234920_i_;
-                    break;
-
-                case "minecraft:overworld":
-                default:
-                    key = ServerWorld.field_234918_g_;
-                    break;
-            }
-
+            RegistryKey<World> key = WorldHelper.getDimension(dimension);
             ServerWorld toDimension = world.getServer().getWorld(key);
+
             if (toDimension != null)
                 player.func_241206_a_(toDimension);
         }

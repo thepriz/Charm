@@ -69,6 +69,29 @@ public class WorldHelper {
         return key.func_240901_a_();
     }
 
+    public static RegistryKey<World> getDimension(ResourceLocation dim) {
+        RegistryKey<World> key;
+        String s = dim.toString();
+
+        // TODO: how do you get dimensions dynamically? This won't work with custom dimensions.
+        switch (s) {
+            case "minecraft:the_nether":
+                key = ServerWorld.field_234919_h_;
+                break;
+
+            case "minecraft:the_end":
+                key = ServerWorld.field_234920_i_;
+                break;
+
+            case "minecraft:overworld":
+            default:
+                key = ServerWorld.field_234918_g_;
+                break;
+        }
+
+        return key;
+    }
+
     public static BlockPos getSpawnPoint(ServerWorld world) {
         return world.func_241135_u_();
     }
