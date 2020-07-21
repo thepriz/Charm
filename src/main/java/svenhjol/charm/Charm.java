@@ -19,6 +19,7 @@ public class Charm extends MesonMod {
     protected List<Class<? extends MesonModule>> getModules() {
         return Arrays.asList(
             AutomaticRecipeUnlock.class,
+            ExtractEnchantments.class,
             NoAnvilMinimumXp.class,
             RemovePotionGlint.class,
             StackableBooks.class,
