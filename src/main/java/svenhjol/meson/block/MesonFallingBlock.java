@@ -7,7 +7,7 @@ import net.minecraft.util.NonNullList;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.IMesonFallingBlock;
 
-@SuppressWarnings("NullableProblems")
+@SuppressWarnings({"NullableProblems", "unused"})
 public abstract class MesonFallingBlock extends FallingBlock implements IMesonFallingBlock {
     protected MesonModule module;
 

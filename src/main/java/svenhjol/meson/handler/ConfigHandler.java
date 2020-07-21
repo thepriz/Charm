@@ -20,6 +20,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
+@SuppressWarnings("unused")
 public class ConfigHandler {
     private final List<Runnable> refreshAllConfig = new ArrayList<>();
     private final List<Runnable> refreshSetupConfig = new ArrayList<>();
