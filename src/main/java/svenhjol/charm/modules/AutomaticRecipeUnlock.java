@@ -11,9 +11,9 @@ import svenhjol.meson.iface.Module;
 
 import java.util.Collection;
 
-public class AutomaticRecipeUnlockModule extends MesonModule {
+public class AutomaticRecipeUnlock extends MesonModule {
     @Module(description = "Unlocks all vanilla recipes.", hasSubscriptions = true)
-    public AutomaticRecipeUnlockModule() { }
+    public AutomaticRecipeUnlock() { }
 
     @Override
     public boolean test() {

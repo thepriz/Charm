@@ -9,12 +9,12 @@ import svenhjol.meson.handler.OverrideHandler;
 import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
 
-public class StackablePotionsModule extends MesonModule {
-    @Config(name = "Stack size", description = "Maximum stack size.")
+public class StackablePotions extends MesonModule {
+    @Config(name = "Stack size", description = "Maximum potion stack size.")
     public static int stackSize = 16;
 
     @Module(description = "Allows potions to stack.")
-    public StackablePotionsModule() {}
+    public StackablePotions() {}
 
     @Override
     public void init() {
