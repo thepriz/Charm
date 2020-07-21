@@ -32,7 +32,7 @@ function initializeCoreMod() {
                     ) {
                         newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
                         newInstructions.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/inventory/container/RepairContainer", ASM.mapField("field_234643_d_"), "Lnet/minecraft/inventory/IInventory;")); // inventory
-                        newInstructions.add(ASM.buildMethodCall(ASM_HOOKS, "checkAnvilInventory", "(Lnet/minecraft/inventory/IInventory;)Lnet/minecraft/item/ItemStack;", ASM.MethodType.STATIC));
+                        newInstructions.add(ASM.buildMethodCall(ASM_HOOKS, "getAnvilMaterialItem", "(Lnet/minecraft/inventory/IInventory;)Lnet/minecraft/item/ItemStack;", ASM.MethodType.STATIC));
 
                         method.instructions.insert(instruction, newInstructions);
                         method.instructions.remove(instruction);
