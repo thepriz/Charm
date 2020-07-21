@@ -1,7 +1,7 @@
 package svenhjol.charm;
 
 import net.minecraftforge.fml.common.Mod;
-import svenhjol.charm.modules.*;
+import svenhjol.charm.module.*;
 import svenhjol.meson.MesonMod;
 import svenhjol.meson.MesonModule;
 
@@ -20,6 +20,7 @@ public class Charm extends MesonMod {
         return Arrays.asList(
             AutomaticRecipeUnlock.class,
             ExtractEnchantments.class,
+            LanternImprovements.class,
             MoreVillageBiomes.class,
             NoAnvilMinimumXp.class,
             RemovePotionGlint.class,

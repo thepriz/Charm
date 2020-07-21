@@ -1,7 +1,9 @@
 package svenhjol.charm.base;
 
+import net.minecraft.block.Block;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import svenhjol.charm.module.LanternImprovements;
 import svenhjol.charm.module.StackableBooks;
 import svenhjol.charm.module.StackablePotions;
 import svenhjol.meson.Meson;
@@ -34,10 +36,26 @@ public class CharmAsmHooks {
         return Meson.enabled("charm:stackable_potions") && StackablePotions.isValidItemStack(stack);
     }
 
-    public static ItemStack checkAnvilInventory(IInventory inventory) {
+    /**
+     * StackableBooks can check if the middle (material) slot of the anvil is a stack of enchanted books.
+     * If it is, it returns a stack depleted by 1 book.  If not, just returns an empty item (vanilla)
+     * @param inventory The full anvil inventory. Middle slot is slot 1.
+     * @return ItemStack The itemstack to set as the middle slot after anvil op is complete.
+     */
+    public static ItemStack getAnvilMaterialItem(IInventory inventory) {
         if (Meson.enabled("charm:stackable_books"))
             return StackableBooks.checkItemStack(inventory.getStackInSlot(1));
 
         return ItemStack.EMPTY;
+    }
+
+    /**
+     * Forge has a check that prevents modders from adding new state props.
+     * This must be bypassed by lantern improvements so that waterlogging can be added.
+     * @param block The block that state props can be added to.
+     * @return True to bypass Forge's state prop check.
+     */
+    public static boolean bypassForgeStateCheck(Block block) {
+        return Meson.enabled("charm:lantern_improvements") && LanternImprovements.checkLantern(block);
     }
 }
