@@ -23,6 +23,7 @@ public class Charm extends MesonMod {
             LanternImprovements.class,
             MoreVillageBiomes.class,
             NoAnvilMinimumXp.class,
+            RemoveNitwits.class,
             RemovePotionGlint.class,
             StackableBooks.class,
             StackablePotions.class,
