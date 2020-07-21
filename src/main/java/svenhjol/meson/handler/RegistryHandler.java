@@ -14,7 +14,7 @@ public class RegistryHandler {
     public static void register(IForgeRegistryEntry<?> obj, ResourceLocation res) {
         Class<?> type = obj.getRegistryType();
 
-        if (type == Block.class) {
+        if (type == Block.class && obj instanceof IMesonBlock) {
             // also register BlockItem
             register(((IMesonBlock)obj).getBlockItem(), res);
         }
