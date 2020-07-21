@@ -1,4 +1,4 @@
-package svenhjol.charm.modules;
+package svenhjol.charm.module;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentData;

@@ -1,4 +1,4 @@
-package svenhjol.charm.modules;
+package svenhjol.charm.module;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.entity.player.PlayerEntity;

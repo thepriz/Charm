@@ -1,4 +1,4 @@
-package svenhjol.charm.modules;
+package svenhjol.charm.module;
 
 import net.minecraft.entity.ai.goal.TemptGoal;
 import net.minecraft.entity.merchant.villager.VillagerEntity;

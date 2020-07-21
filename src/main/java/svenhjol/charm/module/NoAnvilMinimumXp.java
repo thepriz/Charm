@@ -1,4 +1,4 @@
-package svenhjol.charm.modules;
+package svenhjol.charm.module;
 
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Module;

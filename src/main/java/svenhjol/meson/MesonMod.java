@@ -20,6 +20,7 @@ public abstract class MesonMod implements IForgeLoadEvents {
 
     public MesonMod(String id) {
         this.id = id;
+
         Meson.INSTANCE.register(this);
 
         this.configHandler = new ConfigHandler(this, getModules());

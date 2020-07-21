@@ -2,8 +2,8 @@ package svenhjol.charm.base;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import svenhjol.charm.modules.StackableBooks;
-import svenhjol.charm.modules.StackablePotions;
+import svenhjol.charm.module.StackableBooks;
+import svenhjol.charm.module.StackablePotions;
 import svenhjol.meson.Meson;
 
 public class CharmAsmHooks {
