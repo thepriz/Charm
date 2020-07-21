@@ -20,6 +20,7 @@ public class Charm extends MesonMod {
         return Arrays.asList(
             AutomaticRecipeUnlock.class,
             ExtractEnchantments.class,
+            MoreVillageBiomes.class,
             NoAnvilMinimumXp.class,
             RemovePotionGlint.class,
             StackableBooks.class,
