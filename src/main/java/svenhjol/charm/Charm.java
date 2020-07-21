@@ -23,7 +23,8 @@ public class Charm extends MesonMod {
             NoAnvilMinimumXp.class,
             RemovePotionGlint.class,
             StackableBooks.class,
-            StackablePotions.class
+            StackablePotions.class,
+            UseTotemFromInventory.class
         );
     }
 }
