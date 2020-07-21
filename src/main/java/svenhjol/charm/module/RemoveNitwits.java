@@ -14,7 +14,7 @@ public class RemoveNitwits extends MesonModule {
     public RemoveNitwits() {}
 
     @SubscribeEvent
-    public void onVillagerSpawn(EntityJoinWorldEvent event) {
+    public void onVillagerJoinWorld(EntityJoinWorldEvent event) {
         if (!event.isCanceled()
             && !event.getWorld().isRemote
             && event.getEntity() instanceof VillagerEntity

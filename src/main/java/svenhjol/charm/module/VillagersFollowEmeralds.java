@@ -24,7 +24,7 @@ public class VillagersFollowEmeralds extends MesonModule {
     }
 
     @SubscribeEvent
-    public void onEntityJoinWorld(EntityJoinWorldEvent event) {
+    public void onVillagerJoinWorld(EntityJoinWorldEvent event) {
         if (!event.isCanceled()
             && event.getEntity() instanceof VillagerEntity
         ) {

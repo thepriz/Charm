@@ -13,7 +13,7 @@ public class ChickensDropFeathers extends MesonModule {
     public ChickensDropFeathers() {}
 
     @SubscribeEvent
-    public void onTick(LivingEvent.LivingUpdateEvent event) {
+    public void onChickenUpdate(LivingEvent.LivingUpdateEvent event) {
         if (!event.isCanceled()
             && event.getEntityLiving() instanceof ChickenEntity
             && !event.getEntityLiving().world.isRemote
