@@ -3,6 +3,9 @@ package svenhjol.charm.base;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IWorld;
+import svenhjol.charm.module.HuskImprovements;
 import svenhjol.charm.module.LanternImprovements;
 import svenhjol.charm.module.StackableBooks;
 import svenhjol.charm.module.StackablePotions;
@@ -57,5 +60,12 @@ public class CharmAsmHooks {
      */
     public static boolean bypassForgeStateCheck(Block block) {
         return Meson.enabled("charm:lantern_improvements") && LanternImprovements.checkLantern(block);
+    }
+
+    public static boolean canHuskSpawnInLight(IWorld world, BlockPos pos) {
+        if (Meson.enabled("charm:husk_improvements"))
+            return HuskImprovements.canHuskSpawnInLight(world, pos);
+
+        return world.canSeeSky(pos);
     }
 }

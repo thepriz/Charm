@@ -1,4 +1,5 @@
 {
+  "charm_husk_improvements": "asm/husk_improvements.js",
   "charm_lantern_improvements": "asm/lantern_improvements.js",
   "charm_no_anvil_minimum_xp": "asm/no_anvil_minimum_xp.js",
   "charm_remove_potion_glint": "asm/remove_potion_glint.js",
