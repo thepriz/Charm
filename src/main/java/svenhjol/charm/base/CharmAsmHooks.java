@@ -1,7 +1,9 @@
 package svenhjol.charm.base;
 
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import svenhjol.charm.modules.StackablePotionsModule;
+import svenhjol.charm.modules.StackableBooks;
+import svenhjol.charm.modules.StackablePotions;
 import svenhjol.meson.Meson;
 
 public class CharmAsmHooks {
@@ -11,7 +13,7 @@ public class CharmAsmHooks {
      * @return True to disable potion glint.
      */
     public static boolean removePotionGlint() {
-        return Meson.enabled("charm:remove_potion_glint_module");
+        return Meson.enabled("charm:remove_potion_glint");
     }
 
     /**
@@ -19,7 +21,7 @@ public class CharmAsmHooks {
      * @return -1 if NoAnvilMinimumXp is enabled, vanilla default of 0 if not enabled.
      */
     public static int getMinimumRepairCost() {
-        return Meson.enabled("charm:no_anvil_minimum_xp_module") ? -1 : 0;
+        return Meson.enabled("charm:no_anvil_minimum_xp") ? -1 : 0;
     }
 
     /**
@@ -29,6 +31,13 @@ public class CharmAsmHooks {
      * @return True to force BrewingRecipeRegistry#isValidInput to be valid.
      */
     public static boolean checkBrewingStandStack(ItemStack stack) {
-        return Meson.enabled("charm:stackable_potions_module") && StackablePotionsModule.isValidItemStack(stack);
+        return Meson.enabled("charm:stackable_potions") && StackablePotions.isValidItemStack(stack);
+    }
+
+    public static ItemStack checkAnvilInventory(IInventory inventory) {
+        if (Meson.enabled("charm:stackable_books"))
+            return StackableBooks.checkItemStack(inventory.getStackInSlot(1));
+
+        return ItemStack.EMPTY;
     }
 }

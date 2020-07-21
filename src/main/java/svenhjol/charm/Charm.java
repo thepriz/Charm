@@ -1,10 +1,7 @@
 package svenhjol.charm;
 
 import net.minecraftforge.fml.common.Mod;
-import svenhjol.charm.modules.AutomaticRecipeUnlockModule;
-import svenhjol.charm.modules.NoAnvilMinimumXpModule;
-import svenhjol.charm.modules.RemovePotionGlintModule;
-import svenhjol.charm.modules.StackablePotionsModule;
+import svenhjol.charm.modules.*;
 import svenhjol.meson.MesonMod;
 import svenhjol.meson.MesonModule;
 
@@ -21,10 +18,11 @@ public class Charm extends MesonMod {
 
     protected List<Class<? extends MesonModule>> getModules() {
         return Arrays.asList(
-            AutomaticRecipeUnlockModule.class,
-            NoAnvilMinimumXpModule.class,
-            RemovePotionGlintModule.class,
-            StackablePotionsModule.class
+            AutomaticRecipeUnlock.class,
+            NoAnvilMinimumXp.class,
+            RemovePotionGlint.class,
+            StackableBooks.class,
+            StackablePotions.class
         );
     }
 }

@@ -41,7 +41,7 @@ function initializeCoreMod() {
                     }
                 }
 
-                print("[Charm ASM] (StackablePotions) " + (success ? "Transformed BrewingRecipeRegistry" : "Failed to transform BrewingRecipeRegistry"));
+                print("[Charm ASM] (StackablePotions) " + (success ? "Patched BrewingRecipeRegistry" : "Failed to patch BrewingRecipeRegistry"));
                 return method;
             }
         }

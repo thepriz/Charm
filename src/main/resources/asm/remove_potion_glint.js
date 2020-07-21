@@ -40,7 +40,7 @@ function initializeCoreMod() {
                     }
                 }
 
-                print("[Charm ASM] (RemovePotionGlint) " + (success ? "Transformed PotionItem" : "Failed to transform PotionItem"));
+                print("[Charm ASM] (RemovePotionGlint) " + (success ? "Patched PotionItem" : "Failed to patch PotionItem"));
                 return method;
             }
         }

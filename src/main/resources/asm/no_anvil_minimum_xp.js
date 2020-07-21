@@ -39,7 +39,7 @@ function initializeCoreMod() {
                     }
                 }
 
-                print("[Charm ASM] (NoAnvilMinimumXp) " + (success ? "Transformed RepairContainer" : "Failed to transform RepairContainer"));
+                print("[Charm ASM] (NoAnvilMinimumXp) " + (success ? "Patched RepairContainer" : "Failed to patch RepairContainer"));
                 return method;
             }
         }
