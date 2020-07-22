@@ -1,6 +1,8 @@
 package svenhjol.meson;
 
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.config.ModConfig.ModConfigEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -9,27 +11,33 @@ import net.minecraftforge.fml.event.server.FMLServerAboutToStartEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartedEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import svenhjol.meson.handler.ConfigHandler;
+import svenhjol.meson.handler.PacketHandler;
 import svenhjol.meson.iface.IForgeLoadEvents;
 
 import java.util.List;
 import java.util.function.Consumer;
 
+@SuppressWarnings("unused")
 public abstract class MesonMod implements IForgeLoadEvents {
     private final String id;
     private final ConfigHandler configHandler;
+    private final PacketHandler packetHandler;
 
     public MesonMod(String id) {
         this.id = id;
 
         Meson.INSTANCE.register(this);
 
-        this.configHandler = new ConfigHandler(this, getModules());
-        this.configHandler.modules.forEach(MesonModule::init);
-        this.configHandler.modules.forEach(MesonModule::initClient);
-        this.configHandler.refreshConfig();
+        this.configHandler = new ConfigHandler(this, modules());
+        this.packetHandler = new PacketHandler(this);
+
+        eachModule(MesonModule::init);
+        configHandler.refreshConfig();
+
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> eachModule(MesonModule::initClient));
     }
 
-    protected abstract List<Class<? extends MesonModule>> getModules();
+    protected abstract List<Class<? extends MesonModule>> modules();
 
     public String getId() {
         return id;
@@ -41,6 +49,10 @@ public abstract class MesonMod implements IForgeLoadEvents {
 
     public ConfigHandler getConfigHandler() {
         return configHandler;
+    }
+
+    public PacketHandler getPacketHandler() {
+        return packetHandler;
     }
 
     public void onCommonSetup(FMLCommonSetupEvent event) {
@@ -80,6 +92,10 @@ public abstract class MesonMod implements IForgeLoadEvents {
 
     public void onServerStarted(FMLServerStartedEvent event) {
         eachEnabledModule(module -> module.onServerStarted(event));
+    }
+
+    public void eachModule(Consumer<MesonModule> consumer) {
+        configHandler.modules.forEach(consumer);
     }
 
     public void eachEnabledModule(Consumer<MesonModule> consumer) {

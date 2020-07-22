@@ -68,4 +68,8 @@ public class CharmAsmHooks {
 
         return world.canSeeSky(pos);
     }
+
+    public static boolean redrawInventoryScreen() {
+        return Meson.enabled("charm:crafting_inventory");
+    }
 }

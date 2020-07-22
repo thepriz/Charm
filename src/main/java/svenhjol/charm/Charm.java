@@ -1,6 +1,7 @@
 package svenhjol.charm;
 
 import net.minecraftforge.fml.common.Mod;
+import svenhjol.charm.base.CharmMessages;
 import svenhjol.charm.module.*;
 import svenhjol.meson.MesonMod;
 import svenhjol.meson.MesonModule;
@@ -14,12 +15,14 @@ public class Charm extends MesonMod {
 
     public Charm() {
         super(MOD_ID);
+        CharmMessages.init(this);
     }
 
-    protected List<Class<? extends MesonModule>> getModules() {
+    protected List<Class<? extends MesonModule>> modules() {
         return Arrays.asList(
             AutomaticRecipeUnlock.class,
             ChickensDropFeathers.class,
+            CraftingInventory.class,
             ExtractEnchantments.class,
             HuskImprovements.class,
             LanternImprovements.class,
