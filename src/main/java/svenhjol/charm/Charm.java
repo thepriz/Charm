@@ -34,6 +34,7 @@ public class Charm extends MesonMod {
             StackablePotions.class,
             UseTotemFromInventory.class,
             VillagersFollowEmeralds.class,
+            WanderingTraderImprovements.class,
             WitchesDropLuck.class
         );
     }
