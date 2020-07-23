@@ -27,7 +27,7 @@ public class HuskImprovements extends MesonModule {
     @Config(name = "Drop chance", description = "Chance (out of 1.0) of a husk dropping sand when it is killed.")
     public static double chance = 0.33D;
 
-    @Module(description = "Husks spawn anywhere within their biome and have a chance to drop sand.")
+    @Module(description = "Husks spawn anywhere within their biome and have a chance to drop sand.", hasSubscriptions = true)
     public HuskImprovements() {}
 
     @SubscribeEvent
