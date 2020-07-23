@@ -21,6 +21,13 @@ public class CharmAsmHooks {
         return world.canSeeSky(pos);
     }
 
+    public static boolean canStraySpawnInLight(IWorld world, BlockPos pos) {
+        if (Meson.enabled("charm:stray_improvements"))
+            return StrayImprovements.canStraySpawnInLight(world, pos);
+
+        return world.canSeeSky(pos);
+    }
+
     /**
      * Simply checks if the StackablePotions module is enabled and that the input stack can be added.
      * Returning true forces Forge's BrewingRecipeRegistry#isValidInput method to return true.

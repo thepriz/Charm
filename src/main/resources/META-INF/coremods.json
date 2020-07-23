@@ -8,5 +8,6 @@
   "charm_remove_potion_glint": "asm/remove_potion_glint.js",
   "charm_stackable_books": "asm/stackable_books.js",
   "charm_stackable_potions": "asm/stackable_potions.js",
+  "charm_stray_improvements": "asm/stray_improvements.js",
   "charm_wandering_trader_improvements": "asm/wandering_trader_improvements.js"
 }
