@@ -1,5 +1,7 @@
 package svenhjol.charm.module;
 
+import net.minecraft.block.BlockState;
+import net.minecraft.block.CampfireBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.merchant.villager.VillagerTrades;
 import net.minecraft.item.ItemStack;
@@ -7,7 +9,9 @@ import net.minecraft.item.Items;
 import net.minecraft.item.MerchantOffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.gen.feature.structure.Structure;
@@ -15,6 +19,7 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.storage.MapDecoration;
 import net.minecraftforge.event.village.WandererTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import svenhjol.meson.Meson;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.MapHelper;
 import svenhjol.meson.helper.WorldHelper;
@@ -25,7 +30,7 @@ import javax.annotation.Nullable;
 import java.util.*;
 
 public class WanderingTraderImprovements extends MesonModule {
-    private static final List<WanderingTraderMap> maps = new ArrayList<>();
+    public static final List<TraderMap> traderMaps = new ArrayList<>();
 
     @Config(name = "Spawn near signal fire", description = "If true, wandering traders will only spawn if the player is near a signal fire.")
     public static boolean spawnNearSignalFire = true;
@@ -42,7 +47,7 @@ public class WanderingTraderImprovements extends MesonModule {
     @Override
     public void init() {
         if (tradeStructureMaps) {
-            maps.addAll(Arrays.asList(
+            traderMaps.addAll(Arrays.asList(
                 new StructureMap(Structure.field_236372_h_, false), // ruined portal
                 new StructureMap(Structure.field_236381_q_, false), // village
                 new StructureMap(Structure.field_236374_j_, false), // swamp hut
@@ -57,11 +62,13 @@ public class WanderingTraderImprovements extends MesonModule {
         }
 
         if (tradeBiomeMaps) {
-            maps.addAll(Arrays.asList(
+            traderMaps.addAll(Arrays.asList(
                 new BiomeMap(Biomes.WARM_OCEAN, false),
                 new BiomeMap(Biomes.SNOWY_TUNDRA, false),
                 new BiomeMap(Biomes.DESERT, false),
                 new BiomeMap(Biomes.SUNFLOWER_PLAINS, false),
+                new BiomeMap(Biomes.FROZEN_OCEAN, false),
+                new BiomeMap(Biomes.BADLANDS, true),
                 new BiomeMap(Biomes.FLOWER_FOREST, true),
                 new BiomeMap(Biomes.MUSHROOM_FIELDS, true),
                 new BiomeMap(Biomes.BAMBOO_JUNGLE, true),
@@ -79,23 +86,37 @@ public class WanderingTraderImprovements extends MesonModule {
         }
     }
 
-    public static boolean isSignalFireInRange(BlockPos pos) {
+    public static boolean isSignalFireInRange(World world, BlockPos pos) {
         if (!spawnNearSignalFire)
             return true;
 
-        return true; // TODO look for signal fire around pos
+        BlockPos pos1 = pos.add(-24, -24, -24);
+        BlockPos pos2 = pos.add(24, 24, 24);
+
+        boolean foundFire = BlockPos.getAllInBox(pos1, pos2).anyMatch(p -> {
+            BlockState state = world.getBlockState(p);
+            return state.getBlock() instanceof CampfireBlock
+                && WorldHelper.stateHasProp(state, CampfireBlock.SIGNAL_FIRE)
+                && state.get(CampfireBlock.SIGNAL_FIRE);
+        });
+
+        Meson.LOG.debug(foundFire
+            ? "Found signal fire within range of player, attempting to spawn Wandering Trader."
+            : "No signal fire within range of player, not spawning Wandering Trader.");
+
+        return foundFire;
     }
 
     public static class StructureMapForEmeraldsTrade implements VillagerTrades.ITrade {
         @Nullable
         @Override
         public MerchantOffer getOffer(Entity trader, Random rand) {
-            WanderingTraderMap wanderingTraderMap = maps.get(rand.nextInt(maps.size()));
+            TraderMap traderMap = traderMaps.get(rand.nextInt(traderMaps.size()));
 
             if (!trader.world.isRemote) {
-                ItemStack map = wanderingTraderMap.getMap((ServerWorld) trader.world, new BlockPos(trader.getPositionVec()));
+                ItemStack map = traderMap.getMap((ServerWorld) trader.world, new BlockPos(trader.getPositionVec()));
                 if (map != null) {
-                    ItemStack in1 = new ItemStack(Items.EMERALD, wanderingTraderMap.getCost(rand));
+                    ItemStack in1 = new ItemStack(Items.EMERALD, traderMap.getCost(rand));
                     ItemStack in2 = new ItemStack(Items.COMPASS);
                     return new MerchantOffer(in1, in2, map, 1, 5, 0.2F);
                 }
@@ -105,14 +126,14 @@ public class WanderingTraderImprovements extends MesonModule {
         }
     }
 
-    public interface WanderingTraderMap {
+    public interface TraderMap {
         @Nullable
         ItemStack getMap(ServerWorld world, BlockPos pos);
 
         int getCost(Random rand);
     }
 
-    public static class StructureMap implements WanderingTraderMap {
+    public static class StructureMap implements TraderMap {
         public Structure<?> structure;
         public boolean rare;
 
@@ -124,12 +145,13 @@ public class WanderingTraderImprovements extends MesonModule {
         @Nullable
         @Override
         public ItemStack getMap(ServerWorld world, BlockPos pos) {
-            int color = structure.hashCode(); // TODO this is garbage, fixme
+            int color = 0x662200;
             BlockPos nearestStructure = WorldHelper.locateStructure(structure, world, pos, 2000);
             if (nearestStructure == null)
                 return null;
 
-            TranslationTextComponent mapName = new TranslationTextComponent("map.charm." + structure.getStructureName().toLowerCase(Locale.ENGLISH));
+            ITextComponent structureName = new TranslationTextComponent("structure.charm." + structure.getStructureName());
+            TranslationTextComponent mapName = new TranslationTextComponent("filled_map.charm.trader_map", structureName);
             return MapHelper.getMap(world, nearestStructure, mapName, MapDecoration.Type.TARGET_X, color);
         }
 
@@ -139,7 +161,7 @@ public class WanderingTraderImprovements extends MesonModule {
         }
     }
 
-    public static class BiomeMap implements WanderingTraderMap {
+    public static class BiomeMap implements TraderMap {
         public Biome biome;
         public boolean rare;
 
@@ -151,6 +173,8 @@ public class WanderingTraderImprovements extends MesonModule {
         @Nullable
         @Override
         public ItemStack getMap(ServerWorld world, BlockPos pos) {
+            int color = 0x002266;
+
             BlockPos nearestBiome = WorldHelper.locateBiome(biome, world, pos);
             if (nearestBiome == null)
                 return null;
@@ -159,9 +183,7 @@ public class WanderingTraderImprovements extends MesonModule {
             if (biomeRegName == null)
                 return null;
 
-            int color = biome.hashCode(); // TODO this is garbage, fixme
-
-            TranslationTextComponent mapName = new TranslationTextComponent("map.charm." + biomeRegName.getPath().toLowerCase(Locale.ENGLISH));
+            TranslationTextComponent mapName = new TranslationTextComponent("filled_map.charm.trader_map", biome.getDisplayName());
             return MapHelper.getMap(world, nearestBiome, mapName, MapDecoration.Type.TARGET_X, color);
         }
 

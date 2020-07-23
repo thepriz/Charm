@@ -4,6 +4,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.World;
 import svenhjol.charm.module.HuskImprovements;
 import svenhjol.charm.module.StackableBooks;
 import svenhjol.charm.module.StackablePotions;
@@ -62,7 +63,7 @@ public class CharmAsmHooks {
         return Meson.enabled("charm:crafting_inventory");
     }
 
-    public static boolean isSignalFireInRange(BlockPos pos) {
-        return WanderingTraderImprovements.isSignalFireInRange(pos);
+    public static boolean isSignalFireInRange(World world, BlockPos pos) {
+        return WanderingTraderImprovements.isSignalFireInRange(world, pos);
     }
 }

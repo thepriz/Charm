@@ -1,5 +1,8 @@
 package svenhjol.meson.helper;
 
+import com.google.common.collect.ImmutableSet;
+import net.minecraft.block.BlockState;
+import net.minecraft.state.Property;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeManager;
@@ -22,5 +25,10 @@ public class WorldHelper {
     @Nullable
     public static BlockPos locateStructure(Structure<?> structure, ServerWorld world, BlockPos pos, int radius) {
         return world.func_241117_a_(structure, pos, radius, true); // not sure what the last param does
+    }
+
+    public static boolean stateHasProp(BlockState state, Property<?> prop) {
+        ImmutableSet<Property<?>> props = state.getValues().keySet();
+        return props.contains(prop);
     }
 }
