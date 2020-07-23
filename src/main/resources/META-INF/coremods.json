@@ -1,4 +1,5 @@
 {
+  "charm_beacons_heal_mobs": "asm/beacons_heal_mobs.js",
   "charm_husk_improvements": "asm/husk_improvements.js",
   "charm_lightweight_armor_invisibility": "asm/lightweight_armor_invisibility.js",
   "charm_no_anvil_minimum_xp": "asm/no_anvil_minimum_xp.js",

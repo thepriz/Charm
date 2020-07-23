@@ -21,6 +21,7 @@ public class Charm extends MesonMod {
     protected List<Class<? extends MesonModule>> modules() {
         return Arrays.asList(
             AutomaticRecipeUnlock.class,
+            BeaconsHealMobs.class,
             ChickensDropFeathers.class,
             CraftingInventory.class,
             ExtractEnchantments.class,
