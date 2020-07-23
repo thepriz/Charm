@@ -1,12 +1,13 @@
 package svenhjol.charm.module;
 
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.RecipeManager;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import svenhjol.meson.MesonModule;
-import svenhjol.meson.helper.ForgeHelper;
+import svenhjol.meson.helper.ModHelper;
 import svenhjol.meson.iface.Module;
 
 import java.util.Collection;
@@ -17,15 +18,19 @@ public class AutomaticRecipeUnlock extends MesonModule {
 
     @Override
     public boolean test() {
-        return !ForgeHelper.isModPresent("quark");
+        return !ModHelper.present("quark");
     }
 
     @SubscribeEvent
     public void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
-        if (event.getPlayer() instanceof ServerPlayerEntity) {
-            RecipeManager recipeManager = event.getPlayer().world.getRecipeManager();
+        unlockRecipes(event.getPlayer());
+    }
+
+    public void unlockRecipes(PlayerEntity player) {
+        if (player instanceof ServerPlayerEntity) {
+            RecipeManager recipeManager = player.world.getRecipeManager();
             Collection<IRecipe<?>> allRecipes = recipeManager.getRecipes();
-            event.getPlayer().unlockRecipes(allRecipes);
+            player.unlockRecipes(allRecipes);
         }
     }
 }

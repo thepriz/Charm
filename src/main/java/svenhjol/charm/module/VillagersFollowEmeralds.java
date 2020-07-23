@@ -1,5 +1,6 @@
 package svenhjol.charm.module;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.goal.TemptGoal;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.item.Items;
@@ -7,7 +8,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import svenhjol.meson.MesonModule;
-import svenhjol.meson.helper.ForgeHelper;
+import svenhjol.meson.helper.ModHelper;
 import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
 
@@ -20,16 +21,20 @@ public class VillagersFollowEmeralds extends MesonModule {
 
     @Override
     public boolean test() {
-        return !ForgeHelper.isModPresent("quark") || override;
+        return !ModHelper.present("quark") || override;
     }
 
     @SubscribeEvent
     public void onVillagerJoinWorld(EntityJoinWorldEvent event) {
-        if (!event.isCanceled()
-            && event.getEntity() instanceof VillagerEntity
-        ) {
-            VillagerEntity villager = (VillagerEntity)event.getEntity();
-            if (!villager.goalSelector.goals.stream().anyMatch(g -> g.getGoal() instanceof TemptGoal)) {
+        if (!event.isCanceled()) {
+            followEmerald(event.getEntity());
+        }
+    }
+
+    public void followEmerald(Entity entity) {
+        if (entity instanceof VillagerEntity) {
+            VillagerEntity villager = (VillagerEntity) entity;
+            if (villager.goalSelector.goals.stream().noneMatch(g -> g.getGoal() instanceof TemptGoal)) {
                 villager.goalSelector.addGoal(3, new TemptGoal(villager, 0.6, Ingredient.fromItems(Items.EMERALD), false));
             }
         }

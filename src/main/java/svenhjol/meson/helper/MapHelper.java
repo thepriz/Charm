@@ -11,7 +11,6 @@ import net.minecraft.world.storage.MapDecoration;
 
 public class MapHelper {
     public static ItemStack getMap(ServerWorld world, BlockPos pos, TranslationTextComponent mapName, MapDecoration.Type targetType, int color) {
-
         // generate the map
         ItemStack stack = FilledMapItem.setupNewMap(world, pos.getX(), pos.getZ(), (byte) 2, true, true);
         FilledMapItem.func_226642_a_(world, stack);

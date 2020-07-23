@@ -1,5 +1,6 @@
 package svenhjol.charm.module;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.merchant.villager.VillagerData;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.merchant.villager.VillagerProfession;
@@ -15,11 +16,16 @@ public class RemoveNitwits extends MesonModule {
 
     @SubscribeEvent
     public void onVillagerJoinWorld(EntityJoinWorldEvent event) {
-        if (!event.isCanceled()
-            && !event.getWorld().isRemote
-            && event.getEntity() instanceof VillagerEntity
+        if (!event.isCanceled()) {
+            changeNitwitProfession(event.getEntity());
+        }
+    }
+
+    public void changeNitwitProfession(Entity entity) {
+        if (!entity.world.isRemote
+            && entity instanceof VillagerEntity
         ) {
-            VillagerEntity villager = (VillagerEntity) event.getEntity();
+            VillagerEntity villager = (VillagerEntity) entity;
             VillagerData data = villager.getVillagerData();
 
             if (data.getProfession() == VillagerProfession.NITWIT) {

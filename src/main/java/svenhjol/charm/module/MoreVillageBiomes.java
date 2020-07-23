@@ -1,5 +1,6 @@
 package svenhjol.charm.module;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.merchant.villager.VillagerData;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.villager.IVillagerType;
@@ -37,17 +38,22 @@ public class MoreVillageBiomes extends MesonModule {
 
     @SubscribeEvent
     public void onVillagerJoinWorld(EntityJoinWorldEvent event) {
-        if (!event.isCanceled()
-            && !event.getWorld().isRemote
-            && event.getEntity() instanceof VillagerEntity
-            && event.getEntity().addedToChunk
-            && event.getEntity().ticksExisted == 0
+        if (!event.isCanceled()) {
+            changeVillagerSkin(event.getEntity());
+        }
+    }
+
+    public void changeVillagerSkin(Entity entity) {
+        if (!entity.world.isRemote
+            && entity instanceof VillagerEntity
+            && entity.addedToChunk
+            && entity.ticksExisted == 0
         ) {
-            VillagerEntity villager = (VillagerEntity) event.getEntity();
+            VillagerEntity villager = (VillagerEntity) entity;
             VillagerData data = villager.getVillagerData();
 
             if (data.getType() == IVillagerType.PLAINS) {
-                Biome biome = WorldHelper.getBiome((ServerWorld)event.getWorld(), event.getEntity().func_233580_cy_());
+                Biome biome = WorldHelper.getBiome((ServerWorld)entity.world, entity.func_233580_cy_());
 
                 if (plainsBiomes.contains(biome))
                     villager.setVillagerData(data.withType(IVillagerType.byBiome(biome)));

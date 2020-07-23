@@ -1,6 +1,6 @@
 package svenhjol.charm.module;
 
-import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.monster.HuskEntity;
 import net.minecraft.item.ItemStack;
@@ -12,6 +12,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
+
+import java.util.Collection;
 
 public class HuskImprovements extends MesonModule {
     public static double lootingBoost = 0.1D;
@@ -30,16 +32,20 @@ public class HuskImprovements extends MesonModule {
 
     @SubscribeEvent
     public void onHuskDrops(LivingDropsEvent event) {
+        if (!event.isCanceled()) {
+            dropSand(event.getEntityLiving(), event.getDrops(), event.getLootingLevel());
+        }
+    }
+
+    public void dropSand(LivingEntity entity, Collection<ItemEntity> drops, int lootingLevel) {
         if (dropSand
-            && !event.isCanceled()
-            && !event.getEntityLiving().world.isRemote
-            && event.getEntityLiving() instanceof HuskEntity
-            && event.getEntityLiving().world.rand.nextFloat() <= (chance + (lootingBoost * event.getLootingLevel()))
+            && !entity.world.isRemote
+            && entity instanceof HuskEntity
+            && entity.world.rand.nextFloat() <= (chance + (lootingBoost * lootingLevel))
         ) {
-            Entity entity = event.getEntity();
-            BlockPos entityPos = entity.func_233580_cy_();
+            BlockPos pos = entity.func_233580_cy_();
             ItemStack sand = new ItemStack(Items.SAND);
-            event.getDrops().add(new ItemEntity(entity.getEntityWorld(), entityPos.getX(), entityPos.getY(), entityPos.getZ(), sand));
+            drops.add(new ItemEntity(entity.getEntityWorld(), pos.getX(), pos.getY(), pos.getZ(), sand));
         }
     }
 

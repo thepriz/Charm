@@ -1,11 +1,12 @@
 package svenhjol.charm.module;
 
-import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.monster.WitchEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potions;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -13,6 +14,8 @@ import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.PotionHelper;
 import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
+
+import java.util.Collection;
 
 public class WitchesDropLuck extends MesonModule {
     public static double lootingBoost = 0.025D;
@@ -25,16 +28,20 @@ public class WitchesDropLuck extends MesonModule {
 
     @SubscribeEvent
     public void onWitchDrops(LivingDropsEvent event) {
-        if (!event.isCanceled()
-            && !event.getEntityLiving().world.isRemote
-            && event.getEntityLiving() instanceof WitchEntity
-            && event.getSource().getTrueSource() instanceof PlayerEntity
-            && event.getEntityLiving().world.rand.nextFloat() <= (dropChance + lootingBoost * event.getLootingLevel())
+        if (!event.isCanceled()) {
+            dropLuck(event.getEntityLiving(), event.getDrops(), event.getLootingLevel(), event.getSource());
+        }
+    }
+
+    public void dropLuck(LivingEntity entity, Collection<ItemEntity> drops, int lootingLevel, DamageSource damageSource) {
+        if (!entity.world.isRemote
+            && entity instanceof WitchEntity
+            && damageSource.getTrueSource() instanceof PlayerEntity
+            && entity.world.rand.nextFloat() <= (dropChance + lootingBoost * lootingLevel)
         ) {
-            Entity entity = event.getEntity();
             BlockPos pos = entity.func_233580_cy_();
             ItemStack potion = PotionHelper.getPotionItemStack(Potions.LUCK, 1);
-            event.getDrops().add(new ItemEntity(entity.getEntityWorld(), pos.getX(), pos.getY(), pos.getZ(), potion));
+            drops.add(new ItemEntity(entity.getEntityWorld(), pos.getX(), pos.getY(), pos.getZ(), potion));
         }
     }
 }

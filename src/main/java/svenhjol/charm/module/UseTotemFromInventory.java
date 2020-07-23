@@ -1,6 +1,7 @@
 package svenhjol.charm.module;
 
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -20,8 +21,15 @@ public class UseTotemFromInventory extends MesonModule {
 
     @SubscribeEvent
     public void onPlayerDeath(LivingDeathEvent event) {
-        if (!event.isCanceled() && event.getEntityLiving() instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity) event.getEntityLiving();
+        if (!event.isCanceled()) {
+            boolean usedTotem = useTotem(event.getEntityLiving());
+            event.setCanceled(usedTotem); // instruct Forge not to actually kill the player
+        }
+    }
+
+    public boolean useTotem(LivingEntity entity) {
+        if (entity instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity)entity;
             PlayerInventory inv = player.inventory;
             ItemStack totem = new ItemStack(Items.TOTEM_OF_UNDYING);
 
@@ -44,9 +52,9 @@ public class UseTotemFromInventory extends MesonModule {
                 player.addPotionEffect(new EffectInstance(Effects.ABSORPTION, 100, 1));
                 player.world.setEntityState(player, (byte) 35);
 
-                // don't actually die
-                event.setCanceled(true);
+                return true;
             }
         }
+        return false;
     }
 }

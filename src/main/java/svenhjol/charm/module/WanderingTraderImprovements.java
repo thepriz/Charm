@@ -79,10 +79,14 @@ public class WanderingTraderImprovements extends MesonModule {
 
     @SubscribeEvent
     public void onWandererTrades(WandererTradesEvent event) {
-        List<VillagerTrades.ITrade> trades = event.getRareTrades();
+        if (!event.isCanceled()) {
+            addToRareTrades(event.getRareTrades());
+        }
+    }
 
+    public void addToRareTrades(List<VillagerTrades.ITrade> rareTrades) {
         for (int i = 0; i < 3; i++) {
-            trades.add(new StructureMapForEmeraldsTrade());
+            rareTrades.add(new StructureMapForEmeraldsTrade());
         }
     }
 
