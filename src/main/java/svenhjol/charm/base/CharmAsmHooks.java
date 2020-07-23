@@ -1,11 +1,13 @@
 package svenhjol.charm.base;
 
-import net.minecraft.block.Block;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
-import svenhjol.charm.module.*;
+import svenhjol.charm.module.HuskImprovements;
+import svenhjol.charm.module.StackableBooks;
+import svenhjol.charm.module.StackablePotions;
+import svenhjol.charm.module.WanderingTraderImprovements;
 import svenhjol.meson.Meson;
 
 public class CharmAsmHooks {
@@ -47,16 +49,6 @@ public class CharmAsmHooks {
             return StackableBooks.checkItemStack(inventory.getStackInSlot(1));
 
         return ItemStack.EMPTY;
-    }
-
-    /**
-     * Forge has a check that prevents modders from adding new state props.
-     * This must be bypassed by lantern improvements so that waterlogging can be added.
-     * @param block The block that state props can be added to.
-     * @return True to bypass Forge's state prop check.
-     */
-    public static boolean bypassForgeStateCheck(Block block) {
-        return Meson.enabled("charm:lantern_improvements") && LanternImprovements.checkLantern(block);
     }
 
     public static boolean canHuskSpawnInLight(IWorld world, BlockPos pos) {

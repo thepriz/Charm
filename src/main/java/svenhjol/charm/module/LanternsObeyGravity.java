@@ -7,14 +7,13 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.ResourceLocation;
 import svenhjol.charm.block.ImprovedLanternBlock;
-import svenhjol.meson.Meson;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.handler.OverrideHandler;
 import svenhjol.meson.iface.Module;
 
-public class LanternImprovements extends MesonModule {
-    @Module(description = "Vanilla lanterns obey gravity and can be waterlogged.")
-    public LanternImprovements() {}
+public class LanternsObeyGravity extends MesonModule {
+    @Module(description = "Vanilla lanterns obey gravity.")
+    public LanternsObeyGravity() {}
 
     @Override
     public void init() {
@@ -34,9 +33,5 @@ public class LanternImprovements extends MesonModule {
             OverrideHandler.changeVanillaBlock(soulLanternBlock, SOUL_LANTERN_ID);
             OverrideHandler.changeVanillaItem(soulLanternItem, SOUL_LANTERN_ID);
         }
-    }
-
-    public static boolean checkLantern(Block block) {
-        return Meson.enabled("charm:lantern_improvements") && block instanceof ImprovedLanternBlock;
     }
 }
