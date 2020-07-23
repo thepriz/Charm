@@ -1,6 +1,7 @@
 {
   "charm_husk_improvements": "asm/husk_improvements.js",
   "charm_no_anvil_minimum_xp": "asm/no_anvil_minimum_xp.js",
+  "charm_parrots_stay_on_shoulder": "asm/parrots_stay_on_shoulder",
   "charm_remove_potion_glint": "asm/remove_potion_glint.js",
   "charm_stackable_books": "asm/stackable_books.js",
   "charm_stackable_potions": "asm/stackable_potions.js",
