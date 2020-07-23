@@ -18,7 +18,7 @@ public class Charm extends MesonMod {
         CharmMessages.init(this);
     }
 
-    protected List<Class<? extends MesonModule>> modules() {
+    protected List<Class<? extends MesonModule>> getModules() {
         return Arrays.asList(
             AutomaticRecipeUnlock.class,
             BeaconsHealMobs.class,
@@ -29,6 +29,7 @@ public class Charm extends MesonMod {
             LanternsObeyGravity.class,
             LightweightArmorInvisibility.class,
             MoreVillageBiomes.class,
+            MusicImprovements.class,
             NoAnvilMinimumXp.class,
             ParrotsStayOnShoulder.class,
             RemoveNitwits.class,

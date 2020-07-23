@@ -37,7 +37,7 @@ function initializeCoreMod() {
                 newInstructions.add(ASM.buildMethodCall(ASM_HOOKS, "mobsInBeaconRange", "(Lnet/minecraft/world/World;ILnet/minecraft/util/math/BlockPos;Lnet/minecraft/potion/Effect;Lnet/minecraft/potion/Effect;)V", ASM.MethodType.STATIC));
 
                 method.instructions.insertBefore(instruction, newInstructions);
-                print("[Charm ASM] (BeaconsHealAnimals) " + (success ? "Patched BeaconTileEntity" : "Failed to patch BeaconTileEntity"));
+                print("[Charm ASM] (BeaconsHealAnimals) Patched BeaconTileEntity");
                 return method;
             }
         }

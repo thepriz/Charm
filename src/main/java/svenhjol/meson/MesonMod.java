@@ -28,7 +28,7 @@ public abstract class MesonMod implements IForgeLoadEvents {
 
         Meson.INSTANCE.register(this);
 
-        this.configHandler = new ConfigHandler(this, modules());
+        this.configHandler = new ConfigHandler(this, getModules());
         this.packetHandler = new PacketHandler(this);
 
         eachModule(MesonModule::init);
@@ -37,7 +37,7 @@ public abstract class MesonMod implements IForgeLoadEvents {
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> eachModule(MesonModule::initClient));
     }
 
-    protected abstract List<Class<? extends MesonModule>> modules();
+    protected abstract List<Class<? extends MesonModule>> getModules();
 
     public String getId() {
         return id;

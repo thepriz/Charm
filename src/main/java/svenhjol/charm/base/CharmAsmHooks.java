@@ -1,11 +1,14 @@
 package svenhjol.charm.base;
 
+import net.minecraft.client.audio.BackgroundMusicSelector;
+import net.minecraft.client.audio.ISound;
 import net.minecraft.entity.Entity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import svenhjol.charm.client.MusicClient;
 import svenhjol.charm.module.*;
 import svenhjol.meson.Meson;
 
@@ -49,6 +52,17 @@ public class CharmAsmHooks {
         return Meson.enabled("charm:no_anvil_minimum_xp") ? -1 : 0;
     }
 
+    public static boolean handleMusicPlaying(BackgroundMusicSelector music) {
+        return MusicClient.enabled && MusicClient.handlePlaying(music);
+    }
+
+    public static boolean handleMusicStop() {
+        return MusicClient.enabled && MusicClient.handleStop();
+    }
+
+    public static boolean handleMusicTick(ISound currentMusic) {
+        return MusicClient.enabled && MusicClient.handleTick(currentMusic);
+    }
 
     public static boolean isArmorInvisible(Entity entity, ItemStack stack) {
         return Meson.enabled("charm:lightweight_armor_invisibility")
@@ -68,4 +82,7 @@ public class CharmAsmHooks {
         return Meson.enabled("charm:remove_potion_glint");
     }
 
+    public static boolean parrotStayOnShoulder() {
+        return Meson.enabled("charm:parrots_stay_on_shoulder");
+    }
 }

@@ -29,7 +29,7 @@ function initializeCoreMod() {
                     var instruction = method.instructions.get(i);
                     if (instruction.getOpcode() == Opcodes.IFGE) {
                         var label = new LabelNode();
-                        newInstructions.add(ASM.buildMethodCall(ASM_HOOKS, "stayOnShoulder", "()Z", ASM.MethodType.STATIC));
+                        newInstructions.add(ASM.buildMethodCall(ASM_HOOKS, "parrotStayOnShoulder", "()Z", ASM.MethodType.STATIC));
                         newInstructions.add(new JumpInsnNode(Opcodes.IFEQ, label));
                         newInstructions.add(new InsnNode(Opcodes.RETURN));
                         newInstructions.add(label);
