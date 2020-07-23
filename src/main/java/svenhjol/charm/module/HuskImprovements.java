@@ -33,11 +33,11 @@ public class HuskImprovements extends MesonModule {
     @SubscribeEvent
     public void onHuskDrops(LivingDropsEvent event) {
         if (!event.isCanceled()) {
-            dropSand(event.getEntityLiving(), event.getDrops(), event.getLootingLevel());
+            tryDropSand(event.getEntityLiving(), event.getDrops(), event.getLootingLevel());
         }
     }
 
-    public void dropSand(LivingEntity entity, Collection<ItemEntity> drops, int lootingLevel) {
+    public void tryDropSand(LivingEntity entity, Collection<ItemEntity> drops, int lootingLevel) {
         if (dropSand
             && !entity.world.isRemote
             && entity instanceof HuskEntity
