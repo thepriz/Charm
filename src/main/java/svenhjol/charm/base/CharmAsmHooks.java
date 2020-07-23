@@ -1,32 +1,21 @@
 package svenhjol.charm.base;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import svenhjol.charm.module.HuskImprovements;
-import svenhjol.charm.module.StackableBooks;
-import svenhjol.charm.module.StackablePotions;
-import svenhjol.charm.module.WanderingTraderImprovements;
+import svenhjol.charm.module.*;
 import svenhjol.meson.Meson;
 
+@SuppressWarnings("unused")
 public class CharmAsmHooks {
-    /**
-     * If true, the potion glint will not be applied to the PotionItem.
-     * Disable the RemovePotionGlint to restore vanilla behavior.
-     * @return True to disable potion glint.
-     */
-    public static boolean removePotionGlint() {
-        return Meson.enabled("charm:remove_potion_glint");
-    }
+    public static boolean canHuskSpawnInLight(IWorld world, BlockPos pos) {
+        if (Meson.enabled("charm:husk_improvements"))
+            return HuskImprovements.canHuskSpawnInLight(world, pos);
 
-    /**
-     * Overrides the vanilla default minimum XP of 1 (> 0) to zero (> -1).
-     * @return -1 if NoAnvilMinimumXp is enabled, vanilla default of 0 if not enabled.
-     */
-    public static int getMinimumRepairCost() {
-        return Meson.enabled("charm:no_anvil_minimum_xp") ? -1 : 0;
+        return world.canSeeSky(pos);
     }
 
     /**
@@ -52,18 +41,31 @@ public class CharmAsmHooks {
         return ItemStack.EMPTY;
     }
 
-    public static boolean canHuskSpawnInLight(IWorld world, BlockPos pos) {
-        if (Meson.enabled("charm:husk_improvements"))
-            return HuskImprovements.canHuskSpawnInLight(world, pos);
-
-        return world.canSeeSky(pos);
+    /**
+     * Overrides the vanilla default minimum XP of 1 (> 0) to zero (> -1).
+     * @return -1 if NoAnvilMinimumXp is enabled, vanilla default of 0 if not enabled.
+     */
+    public static int getMinimumRepairCost() {
+        return Meson.enabled("charm:no_anvil_minimum_xp") ? -1 : 0;
     }
 
-    public static boolean redrawInventoryScreen() {
-        return Meson.enabled("charm:crafting_inventory");
+
+    public static boolean isArmorInvisible(Entity entity, ItemStack stack) {
+        return Meson.enabled("charm:lightweight_armor_invisibility")
+            && LightweightArmorInvisibility.isArmorInvisible(entity, stack);
     }
 
     public static boolean isSignalFireInRange(World world, BlockPos pos) {
         return WanderingTraderImprovements.isSignalFireInRange(world, pos);
     }
+
+    /**
+     * If true, the potion glint will not be applied to the PotionItem.
+     * Disable the RemovePotionGlint to restore vanilla behavior.
+     * @return True to disable potion glint.
+     */
+    public static boolean removePotionGlint() {
+        return Meson.enabled("charm:remove_potion_glint");
+    }
+
 }

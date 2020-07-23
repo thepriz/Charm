@@ -26,6 +26,7 @@ public class Charm extends MesonMod {
             ExtractEnchantments.class,
             HuskImprovements.class,
             LanternsObeyGravity.class,
+            LightweightArmorInvisibility.class,
             MoreVillageBiomes.class,
             NoAnvilMinimumXp.class,
             ParrotsStayOnShoulder.class,
