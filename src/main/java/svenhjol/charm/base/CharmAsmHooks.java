@@ -6,11 +6,19 @@ import net.minecraft.entity.Entity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.math.MutableBoundingBox;
+import net.minecraft.world.ISeedReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.ChunkGenerator;
+import net.minecraft.world.gen.feature.structure.StructureManager;
+import net.minecraft.world.gen.feature.structure.StructurePiece;
 import svenhjol.charm.client.MusicClient;
 import svenhjol.charm.module.*;
 import svenhjol.meson.Meson;
+
+import java.util.Random;
 
 @SuppressWarnings("unused")
 public class CharmAsmHooks {
@@ -102,4 +110,11 @@ public class CharmAsmHooks {
     public static boolean parrotStayOnShoulder() {
         return Meson.enabled("charm:parrots_stay_on_shoulder");
     }
+
+    public static void mineshaftGeneration(StructurePiece piece, ISeedReader world, StructureManager structureManager, ChunkGenerator chunkGenerator, Random rand, MutableBoundingBox box, ChunkPos chunkPos, BlockPos blockPos) {
+        if (Meson.enabled("charm:mineshaft_improvements")) {
+            MineshaftImprovements.generatePiece(piece, world, structureManager, chunkGenerator, rand, box, chunkPos, blockPos);
+        }
+    }
+
 }

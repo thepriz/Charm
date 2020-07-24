@@ -29,6 +29,10 @@ public class WorldHelper {
         return getDimension(world).equals(dim);
     }
 
+    public static boolean isInsideStructure(ServerWorld world, BlockPos pos, Structure<?> structure) {
+        return world.func_241112_a_().func_235010_a_(pos, true, structure).isValid();
+    }
+
     @Nullable
     public static BlockPos locateBiome(Biome biome, ServerWorld world, BlockPos pos) {
         return world.func_241116_a_(biome, pos, 6400, 8);
