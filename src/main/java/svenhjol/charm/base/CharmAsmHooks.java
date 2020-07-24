@@ -52,6 +52,16 @@ public class CharmAsmHooks {
     }
 
     /**
+     * Overrides the vanilla default maximum XP of 40 to a 'big number'.
+     * @return A silly big number if NoAnvilMaximumXp is enabled, vanilla default of 40 if not enabled.
+     */
+    public static int getMaximumRepairCost() {
+        int res =  Meson.enabled("charm:no_anvil_maximum_xp") ? Integer.MAX_VALUE : 40;
+
+        return res;
+    }
+
+    /**
      * Overrides the vanilla default minimum XP of 1 (> 0) to zero (> -1).
      * @return -1 if NoAnvilMinimumXp is enabled, vanilla default of 0 if not enabled.
      */

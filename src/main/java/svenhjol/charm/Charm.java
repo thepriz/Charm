@@ -32,6 +32,7 @@ public class Charm extends MesonMod {
             MoreVillageBiomes.class,
             MoreVillagerTrades.class,
             MusicImprovements.class,
+            NoAnvilMaximumXp.class,
             NoAnvilMinimumXp.class,
             ParrotsStayOnShoulder.class,
             PathToDirt.class,
