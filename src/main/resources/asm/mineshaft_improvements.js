@@ -11,6 +11,21 @@ function initializeCoreMod() {
     var JumpInsnNode = Java.type('org.objectweb.asm.tree.JumpInsnNode');
     var LabelNode = Java.type('org.objectweb.asm.tree.LabelNode');
 
+    var getNewInstructions = function() {
+        var newInstructions = new InsnList();
+        var label = new LabelNode();
+        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
+        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 1));
+        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 2));
+        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 3));
+        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 4));
+        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 5));
+        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 6));
+        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 7));
+        newInstructions.add(ASM.buildMethodCall(ASM_HOOKS, "mineshaftGeneration", "(Lnet/minecraft/world/gen/feature/structure/StructurePiece;Lnet/minecraft/world/ISeedReader;Lnet/minecraft/world/gen/feature/structure/StructureManager;Lnet/minecraft/world/gen/ChunkGenerator;Ljava/util/Random;Lnet/minecraft/util/math/MutableBoundingBox;Lnet/minecraft/util/math/ChunkPos;Lnet/minecraft/util/math/BlockPos;)V", ASM.MethodType.STATIC));
+        return newInstructions;
+    }
+
     return {
         'mineshaft_improvements_corridor': {
             target: {
@@ -21,7 +36,6 @@ function initializeCoreMod() {
             },
             transformer: function(method) {
                 var success = false;
-                var newInstructions = new InsnList();
                 var arrayLength = method.instructions.size();
                 var j = 0;
 
@@ -30,18 +44,7 @@ function initializeCoreMod() {
                     if (instruction.getOpcode() == Opcodes.IRETURN
                         && ++j == 2
                     ) {
-                        var label = new LabelNode();
-                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
-                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 1));
-                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 2));
-                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 3));
-                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 4));
-                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 5));
-                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 6));
-                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 7));
-                        newInstructions.add(ASM.buildMethodCall(ASM_HOOKS, "mineshaftGeneration", "(Lnet/minecraft/world/gen/feature/structure/StructurePiece;Lnet/minecraft/world/ISeedReader;Lnet/minecraft/world/gen/feature/structure/StructureManager;Lnet/minecraft/world/gen/ChunkGenerator;Ljava/util/Random;Lnet/minecraft/util/math/MutableBoundingBox;Lnet/minecraft/util/math/ChunkPos;Lnet/minecraft/util/math/BlockPos;)V", ASM.MethodType.STATIC));
-
-                        method.instructions.insertBefore(instruction, newInstructions);
+                        method.instructions.insertBefore(instruction, getNewInstructions());
                         success = true;
                         break;
                     }
@@ -60,7 +63,6 @@ function initializeCoreMod() {
             },
             transformer: function(method) {
                 var success = false;
-                var newInstructions = new InsnList();
                 var arrayLength = method.instructions.size();
                 var j = 0;
 
@@ -69,17 +71,7 @@ function initializeCoreMod() {
                     if (instruction.getOpcode() == Opcodes.IRETURN
                         && ++j == 2
                     ) {
-                        var label = new LabelNode();
-                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
-                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 1));
-                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 2));
-                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 3));
-                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 4));
-                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 5));
-                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 6));
-                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 7));
-                        newInstructions.add(ASM.buildMethodCall(ASM_HOOKS, "mineshaftGeneration", "(Lnet/minecraft/world/gen/feature/structure/StructurePiece;Lnet/minecraft/world/ISeedReader;Lnet/minecraft/world/gen/feature/structure/StructureManager;Lnet/minecraft/world/gen/ChunkGenerator;Ljava/util/Random;Lnet/minecraft/util/math/MutableBoundingBox;Lnet/minecraft/util/math/ChunkPos;Lnet/minecraft/util/math/BlockPos;)V", ASM.MethodType.STATIC));
-
+                        var newInstructions = getNewInstructions();
                         method.instructions.insertBefore(instruction, newInstructions);
                         success = true;
                         break;
@@ -99,7 +91,6 @@ function initializeCoreMod() {
             },
             transformer: function(method) {
                 var success = false;
-                var newInstructions = new InsnList();
                 var arrayLength = method.instructions.size();
                 var j = 0;
 
@@ -108,24 +99,40 @@ function initializeCoreMod() {
                     if (instruction.getOpcode() == Opcodes.IRETURN
                         && ++j == 2
                     ) {
-                        var label = new LabelNode();
-                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
-                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 1));
-                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 2));
-                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 3));
-                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 4));
-                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 5));
-                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 6));
-                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 7));
-                        newInstructions.add(ASM.buildMethodCall(ASM_HOOKS, "mineshaftGeneration", "(Lnet/minecraft/world/gen/feature/structure/StructurePiece;Lnet/minecraft/world/ISeedReader;Lnet/minecraft/world/gen/feature/structure/StructureManager;Lnet/minecraft/world/gen/ChunkGenerator;Ljava/util/Random;Lnet/minecraft/util/math/MutableBoundingBox;Lnet/minecraft/util/math/ChunkPos;Lnet/minecraft/util/math/BlockPos;)V", ASM.MethodType.STATIC));
-
-                        method.instructions.insertBefore(instruction, newInstructions);
+                        method.instructions.insertBefore(instruction, getNewInstructions());
                         success = true;
                         break;
                     }
                 }
 
                 print("[Charm ASM] (MineshaftImprovements) " + (success ? "Patched MineshaftPieces (stairs)" : "Failed to patch MineshaftPieces (stairs)"));
+                return method;
+            }
+        },
+        'mineshaft_improvements_cross': {
+            target: {
+                'type': 'METHOD',
+                'class': 'net.minecraft.world.gen.feature.structure.MineshaftPieces$Cross',
+                'methodName': 'func_230383_a_', // structure start maybe?
+                'methodDesc': '(Lnet/minecraft/world/ISeedReader;Lnet/minecraft/world/gen/feature/structure/StructureManager;Lnet/minecraft/world/gen/ChunkGenerator;Ljava/util/Random;Lnet/minecraft/util/math/MutableBoundingBox;Lnet/minecraft/util/math/ChunkPos;Lnet/minecraft/util/math/BlockPos;)Z'
+            },
+            transformer: function(method) {
+                var success = false;
+                var arrayLength = method.instructions.size();
+                var j = 0;
+
+                for (var i = 0; i < arrayLength; ++i) {
+                    var instruction = method.instructions.get(i);
+                    if (instruction.getOpcode() == Opcodes.IRETURN
+                        && ++j == 2
+                    ) {
+                        method.instructions.insertBefore(instruction, getNewInstructions());
+                        success = true;
+                        break;
+                    }
+                }
+
+                print("[Charm ASM] (MineshaftImprovements) " + (success ? "Patched MineshaftPieces (cross)" : "Failed to patch MineshaftPieces (cross)"));
                 return method;
             }
         }
