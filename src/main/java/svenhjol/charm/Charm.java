@@ -22,6 +22,7 @@ public class Charm extends MesonMod {
         return Arrays.asList(
             AutomaticRecipeUnlock.class,
             BeaconsHealMobs.class,
+            CaveSpidersDropCobwebs.class,
             ChickensDropFeathers.class,
             CraftingInventory.class,
             ExtractEnchantments.class,
