@@ -81,60 +81,6 @@ function initializeCoreMod() {
                 print("[Charm ASM] (MineshaftImprovements) " + (success ? "Patched MineshaftPieces (room)" : "Failed to patch MineshaftPieces (room)"));
                 return method;
             }
-        },
-        'mineshaft_improvements_stairs': {
-            target: {
-                'type': 'METHOD',
-                'class': 'net.minecraft.world.gen.feature.structure.MineshaftPieces$Stairs',
-                'methodName': 'func_230383_a_', // structure start maybe?
-                'methodDesc': '(Lnet/minecraft/world/ISeedReader;Lnet/minecraft/world/gen/feature/structure/StructureManager;Lnet/minecraft/world/gen/ChunkGenerator;Ljava/util/Random;Lnet/minecraft/util/math/MutableBoundingBox;Lnet/minecraft/util/math/ChunkPos;Lnet/minecraft/util/math/BlockPos;)Z'
-            },
-            transformer: function(method) {
-                var success = false;
-                var arrayLength = method.instructions.size();
-                var j = 0;
-
-                for (var i = 0; i < arrayLength; ++i) {
-                    var instruction = method.instructions.get(i);
-                    if (instruction.getOpcode() == Opcodes.IRETURN
-                        && ++j == 2
-                    ) {
-                        method.instructions.insertBefore(instruction, getNewInstructions());
-                        success = true;
-                        break;
-                    }
-                }
-
-                print("[Charm ASM] (MineshaftImprovements) " + (success ? "Patched MineshaftPieces (stairs)" : "Failed to patch MineshaftPieces (stairs)"));
-                return method;
-            }
-        },
-        'mineshaft_improvements_cross': {
-            target: {
-                'type': 'METHOD',
-                'class': 'net.minecraft.world.gen.feature.structure.MineshaftPieces$Cross',
-                'methodName': 'func_230383_a_', // structure start maybe?
-                'methodDesc': '(Lnet/minecraft/world/ISeedReader;Lnet/minecraft/world/gen/feature/structure/StructureManager;Lnet/minecraft/world/gen/ChunkGenerator;Ljava/util/Random;Lnet/minecraft/util/math/MutableBoundingBox;Lnet/minecraft/util/math/ChunkPos;Lnet/minecraft/util/math/BlockPos;)Z'
-            },
-            transformer: function(method) {
-                var success = false;
-                var arrayLength = method.instructions.size();
-                var j = 0;
-
-                for (var i = 0; i < arrayLength; ++i) {
-                    var instruction = method.instructions.get(i);
-                    if (instruction.getOpcode() == Opcodes.IRETURN
-                        && ++j == 2
-                    ) {
-                        method.instructions.insertBefore(instruction, getNewInstructions());
-                        success = true;
-                        break;
-                    }
-                }
-
-                print("[Charm ASM] (MineshaftImprovements) " + (success ? "Patched MineshaftPieces (cross)" : "Failed to patch MineshaftPieces (cross)"));
-                return method;
-            }
         }
     }
 }
