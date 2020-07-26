@@ -63,8 +63,6 @@ public class MineshaftImprovements extends MesonModule {
         ));
 
         rareFloorBlocks.addAll(Arrays.asList(
-            Blocks.EMERALD_ORE.getDefaultState(),
-            Blocks.DIAMOND_ORE.getDefaultState(),
             Blocks.GOLD_ORE.getDefaultState(),
             Blocks.TNT.getDefaultState(),
             Blocks.LANTERN.getDefaultState()
