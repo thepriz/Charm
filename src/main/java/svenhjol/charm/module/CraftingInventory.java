@@ -25,6 +25,6 @@ public class CraftingInventory extends MesonModule {
     }
 
     public static void openContainer(ServerPlayerEntity player) {
-        player.openContainer(new SimpleNamedContainerProvider((i, inv, p) -> new CraftingInventoryContainer(i, inv, IWorldPosCallable.of(p.world, p.func_233580_cy_())), LABEL));
+        player.openContainer(new SimpleNamedContainerProvider((i, inv, p) -> new CraftingInventoryContainer(i, inv, IWorldPosCallable.of(p.world, p.getPosition())), LABEL));
     }
 }

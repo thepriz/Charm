@@ -15,6 +15,6 @@ public class SoundHelper {
 
     @OnlyIn(Dist.CLIENT)
     public static Multimap<SoundCategory, ISound> getPlayingSounds() {
-        return getSoundHandler().sndManager.field_217943_n;
+        return getSoundHandler().sndManager.categorySounds;
     }
 }

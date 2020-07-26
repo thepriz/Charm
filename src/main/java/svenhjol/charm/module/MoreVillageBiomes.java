@@ -32,8 +32,8 @@ public class MoreVillageBiomes extends MesonModule {
     @Override
     public void onCommonSetup(FMLCommonSetupEvent event) {
         // there isn't dedicated structure pieces for jungles and swamps so just use plains
-        plainsBiomes.forEach(biome -> biome.func_235063_a_(DefaultBiomeFeatures.field_235182_t_));
-        taigaBiomes.forEach(biome -> biome.func_235063_a_(DefaultBiomeFeatures.field_235186_x_));
+        plainsBiomes.forEach(biome -> biome.func_235063_a_(DefaultBiomeFeatures.VILLAGE_PLAINS));
+        taigaBiomes.forEach(biome -> biome.func_235063_a_(DefaultBiomeFeatures.VILLAGE_TAIGA));
     }
 
     @SubscribeEvent
@@ -53,7 +53,7 @@ public class MoreVillageBiomes extends MesonModule {
             VillagerData data = villager.getVillagerData();
 
             if (data.getType() == IVillagerType.PLAINS) {
-                Biome biome = WorldHelper.getBiome((ServerWorld)entity.world, entity.func_233580_cy_());
+                Biome biome = WorldHelper.getBiome((ServerWorld)entity.world, entity.getPosition());
 
                 if (plainsBiomes.contains(biome))
                     villager.setVillagerData(data.withType(IVillagerType.byBiome(biome)));

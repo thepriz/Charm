@@ -43,7 +43,7 @@ public class StrayImprovements extends MesonModule {
             && entity instanceof StrayEntity
             && entity.world.rand.nextFloat() <= (chance + (lootingBoost * lootingLevel))
         ) {
-            BlockPos pos = entity.func_233580_cy_();
+            BlockPos pos = entity.getPosition();
             ItemStack ice = new ItemStack(Items.BLUE_ICE);
             drops.add(new ItemEntity(entity.getEntityWorld(), pos.getX(), pos.getY(), pos.getZ(), ice));
         }

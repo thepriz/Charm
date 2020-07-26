@@ -35,7 +35,7 @@ public class CaveSpidersDropCobwebs extends MesonModule {
             && entity instanceof CaveSpiderEntity
             && entity.world.rand.nextFloat() <= (chance + (lootingBoost * lootingLevel))
         ) {
-            BlockPos pos = entity.func_233580_cy_();
+            BlockPos pos = entity.getPosition();
             ItemStack cobweb = new ItemStack(Items.COBWEB);
             drops.add(new ItemEntity(entity.getEntityWorld(), pos.getX(), pos.getY(), pos.getZ(), cobweb));
         }

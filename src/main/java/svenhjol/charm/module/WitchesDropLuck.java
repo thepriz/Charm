@@ -39,7 +39,7 @@ public class WitchesDropLuck extends MesonModule {
             && damageSource.getTrueSource() instanceof PlayerEntity
             && entity.world.rand.nextFloat() <= (dropChance + lootingBoost * lootingLevel)
         ) {
-            BlockPos pos = entity.func_233580_cy_();
+            BlockPos pos = entity.getPosition();
             ItemStack potion = PotionHelper.getPotionItemStack(Potions.LUCK, 1);
             drops.add(new ItemEntity(entity.getEntityWorld(), pos.getX(), pos.getY(), pos.getZ(), potion));
         }
