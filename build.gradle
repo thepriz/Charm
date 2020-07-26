@@ -3,9 +3,11 @@ buildscript {
         maven { url = 'https://files.minecraftforge.net/maven' }
         jcenter()
         mavenCentral()
+        maven {url='https://dist.creeper.host/Sponge/maven'}
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
     }
 }
 plugins {
@@ -24,16 +26,18 @@ minecraft {
 
     runs {
         client = {
-            properties 'forge.logging.markers': 'SCAN'
+            properties 'forge.logging.markers': ''
             properties 'forge.logging.console.level': 'debug'
             workingDirectory project.file('run').canonicalPath
+            arg "-mixin.config=" + mod_id + ".mixins.json"
             source sourceSets.main
             jvmArgs "-Xmx1500M"
         }
         server = {
-            properties 'forge.logging.markers': 'SCAN'
+            properties 'forge.logging.markers': ''
             properties 'forge.logging.console.level': 'debug'
             workingDirectory project.file('run').canonicalPath
+            arg "-mixin.config=" + mod_id + ".mixins.json"
             source sourceSets.main
         }
     }
@@ -91,7 +95,14 @@ jar {
             "Implementation-Title": "${mod_name}",
             "Implementation-Version": "${mod_version}",
             "Implementation-Vendor" :"svenhjol",
-            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+            "MixinConfigs": "${mod_id}.mixins.json"
         ])
     }
+}
+
+apply plugin: 'org.spongepowered.mixin'
+
+mixin {
+    add sourceSets.main, "${mod_id}.refmap.json"
 }
