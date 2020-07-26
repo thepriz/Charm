@@ -22,7 +22,7 @@ public class StackableBooks extends MesonModule {
         }
     }
 
-    public static ItemStack checkItemStack(ItemStack stack) {
+    public static ItemStack getReducedStack(ItemStack stack) {
         if (stack.getItem() == Items.ENCHANTED_BOOK) {
             stack.shrink(1);
             return stack;

@@ -54,7 +54,7 @@ public class CharmAsmHooks {
      */
     public static ItemStack getAnvilMaterialItem(IInventory inventory) {
         if (Meson.enabled("charm:stackable_books"))
-            return StackableBooks.checkItemStack(inventory.getStackInSlot(1));
+            return StackableBooks.getReducedStack(inventory.getStackInSlot(1));
 
         return ItemStack.EMPTY;
     }

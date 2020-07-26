@@ -1,0 +1,26 @@
+{
+  "required": true,
+  "package": "svenhjol.charm.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "charm.refmap.json",
+  "mixins": [
+    "ArmorInvisibilityLivingEntityMixin",
+    "BeaconsHealMobsMixin",
+    "HuskImprovementsMixin",
+    "MineshaftImprovementsMixin",
+    "ParrotsStayOnShoulderMixin",
+    "StackableBooksMixin",
+    "StackablePotionsMixin",
+    "StrayImprovementsMixin",
+    "WanderingTraderImprovementsMixin"
+  ],
+  "client":[
+    "ArmorInvisibilityBipedArmorLayerMixin",
+    "MusicImprovementsMixin",
+    "RemovePotionGlintMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "minVersion": "0.8"
+}

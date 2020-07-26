@@ -1,15 +1,3 @@
 {
-  "charm_beacons_heal_mobs": "asm/beacons_heal_mobs.js",
-  "charm_husk_improvements": "asm/husk_improvements.js",
-  "charm_lightweight_armor_invisibility": "asm/lightweight_armor_invisibility.js",
-  "charm_mineshaft_improvements": "asm/mineshaft_improvements.js",
-  "charm_music_improvements": "asm/music_improvements.js",
-  "charm_no_anvil_maximum_xp": "asm/no_anvil_maximum_xp.js",
-  "charm_no_anvil_minimum_xp": "asm/no_anvil_minimum_xp.js",
-  "charm_parrots_stay_on_shoulder": "asm/parrots_stay_on_shoulder.js",
-  "charm_remove_potion_glint": "asm/remove_potion_glint.js",
-  "charm_stackable_books": "asm/stackable_books.js",
-  "charm_stackable_potions": "asm/stackable_potions.js",
-  "charm_stray_improvements": "asm/stray_improvements.js",
-  "charm_wandering_trader_improvements": "asm/wandering_trader_improvements.js"
+  "charm_anvil_improvements": "asm/anvil_improvements.js"
 }
