@@ -16,7 +16,7 @@ public class BeaconsHealMobs extends MesonModule {
     @Module(description = "Passive and friendly mobs will heal themselves within range of a beacon with the regeneration effect.")
     public BeaconsHealMobs() {}
 
-    public static void mobsInBeaconRange(World world, int levels, BlockPos pos, Effect primaryEffect, Effect secondaryEffect) {
+    public static void healInBeaconRange(World world, int levels, BlockPos pos, Effect primaryEffect, Effect secondaryEffect) {
         if (!world.isRemote) {
             double d0 = levels * 10 + 10;
             AxisAlignedBB bb = (new AxisAlignedBB(pos)).grow(d0).expand(0.0D, world.getHeight(), 0.0D);

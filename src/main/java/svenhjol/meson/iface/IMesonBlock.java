@@ -11,7 +11,7 @@ import svenhjol.meson.handler.RegistryHandler;
 public interface IMesonBlock {
     ItemGroup getItemGroup();
 
-    boolean isEnabled();
+    boolean enabled();
 
     default int getMaxStackSize() {
         return 64;
@@ -24,13 +24,12 @@ public interface IMesonBlock {
     default BlockItem getBlockItem() {
         Item.Properties props = new Item.Properties();
 
-        if (isEnabled()) {
+        if (enabled()) {
             ItemGroup group = getItemGroup();
             if (group != null) props.group(group);
             props.maxStackSize(getMaxStackSize());
         }
 
-        Block block = (Block) this;
-        return new BlockItem(block, props);
+        return new BlockItem((Block)this, props);
     }
 }

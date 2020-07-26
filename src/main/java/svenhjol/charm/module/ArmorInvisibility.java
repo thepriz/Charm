@@ -13,11 +13,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class LightweightArmorInvisibility extends MesonModule {
+public class ArmorInvisibility extends MesonModule {
     public static List<Item> invisibleItems = new ArrayList<>();
 
     @Module(description = "Lightweight armor is invisible and does not increase mob awareness when drinking Potion of Invisibility.")
-    public LightweightArmorInvisibility() {
+    public ArmorInvisibility() {
         invisibleItems.addAll(Arrays.asList(
             Items.LEATHER_HELMET,
             Items.LEATHER_CHESTPLATE,

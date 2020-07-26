@@ -64,7 +64,7 @@ public class CharmAsmHooks {
      * @return A silly big number if NoAnvilMaximumXp is enabled, vanilla default of 40 if not enabled.
      */
     public static int getMaximumRepairCost() {
-        int res =  Meson.enabled("charm:no_anvil_maximum_xp") ? Integer.MAX_VALUE : 40;
+        int res =  Meson.enabled("charm:anvil_improvements") ? Integer.MAX_VALUE : 40;
 
         return res;
     }
@@ -74,7 +74,7 @@ public class CharmAsmHooks {
      * @return -1 if NoAnvilMinimumXp is enabled, vanilla default of 0 if not enabled.
      */
     public static int getMinimumRepairCost() {
-        return Meson.enabled("charm:no_anvil_minimum_xp") ? -1 : 0;
+        return Meson.enabled("charm:anvil_improvements") ? -1 : 0;
     }
 
     public static boolean handleMusicPlaying(BackgroundMusicSelector music) {
@@ -91,7 +91,7 @@ public class CharmAsmHooks {
 
     public static boolean isArmorInvisible(Entity entity, ItemStack stack) {
         return Meson.enabled("charm:lightweight_armor_invisibility")
-            && LightweightArmorInvisibility.isArmorInvisible(entity, stack);
+            && ArmorInvisibility.isArmorInvisible(entity, stack);
     }
 
     public static boolean isSignalFireInRange(World world, BlockPos pos) {

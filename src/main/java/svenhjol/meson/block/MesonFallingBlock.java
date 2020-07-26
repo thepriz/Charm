@@ -24,12 +24,12 @@ public abstract class MesonFallingBlock extends FallingBlock implements IMesonFa
 
     @Override
     public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
-        if (isEnabled())
+        if (enabled())
             super.fillItemGroup(group, items);
     }
 
     @Override
-    public boolean isEnabled() {
+    public boolean enabled() {
         return module.enabled;
     }
 }
