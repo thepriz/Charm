@@ -12,7 +12,38 @@ function initializeCoreMod() {
     var LabelNode = Java.type('org.objectweb.asm.tree.LabelNode');
 
     return {
-        'remove_too_expensive_container': {
+        'anvil_improvements_minimum_xp': {
+            target: {
+                'type': 'METHOD',
+                'class': 'net.minecraft.inventory.container.RepairContainer',
+                'methodName': 'func_230303_b_', // canTakeStack, or at least used to be in 1.15
+                'methodDesc': '(Lnet/minecraft/entity/player/PlayerEntity;Z)Z'
+            },
+            transformer: function(method) {
+                var success = false;
+                var newInstructions = new InsnList();
+                var arrayLength = method.instructions.size();
+
+                for (var i = 0; i < arrayLength; ++i) {
+                    var instruction = method.instructions.get(i);
+                    if (instruction.getOpcode() == Opcodes.IFLE) {
+                        var label = new LabelNode();
+                        newInstructions.add(ASM.buildMethodCall(ASM_HOOKS, "getMinimumRepairCost", "()I", ASM.MethodType.STATIC))
+                        newInstructions.add(new JumpInsnNode(Opcodes.IF_ICMPLE, label));
+                        newInstructions.add(label);
+
+                        method.instructions.insert(instruction, newInstructions);
+                        method.instructions.remove(instruction);
+                        success = true;
+                        break;
+                    }
+                }
+
+                print("[Charm ASM] (AnvilImprovements) " + (success ? "Patched RepairContainer (minimum repair)" : "Failed to patch RepairContainer (minimum repair)"));
+                return method;
+            }
+        },
+        'anvil_improvements_maximum_xp_container': {
             target: {
                 'type': 'METHOD',
                 'class': 'net.minecraft.inventory.container.RepairContainer',
@@ -39,11 +70,11 @@ function initializeCoreMod() {
                     }
                 }
 
-                print("[Charm ASM] (NoAnvilMaximumXp) " + (success ? "Patched RepairContainer" : "Failed to patch RepairContainer"));
+                print("[Charm ASM] (AnvilImprovements) " + (success ? "Patched RepairContainer (maximum repair)" : "Failed to patch RepairContainer (maximum repair)"));
                 return method;
             }
         },
-        'remove_too_expensive_screen': {
+        'anvil_improvements_maximum_xp_screen': {
             target: {
                 'type': 'METHOD',
                 'class': 'net.minecraft.client.gui.screen.inventory.AnvilScreen',
@@ -67,7 +98,7 @@ function initializeCoreMod() {
                     }
                 }
 
-                print("[Charm ASM] (NoAnvilMaximumXp) " + (success ? "Patched AnvilScreen" : "Failed to patch AnvilScreen"));
+                print("[Charm ASM] (AnvilImprovements) " + (success ? "Patched AnvilScreen" : "Failed to patch AnvilScreen"));
                 return method;
             }
         }
