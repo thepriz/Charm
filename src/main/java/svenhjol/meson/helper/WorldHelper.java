@@ -47,4 +47,8 @@ public class WorldHelper {
         ImmutableSet<Property<?>> props = state.getValues().keySet();
         return props.contains(prop);
     }
+
+    public static BlockState stateWith(BlockState state, Property<?> prop) {
+        return state.func_235896_a_(prop);
+    }
 }
