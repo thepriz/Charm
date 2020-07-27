@@ -11,7 +11,8 @@ import svenhjol.meson.Meson;
 @Mixin(StrayEntity.class)
 public class StrayImprovementsMixin {
     @Redirect(
-        method = "func_223327_b", at = @At(
+        method = "func_223327_b(Lnet/minecraft/entity/EntityType;Lnet/minecraft/world/IWorld;Lnet/minecraft/entity/SpawnReason;Lnet/minecraft/util/math/BlockPos;Ljava/util/Random;)Z",
+            at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/world/IWorld;canSeeSky(Lnet/minecraft/util/math/BlockPos;)Z"
         )
