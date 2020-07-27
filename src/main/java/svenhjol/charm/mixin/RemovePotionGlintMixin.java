@@ -12,11 +12,11 @@ import svenhjol.meson.Meson;
 public class RemovePotionGlintMixin {
     @Inject(
         method = "hasEffect",
-        at = @At("RETURN"),
+        at = @At("HEAD"),
         cancellable = true
     )
     public void hasEffectHook(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
-        if (Meson.enabled("charm:remove_potion_glint") && cir.getReturnValue())
+        if (Meson.enabled("charm:remove_potion_glint"))
             cir.setReturnValue(false);
     }
 }
