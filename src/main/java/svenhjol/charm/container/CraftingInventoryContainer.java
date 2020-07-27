@@ -24,8 +24,6 @@ public class CraftingInventoryContainer extends WorkbenchContainer {
         super.onContainerClosed(playerIn);
 
         if (!playerIn.world.isRemote)
-            Meson.getMod(Charm.MOD_ID)
-                .getPacketHandler()
-                .sendToPlayer(new ClientOpenInventory(), (ServerPlayerEntity)playerIn);
+            Meson.getMod(Charm.MOD_ID).getPacketHandler().sendToPlayer(new ClientOpenInventory(), (ServerPlayerEntity)playerIn);
     }
 }

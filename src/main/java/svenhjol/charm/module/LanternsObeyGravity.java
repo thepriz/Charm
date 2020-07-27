@@ -28,10 +28,10 @@ public class LanternsObeyGravity extends MesonModule {
             Item lanternItem = new BlockItem(lanternBlock, (new Item.Properties().group(ItemGroup.DECORATIONS)));
             Item soulLanternItem = new BlockItem(soulLanternBlock, (new Item.Properties().group(ItemGroup.DECORATIONS)));
 
-            OverrideHandler.changeVanillaBlock(lanternBlock, LANTERN_ID);
-            OverrideHandler.changeVanillaItem(lanternItem, LANTERN_ID);
-            OverrideHandler.changeVanillaBlock(soulLanternBlock, SOUL_LANTERN_ID);
-            OverrideHandler.changeVanillaItem(soulLanternItem, SOUL_LANTERN_ID);
+            OverrideHandler.changeVanillaBlock(mod, lanternBlock, LANTERN_ID);
+            OverrideHandler.changeVanillaItem(mod, lanternItem, LANTERN_ID);
+            OverrideHandler.changeVanillaBlock(mod, soulLanternBlock, SOUL_LANTERN_ID);
+            OverrideHandler.changeVanillaItem(mod, soulLanternItem, SOUL_LANTERN_ID);
         }
     }
 }

@@ -28,9 +28,9 @@ public class StackablePotions extends MesonModule {
             DispenserBlock.registerDispenseBehavior(splashPotionItem, splashBehavior);
 
             // override vanilla potion items
-            OverrideHandler.changeVanillaItem(potionItem, new ResourceLocation("potion"));
-            OverrideHandler.changeVanillaItem(splashPotionItem, new ResourceLocation("splash_potion"));
-            OverrideHandler.changeVanillaItem(lingeringPotionItem, new ResourceLocation("lingering_potion"));
+            OverrideHandler.changeVanillaItem(mod, potionItem, new ResourceLocation("potion"));
+            OverrideHandler.changeVanillaItem(mod, splashPotionItem, new ResourceLocation("splash_potion"));
+            OverrideHandler.changeVanillaItem(mod, lingeringPotionItem, new ResourceLocation("lingering_potion"));
         }
     }
 
