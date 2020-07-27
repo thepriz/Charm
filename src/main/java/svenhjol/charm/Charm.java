@@ -24,6 +24,8 @@ public class Charm extends MesonMod {
             ArmorInvisibility.class,
             AutomaticRecipeUnlock.class,
             BeaconsHealMobs.class,
+            BlockOfGunpowder.class,
+            BlockOfSugar.class,
             CaveSpidersDropCobwebs.class,
             ChickensDropFeathers.class,
             CraftingInventory.class,
