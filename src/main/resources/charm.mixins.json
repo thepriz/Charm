@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "charm.refmap.json",
   "mixins": [
+    "AnvilImprovementsContainerMixin",
     "ArmorInvisibilityLivingEntityMixin",
     "BeaconsHealMobsMixin",
     "HuskImprovementsMixin",
@@ -15,6 +16,7 @@
     "WanderingTraderImprovementsMixin"
   ],
   "client":[
+    "AnvilImprovementsScreenMixin",
     "ArmorInvisibilityBipedArmorLayerMixin",
     "MusicImprovementsMixin",
     "RemovePotionGlintMixin"
