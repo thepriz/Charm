@@ -29,7 +29,7 @@ public class RegistryHandler {
         // add to the mod's registry queue for later registration
         Class<?> registryType = obj.getRegistryType();
         Meson.getMod(modId).addToRegistryQueue(registryType, obj);
-        Meson.LOG.debug(LogHandler.REGISTRY, "Mod " + modId + " queuing object " + obj.getRegistryType());
+        Meson.LOG.debug(LogHandler.REGISTRY, "Mod " + modId + " queuing object " + obj.getRegistryName());
 
         // do custom/additional register actions
         register(modId, registryType, obj, res);

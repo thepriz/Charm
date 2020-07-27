@@ -2,9 +2,11 @@ package svenhjol.meson;
 
 import com.google.common.base.CaseFormat;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import svenhjol.meson.condition.ModuleEnabledCondition;
 import svenhjol.meson.condition.ModuleNotEnabledCondition;
@@ -43,6 +45,8 @@ public class Meson {
         forgeEventBus.addListener(mod::onServerAboutToStart);
         forgeEventBus.addListener(mod::onServerStarting);
         forgeEventBus.addListener(mod::onServerStarted);
+
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> modEventBus.addListener(mod::onClientSetup));
     }
 
     public static MesonMod getMod(String id) {
