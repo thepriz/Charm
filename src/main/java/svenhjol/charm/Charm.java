@@ -21,6 +21,7 @@ public class Charm extends MesonMod {
     protected List<Class<? extends MesonModule>> getModules() {
         return Arrays.asList(
             AnvilImprovements.class,
+            ArmorInvisibility.class,
             AutomaticRecipeUnlock.class,
             BeaconsHealMobs.class,
             CaveSpidersDropCobwebs.class,
@@ -31,13 +32,13 @@ public class Charm extends MesonMod {
             FeatherFallingCrops.class,
             HuskImprovements.class,
             LanternsObeyGravity.class,
-            ArmorInvisibility.class,
             MineshaftImprovements.class,
             MoreVillageBiomes.class,
             MoreVillagerTrades.class,
             MusicImprovements.class,
             ParrotsStayOnShoulder.class,
             PathToDirt.class,
+            RedstoneSand.class,
             RemoveNitwits.class,
             RemovePotionGlint.class,
             StackableBooks.class,

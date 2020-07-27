@@ -41,7 +41,7 @@ public class VariantBarrelBlock extends BarrelBlock implements IMesonBlock {
 
     @Override
     public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
-        if (enabled() && group == ItemGroup.SEARCH) {
+        if (enabled()) {
             super.fillItemGroup(group, items);
         }
     }
