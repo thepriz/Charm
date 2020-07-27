@@ -3,8 +3,11 @@ package svenhjol.meson;
 import com.google.common.base.CaseFormat;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import svenhjol.meson.condition.ModuleEnabledCondition;
+import svenhjol.meson.condition.ModuleNotEnabledCondition;
 import svenhjol.meson.handler.LogHandler;
 import svenhjol.meson.handler.RegistryHandler;
 
@@ -21,7 +24,14 @@ public class Meson {
     private final IEventBus forgeEventBus = MinecraftForge.EVENT_BUS;
 
     private Meson() {
+        // subscribe handlers to Forge's event bus as required
         modEventBus.addListener(RegistryHandler::onRegister);
+
+        // register crafting conditions
+        ModuleEnabledCondition.Serializer modEnabled = new ModuleEnabledCondition.Serializer();
+        ModuleNotEnabledCondition.Serializer modNotEnabled = new ModuleNotEnabledCondition.Serializer();
+        CraftingHelper.register(modEnabled);
+        CraftingHelper.register(modNotEnabled);
     }
 
     public void register(MesonMod mod) {
@@ -36,11 +46,14 @@ public class Meson {
     }
 
     public static MesonMod getMod(String id) {
-        if (mods.containsKey(id)) {
-            return mods.get(id);
-        } else {
+        if (!mods.containsKey(id))
             throw new RuntimeException("No such instance: " + id);
-        }
+
+        return mods.get(id);
+    }
+
+    public static Map<String, MesonMod> getMods() {
+        return mods;
     }
 
     public static boolean enabled(String res) {
@@ -48,16 +61,15 @@ public class Meson {
         String name = split[0];
         String module = split[1];
 
-        if (mods.containsKey(name)) {
-            MesonMod mod = mods.get(name);
+        if (!mods.containsKey(name))
+            return false;
 
-            if (module.contains("_"))
-                module = CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, module);
+        MesonMod mod = mods.get(name);
 
-            return mod.enabled(module);
-        }
+        if (module.contains("_"))
+            module = CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, module);
 
-        return false;
+        return mod.enabled(module);
     }
 
     public static boolean enabled(ResourceLocation res) {

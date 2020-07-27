@@ -18,7 +18,7 @@ public interface IMesonBlock {
     }
 
     default void register(MesonModule module, String name) {
-        RegistryHandler.register((Block) this, new ResourceLocation(module.mod.getId(), name));
+        RegistryHandler.register(module.getModId(), (Block) this, new ResourceLocation(module.mod.getId(), name));
     }
 
     default BlockItem getBlockItem() {

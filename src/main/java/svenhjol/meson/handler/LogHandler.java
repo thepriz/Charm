@@ -7,14 +7,15 @@ import org.apache.logging.log4j.MarkerManager;
 
 public class LogHandler {
     public String name;
-    public Marker marker = MarkerManager.getMarker("INTERNAL");
+    public static final Marker INTERNAL = MarkerManager.getMarker("INTERNAL");
+    public static final Marker REGISTRY = MarkerManager.getMarker("REGISTRY");
 
     public LogHandler(String name) {
         this.name = name;
     }
 
     public void debug(String msg) {
-        debug(marker, msg);
+        debug(INTERNAL, msg);
     }
 
     public void debug(Marker marker, String msg) {
@@ -22,7 +23,7 @@ public class LogHandler {
     }
 
     public void info(String msg) {
-        info(marker, msg);
+        info(INTERNAL, msg);
     }
 
     public void info(Marker marker, String msg) {
@@ -30,7 +31,7 @@ public class LogHandler {
     }
 
     public void warn(String msg) {
-        warn(marker, msg);
+        warn(INTERNAL, msg);
     }
 
     public void warn(Marker marker, String msg) {
@@ -38,7 +39,7 @@ public class LogHandler {
     }
 
     public void error(String msg) {
-        error(marker, msg);
+        error(INTERNAL, msg);
     }
 
     public void error(Marker marker, String msg) {

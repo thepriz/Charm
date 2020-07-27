@@ -45,13 +45,13 @@ public class OverrideHandler {
         block.translationKey = newKey;
     }
 
-    public static void changeVanillaBlock(Block block, ResourceLocation newRes) {
+    public static void changeVanillaBlock(String modId, Block block, ResourceLocation newRes) {
         Registry.register(Registry.BLOCK, newRes, block);
-        RegistryHandler.register(block, newRes);
+        RegistryHandler.register(modId, block, newRes);
     }
 
-    public static void changeVanillaItem(Item item, ResourceLocation newRes) {
+    public static void changeVanillaItem(String modId, Item item, ResourceLocation newRes) {
         Registry.register(Registry.ITEM, newRes, item);
-        RegistryHandler.register(item, newRes);
+        RegistryHandler.register(modId, item, newRes);
     }
 }

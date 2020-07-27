@@ -1,5 +1,6 @@
 package svenhjol.meson;
 
+import com.google.common.collect.ArrayListMultimap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.DistExecutor;
@@ -10,18 +11,21 @@ import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.event.server.FMLServerAboutToStartEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartedEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 import svenhjol.meson.handler.ConfigHandler;
 import svenhjol.meson.handler.PacketHandler;
 import svenhjol.meson.iface.IForgeLoadEvents;
 
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
 public abstract class MesonMod implements IForgeLoadEvents {
     private final String id;
     private final ConfigHandler configHandler;
     private final PacketHandler packetHandler;
+    private ArrayListMultimap<Class<?>, Supplier<IForgeRegistryEntry<?>>> registryQueue = ArrayListMultimap.create();
 
     public MesonMod(String id) {
         this.id = id;
@@ -38,6 +42,14 @@ public abstract class MesonMod implements IForgeLoadEvents {
     }
 
     protected abstract List<Class<? extends MesonModule>> getModules();
+
+    public ArrayListMultimap<Class<?>, Supplier<IForgeRegistryEntry<?>>> getRegistryQueue() {
+        return registryQueue;
+    }
+
+    public void addToRegistryQueue(Class<?> registryType, IForgeRegistryEntry<?> objectToRegister) {
+        registryQueue.put(registryType, () -> objectToRegister);
+    }
 
     public String getId() {
         return id;
