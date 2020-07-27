@@ -41,7 +41,7 @@ public class WanderingTraderImprovementsMixin {
         )
     )
     private int randomCheckHook(Random random, int i) {
-        if (Meson.enabled("charm:wandering_trader_improvements"))
+        if (false && Meson.enabled("charm:wandering_trader_improvements"))
             return 0; // Set to 10 for vanilla functionality
 
         return 10;
