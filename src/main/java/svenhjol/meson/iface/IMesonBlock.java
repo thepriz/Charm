@@ -6,7 +6,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.ResourceLocation;
 import svenhjol.meson.MesonModule;
-import svenhjol.meson.handler.RegistryHandler;
 
 public interface IMesonBlock {
     ItemGroup getItemGroup();
@@ -18,7 +17,7 @@ public interface IMesonBlock {
     }
 
     default void register(MesonModule module, String name) {
-        RegistryHandler.register(module.getModId(), (Block) this, new ResourceLocation(module.mod.getId(), name));
+        module.getMod().register((Block)this, new ResourceLocation(module.getMod().getId(), name));
     }
 
     default BlockItem getBlockItem() {

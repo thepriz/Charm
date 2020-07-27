@@ -4,12 +4,13 @@ import com.google.common.collect.ArrayListMultimap;
 import net.minecraft.block.Block;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.registries.GameData;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import svenhjol.meson.Meson;
+import svenhjol.meson.MesonMod;
 import svenhjol.meson.iface.IMesonBlock;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -17,30 +18,11 @@ import java.util.function.Supplier;
 public class RegistryHandler {
 
     /**
-     * Entry point to register all the things.
+     * Do custom/additional registry actions here.
      */
-    public static void register(String modId, IForgeRegistryEntry<?> obj, ResourceLocation res) {
-        if (res == null)
-            throw new RuntimeException("Can't register something without a resource location");
-
-        if (obj.getRegistryName() == null)
-            obj.setRegistryName(GameData.checkPrefix(res.toString(), false));
-
-        // add to the mod's registry queue for later registration
-        Class<?> registryType = obj.getRegistryType();
-        Meson.getMod(modId).addToRegistryQueue(registryType, obj);
-        Meson.LOG.debug(LogHandler.REGISTRY, "Mod " + modId + " queuing object " + obj.getRegistryName());
-
-        // do custom/additional register actions
-        register(modId, registryType, obj, res);
-    }
-
-    /**
-     * Do additional registry actions here.
-     */
-    private static void register(String modId, Class<?> registryType, IForgeRegistryEntry<?> obj, ResourceLocation res) {
+    public static void customRegisters(MesonMod mod, Class<?> registryType, @Nonnull IForgeRegistryEntry<?> obj, @Nonnull ResourceLocation res) {
         if (registryType == Block.class && obj instanceof IMesonBlock) {
-            register(modId, ((IMesonBlock)obj).getBlockItem(), res); // also register BlockItem
+            mod.register(((IMesonBlock)obj).getBlockItem(), res); // also register BlockItem
         }
     }
 

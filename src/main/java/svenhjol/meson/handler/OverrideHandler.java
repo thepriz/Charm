@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
+import svenhjol.meson.MesonMod;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -45,13 +46,13 @@ public class OverrideHandler {
         block.translationKey = newKey;
     }
 
-    public static void changeVanillaBlock(String modId, Block block, ResourceLocation newRes) {
+    public static void changeVanillaBlock(MesonMod mod, Block block, ResourceLocation newRes) {
         Registry.register(Registry.BLOCK, newRes, block);
-        RegistryHandler.register(modId, block, newRes);
+        mod.register(block, newRes);
     }
 
-    public static void changeVanillaItem(String modId, Item item, ResourceLocation newRes) {
+    public static void changeVanillaItem(MesonMod mod, Item item, ResourceLocation newRes) {
         Registry.register(Registry.ITEM, newRes, item);
-        RegistryHandler.register(modId, item, newRes);
+        mod.register(item, newRes);
     }
 }

@@ -1,6 +1,7 @@
 package svenhjol.meson;
 
 import com.google.common.collect.ArrayListMultimap;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.DistExecutor;
@@ -11,9 +12,12 @@ import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.event.server.FMLServerAboutToStartEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartedEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
+import net.minecraftforge.registries.GameData;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import svenhjol.meson.handler.ConfigHandler;
+import svenhjol.meson.handler.LogHandler;
 import svenhjol.meson.handler.PacketHandler;
+import svenhjol.meson.handler.RegistryHandler;
 import svenhjol.meson.iface.IForgeLoadEvents;
 
 import java.util.List;
@@ -43,12 +47,24 @@ public abstract class MesonMod implements IForgeLoadEvents {
 
     protected abstract List<Class<? extends MesonModule>> getModules();
 
-    public ArrayListMultimap<Class<?>, Supplier<IForgeRegistryEntry<?>>> getRegistryQueue() {
-        return registryQueue;
+    public void register(IForgeRegistryEntry<?> obj, ResourceLocation res) {
+        if (res == null)
+            throw new RuntimeException("Can't register something without a resource location");
+
+        if (obj.getRegistryName() == null)
+            obj.setRegistryName(GameData.checkPrefix(res.toString(), false));
+
+        // add to the mod's registry queue for later registration
+        Class<?> registryType = obj.getRegistryType();
+        registryQueue.put(registryType, () -> obj);
+        Meson.LOG.debug(LogHandler.REGISTRY, "Mod " + getId() + " queuing object " + obj.getRegistryName() + " to " + registryType.getSimpleName());
+
+        // run custom registrations
+        RegistryHandler.customRegisters(this, registryType, obj, res);
     }
 
-    public void addToRegistryQueue(Class<?> registryType, IForgeRegistryEntry<?> objectToRegister) {
-        registryQueue.put(registryType, () -> objectToRegister);
+    public ArrayListMultimap<Class<?>, Supplier<IForgeRegistryEntry<?>>> getRegistryQueue() {
+        return registryQueue;
     }
 
     public String getId() {

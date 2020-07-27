@@ -23,11 +23,8 @@ public abstract class MesonModule implements IForgeLoadEvents {
         return true;
     }
 
-    public String getModId() {
-        if (this.mod == null)
-            throw new RuntimeException("This meson module has not been set up properly, and will now meet its death with grace.");
-
-        return mod.getId();
+    public MesonMod getMod() {
+        return mod;
     }
 
     public String getName() {
