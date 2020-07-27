@@ -57,7 +57,7 @@ public abstract class MesonMod implements IForgeLoadEvents {
         // add to the mod's registry queue for later registration
         Class<?> registryType = obj.getRegistryType();
         registryQueue.put(registryType, () -> obj);
-        Meson.LOG.debug(LogHandler.REGISTRY, "Mod " + getId() + " queuing object " + obj.getRegistryName() + " to " + registryType.getSimpleName());
+        Meson.LOG.debug(LogHandler.REGISTRY, "Mod " + getId() + " queuing object " + obj.getRegistryName() + " for " + registryType.getSimpleName().toLowerCase() + " registry");
 
         // run custom registrations
         RegistryHandler.customRegisters(this, registryType, obj, res);

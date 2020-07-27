@@ -76,8 +76,6 @@ public class ConfigHandler {
 
     private Void buildConfig(ForgeConfigSpec.Builder builder, ImmutableList<MesonModule> modules) {
         modules.forEach(module -> {
-            Meson.LOG.info(module.toString());
-
             if (!module.description.isEmpty())
                 builder.comment(module.description);
 
