@@ -26,6 +26,7 @@ public class Charm extends MesonMod {
             CaveSpidersDropCobwebs.class,
             ChickensDropFeathers.class,
             CraftingInventory.class,
+            Crates.class,
             ExtractEnchantments.class,
             FeatherFallingCrops.class,
             HuskImprovements.class,

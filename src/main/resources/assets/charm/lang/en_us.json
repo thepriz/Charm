@@ -1,4 +1,12 @@
 {
+  "block.charm.acacia_crate": "Acacia Crate",
+  "block.charm.birch_crate": "Birch Crate",
+  "block.charm.crimson_crate": "Crimson Crate",
+  "block.charm.dark_oak_crate": "Dark Oak Crate",
+  "block.charm.jungle_crate": "Jungle Crate",
+  "block.charm.oak_crate": "Oak Crate",
+  "block.charm.spruce_crate": "Spruce Crate",
+  "block.charm.warped_crate": "Warped Crate",
   "filled_map.charm.trader_map": "%s Map",
   "structure.charm.desert_pyramid": "Desert Pyramid",
   "structure.charm.igloo": "Igloo",
@@ -9,5 +17,6 @@
   "structure.charm.ruined_portal": "Ruined Portal",
   "structure.charm.shipwreck": "Shipwreck",
   "structure.charm.swamp_hut": "Swamp Hut",
-  "structure.charm.village": "Village"
+  "structure.charm.village": "Village",
+  "tile.charm.crate": "Crate"
 }
