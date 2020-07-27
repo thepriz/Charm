@@ -40,6 +40,7 @@ public class Charm extends MesonMod {
             MusicImprovements.class,
             ParrotsStayOnShoulder.class,
             PathToDirt.class,
+            RedstoneLanterns.class,
             RedstoneSand.class,
             RemoveNitwits.class,
             RemovePotionGlint.class,
