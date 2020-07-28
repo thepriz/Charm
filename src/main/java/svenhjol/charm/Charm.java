@@ -33,6 +33,7 @@ public class Charm extends MesonMod {
             CraftingInventory.class,
             Crates.class,
             DecreaseRepairCost.class,
+            EndermitePowder.class,
             ExtractEnchantments.class,
             FeatherFallingCrops.class,
             GoldChains.class,
