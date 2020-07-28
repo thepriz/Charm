@@ -25,7 +25,7 @@ public class StrayImprovements extends MesonModule {
     public static boolean dropIce = true;
 
     @Config(name = "Drop chance", description = "Chance (out of 1.0) of a stray dropping blue ices when it is killed.")
-    public static double chance = 0.33D;
+    public static double dropChance = 0.33D;
 
     @Module(description = "Strays spawn anywhere within their biome and have a chance to drop blue ice.", hasSubscriptions = true)
     public StrayImprovements() { }
@@ -41,7 +41,7 @@ public class StrayImprovements extends MesonModule {
         if (dropIce
             && !entity.world.isRemote
             && entity instanceof StrayEntity
-            && entity.world.rand.nextFloat() <= (chance + (lootingBoost * lootingLevel))
+            && entity.world.rand.nextFloat() <= (dropChance + (lootingBoost * lootingLevel))
         ) {
             BlockPos pos = entity.getPosition();
             ItemStack ice = new ItemStack(Items.BLUE_ICE);

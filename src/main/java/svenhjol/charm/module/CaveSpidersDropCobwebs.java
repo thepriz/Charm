@@ -25,12 +25,11 @@ public class CaveSpidersDropCobwebs extends MesonModule {
 
     @SubscribeEvent
     public void onCaveSpiderDrops(LivingDropsEvent event) {
-        if (!event.isCanceled()) {
-            tryDropCobwebs(event.getEntityLiving(), event.getDrops(), event.getLootingLevel());
-        }
+        if (!event.isCanceled())
+            tryDropCobweb(event.getEntityLiving(), event.getDrops(), event.getLootingLevel());
     }
 
-    public void tryDropCobwebs(LivingEntity entity, Collection<ItemEntity> drops, int lootingLevel) {
+    public void tryDropCobweb(LivingEntity entity, Collection<ItemEntity> drops, int lootingLevel) {
         if (!entity.world.isRemote
             && entity instanceof CaveSpiderEntity
             && entity.world.rand.nextFloat() <= (chance + (lootingBoost * lootingLevel))

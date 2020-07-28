@@ -28,9 +28,8 @@ public class WitchesDropLuck extends MesonModule {
 
     @SubscribeEvent
     public void onWitchDrops(LivingDropsEvent event) {
-        if (!event.isCanceled()) {
+        if (!event.isCanceled())
             tryDropLuck(event.getEntityLiving(), event.getDrops(), event.getLootingLevel(), event.getSource());
-        }
     }
 
     public void tryDropLuck(LivingEntity entity, Collection<ItemEntity> drops, int lootingLevel, DamageSource damageSource) {

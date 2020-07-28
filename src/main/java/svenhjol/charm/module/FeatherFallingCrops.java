@@ -15,9 +15,9 @@ public class FeatherFallingCrops extends MesonModule {
     public void onFarmlandTrample(BlockEvent.FarmlandTrampleEvent event) {
         if (event.getEntity() instanceof LivingEntity) {
             LivingEntity entity = (LivingEntity)event.getEntity();
-            if (EnchantmentsHelper.hasFeatherFalling(entity)) {
+            
+            if (EnchantmentsHelper.hasFeatherFalling(entity))
                 event.setCanceled(true);
-            }
         }
     }
 }

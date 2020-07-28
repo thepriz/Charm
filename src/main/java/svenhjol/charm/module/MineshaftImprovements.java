@@ -4,6 +4,10 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LanternBlock;
 import net.minecraft.block.SlabBlock;
+import net.minecraft.loot.LootTables;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MutableBoundingBox;
@@ -15,6 +19,8 @@ import net.minecraft.world.gen.feature.structure.MineshaftPieces.Room;
 import net.minecraft.world.gen.feature.structure.StructureManager;
 import net.minecraft.world.gen.feature.structure.StructurePiece;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import svenhjol.charm.tileentity.CrateTileEntity;
+import svenhjol.meson.Meson;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
@@ -32,12 +38,14 @@ public class MineshaftImprovements extends MesonModule {
     public static List<BlockState> pileBlocks = new ArrayList<>();
     public static List<BlockState> roomBlocks = new ArrayList<>();
     public static List<BlockState> roomDecoration = new ArrayList<>();
+    public static List<ResourceLocation> crateLootTables = new ArrayList<>();
 
-    public static float floorBlockChance = 0.09F;
+    public static float floorBlockChance = 0.08F;
     public static float ceilingBlockChance = 0.04F;
-    public static float rareBlockChance = 0.09F;
-    public static float roomBlockChance = 0.40F;
-    public static float blockPileChance = 0.14F;
+    public static float rareBlockChance = 0.08F;
+    public static float roomBlockChance = 0.38F;
+    public static float blockPileChance = 0.12F;
+    public static float crateChance = 0.14F;
 
     @Config(name = "Corridor blocks", description = "If true, stone, ore, lanterns and TNT will spawn inside mineshaft corridors.")
     public static boolean generateCorridorBlocks = true;
@@ -47,6 +55,9 @@ public class MineshaftImprovements extends MesonModule {
 
     @Config(name = "Room blocks", description = "If true, precious ores will spawn in the central mineshaft room.")
     public static boolean generateRoomBlocks = true;
+
+    @Config(name = "Add crates", description = "If true, loot crates will be added to mineshaft corridors.")
+    public static boolean generateCrates = true;
 
     @Module(description = "Adds decoration and more ores to mineshafts.")
     public MineshaftImprovements() { }
@@ -59,11 +70,11 @@ public class MineshaftImprovements extends MesonModule {
             Blocks.STONE_SLAB.getDefaultState(),
             Blocks.ANDESITE_SLAB.getDefaultState(),
             Blocks.IRON_ORE.getDefaultState(),
+            Blocks.COAL_ORE.getDefaultState(),
             Blocks.GOLD_ORE.getDefaultState()
         ));
 
         rareFloorBlocks.addAll(Arrays.asList(
-            Blocks.GOLD_ORE.getDefaultState(),
             Blocks.TNT.getDefaultState(),
             Blocks.LANTERN.getDefaultState()
         ));
@@ -87,8 +98,7 @@ public class MineshaftImprovements extends MesonModule {
         ));
 
         rareCeilngBlocks.addAll(Arrays.asList(
-            Blocks.GOLD_ORE.getDefaultState(),
-            Blocks.DIAMOND_ORE.getDefaultState()
+            Blocks.GOLD_ORE.getDefaultState()
         ));
 
         roomBlocks.addAll(Arrays.asList(
@@ -104,6 +114,15 @@ public class MineshaftImprovements extends MesonModule {
             Blocks.GRASS.getDefaultState(),
             Blocks.FERN.getDefaultState(),
             Blocks.OAK_SAPLING.getDefaultState()
+        ));
+
+        crateLootTables.addAll(Arrays.asList(
+            LootTables.CHESTS_ABANDONED_MINESHAFT,
+            LootTables.CHESTS_SIMPLE_DUNGEON,
+            LootTables.CHESTS_VILLAGE_VILLAGE_CARTOGRAPHER,
+            LootTables.CHESTS_VILLAGE_VILLAGE_MASON,
+            LootTables.CHESTS_VILLAGE_VILLAGE_TOOLSMITH,
+            LootTables.CHESTS_VILLAGE_VILLAGE_WEAPONSMITH
         ));
     }
 
@@ -136,23 +155,45 @@ public class MineshaftImprovements extends MesonModule {
             }
         }
 
-        if (generateCorridorPiles) {
-            if (rand.nextFloat() < blockPileChance) {
-                int z = rand.nextInt(bz);
-                if (validFloorBlock(piece, world, 1, 0, z, box)) {
+        if (generateCorridorPiles && rand.nextFloat() < blockPileChance) {
+            int z = rand.nextInt(bz);
+            if (validFloorBlock(piece, world, 1, 0, z, box)) {
 
-                    // select two block states to render in the pile
-                    BlockState block1 = getRandomBlockFromList(pileBlocks, rand);
-                    BlockState block2 = getRandomBlockFromList(pileBlocks, rand);
+                // select two block states to render in the pile
+                BlockState block1 = getRandomBlockFromList(pileBlocks, rand);
+                BlockState block2 = getRandomBlockFromList(pileBlocks, rand);
 
-                    for (int iy = 0; iy < 3; iy++) {
-                        for (int ix = 0; ix <= 2; ix++) {
-                            for (int iz = -1; iz <= 1; iz++) {
-                                boolean valid = validFloorBlock(piece, world, ix, iy, iz, box);
-                                if (valid && rand.nextFloat() < 0.75F)
-                                    piece.setBlockState(world, rand.nextFloat() < 0.5 ? block1 : block2, ix, iy, iz, box);
-                            }
+                for (int iy = 0; iy < 3; iy++) {
+                    for (int ix = 0; ix <= 2; ix++) {
+                        for (int iz = -1; iz <= 1; iz++) {
+                            boolean valid = validFloorBlock(piece, world, ix, iy, iz, box);
+                            if (valid && rand.nextFloat() < 0.75F)
+                                piece.setBlockState(world, rand.nextFloat() < 0.5 ? block1 : block2, ix, iy, iz, box);
                         }
+                    }
+                }
+            }
+        }
+
+        if (generateCrates && rand.nextFloat() < crateChance && Meson.enabled("charm:crates")) {
+            if (rand.nextFloat() < 0.9F) {
+                int r = rand.nextInt(3) + 12;
+                int y = piece.getYWithOffset(0);
+                int x = piece.getXWithOffset(1, r);
+                int z = piece.getZWithOffset(1, r);
+
+                BlockPos blockpos = new BlockPos(x, y, z);
+
+                if (box.isVecInside(blockpos)) {
+                    BlockState state = Crates.getRandomCrateBlock(rand).getDefaultState();
+                    ResourceLocation loot = crateLootTables.get(rand.nextInt(crateLootTables.size()));
+
+                    world.setBlockState(blockpos, state, 2);
+
+                    TileEntity tile = world.getTileEntity(blockpos);
+                    if (tile instanceof CrateTileEntity) {
+                        ((CrateTileEntity) tile).setLootTable(loot, rand.nextLong());
+                        tile.write(new CompoundNBT());
                     }
                 }
             }

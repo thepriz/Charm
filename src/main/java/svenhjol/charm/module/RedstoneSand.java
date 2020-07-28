@@ -5,13 +5,13 @@ import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Module;
 
 public class RedstoneSand extends MesonModule {
-    public static RedstoneSandBlock BLOCK;
+    public static RedstoneSandBlock REDSTONE_SAND;
 
     @Module(description = "A block that acts like sand but is powered like a block of redstone.")
     public RedstoneSand() {}
 
     @Override
     public void init() {
-        BLOCK = new RedstoneSandBlock(this);
+        REDSTONE_SAND = new RedstoneSandBlock(this);
     }
 }

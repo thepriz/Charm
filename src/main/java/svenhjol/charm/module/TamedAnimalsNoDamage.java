@@ -40,11 +40,9 @@ public class TamedAnimalsNoDamage extends MesonModule {
 
             if (player != null && !player.isCreative()) {
                 LivingEntity target = event.getEntityLiving();
-                if (target instanceof TameableEntity
-                    && ((TameableEntity) target).isTamed()
-                ) {
+                
+                if (target instanceof TameableEntity && ((TameableEntity) target).isTamed())
                     event.setCanceled(true);
-                }
             }
         }
     }

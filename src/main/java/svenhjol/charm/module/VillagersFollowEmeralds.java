@@ -26,17 +26,16 @@ public class VillagersFollowEmeralds extends MesonModule {
 
     @SubscribeEvent
     public void onVillagerJoinWorld(EntityJoinWorldEvent event) {
-        if (!event.isCanceled()) {
+        if (!event.isCanceled())
             followEmerald(event.getEntity());
-        }
     }
 
     public void followEmerald(Entity entity) {
         if (entity instanceof VillagerEntity) {
             VillagerEntity villager = (VillagerEntity) entity;
-            if (villager.goalSelector.goals.stream().noneMatch(g -> g.getGoal() instanceof TemptGoal)) {
+            
+            if (villager.goalSelector.goals.stream().noneMatch(g -> g.getGoal() instanceof TemptGoal))
                 villager.goalSelector.addGoal(3, new TemptGoal(villager, 0.6, Ingredient.fromItems(Items.EMERALD), false));
-            }
         }
     }
 }

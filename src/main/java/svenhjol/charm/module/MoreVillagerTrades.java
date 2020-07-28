@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Random;
 
 public class MoreVillagerTrades extends MesonModule {
-    @Module(description = "", hasSubscriptions = true)
+    @Module(description = "Adds convenience trades to some village professions.", hasSubscriptions = true)
     public MoreVillagerTrades() {}
 
     @SubscribeEvent

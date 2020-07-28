@@ -8,18 +8,18 @@ import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Module;
 
 public class RedstoneLanterns extends MesonModule {
-    public static RedstoneLanternBlock BLOCK;
+    public static RedstoneLanternBlock REDSTONE_LANTERN;
 
     @Module(description = "A lantern that emits light when a redstone signal is received.")
     public RedstoneLanterns() {}
 
     @Override
     public void init() {
-        BLOCK = new RedstoneLanternBlock(this);
+        REDSTONE_LANTERN = new RedstoneLanternBlock(this);
     }
 
     @Override
     public void onClientSetup(FMLClientSetupEvent event) {
-        RenderTypeLookup.setRenderLayer(BLOCK, RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(REDSTONE_LANTERN, RenderType.getCutout());
     }
 }
