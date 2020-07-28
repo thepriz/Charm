@@ -5,7 +5,7 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import svenhjol.meson.MesonModule;
-import svenhjol.meson.iface.IMesonBlock;
+import svenhjol.meson.block.IMesonBlock;
 
 public abstract class BaseLanternBlock extends ImprovedLanternBlock implements IMesonBlock {
     protected MesonModule module;

@@ -1,4 +1,4 @@
-package svenhjol.meson.iface;
+package svenhjol.meson.enums;
 
 public interface IStorageMaterial extends IMesonEnum {
 }

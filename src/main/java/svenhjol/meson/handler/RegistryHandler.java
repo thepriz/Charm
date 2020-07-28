@@ -8,7 +8,7 @@ import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import svenhjol.meson.Meson;
 import svenhjol.meson.MesonMod;
-import svenhjol.meson.iface.IMesonBlock;
+import svenhjol.meson.block.IMesonBlock;
 
 import javax.annotation.Nonnull;
 import java.util.List;

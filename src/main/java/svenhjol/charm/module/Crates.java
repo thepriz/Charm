@@ -18,7 +18,7 @@ import svenhjol.meson.MesonModule;
 import svenhjol.meson.enums.VanillaStorageMaterial;
 import svenhjol.meson.helper.ItemHelper;
 import svenhjol.meson.iface.Config;
-import svenhjol.meson.iface.IStorageMaterial;
+import svenhjol.meson.enums.IStorageMaterial;
 import svenhjol.meson.iface.Module;
 
 import java.util.ArrayList;

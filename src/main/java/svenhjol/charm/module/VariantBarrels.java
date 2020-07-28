@@ -7,7 +7,7 @@ import svenhjol.charm.block.VariantBarrelBlock;
 import svenhjol.charm.tileentity.VariantBarrelTileEntity;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.enums.VanillaStorageMaterial;
-import svenhjol.meson.iface.IStorageMaterial;
+import svenhjol.meson.enums.IStorageMaterial;
 import svenhjol.meson.iface.Module;
 
 import java.util.HashMap;

@@ -5,7 +5,6 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import svenhjol.meson.MesonModule;
-import svenhjol.meson.iface.IMesonFallingBlock;
 
 @SuppressWarnings({"NullableProblems", "unused"})
 public abstract class MesonFallingBlock extends FallingBlock implements IMesonFallingBlock {

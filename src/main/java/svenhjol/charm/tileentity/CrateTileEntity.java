@@ -16,7 +16,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import svenhjol.charm.container.CrateContainer;
 import svenhjol.charm.module.Crates;
-import svenhjol.meson.iface.IMesonTileEntity;
+import svenhjol.meson.tileentity.IMesonTileEntity;
 import vazkii.quark.api.ITransferManager;
 
 public class CrateTileEntity extends LockableLootTileEntity implements ICapabilityProvider, IMesonTileEntity, ITransferManager {

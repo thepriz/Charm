@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.block.MesonFallingBlock;
-import svenhjol.meson.iface.IMesonBlock;
+import svenhjol.meson.block.IMesonBlock;
 
 @SuppressWarnings({"BooleanMethodIsAlwaysInverted", "NullableProblems"})
 public class GunpowderBlock extends MesonFallingBlock implements IMesonBlock {

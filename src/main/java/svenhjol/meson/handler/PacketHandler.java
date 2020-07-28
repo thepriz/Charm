@@ -11,7 +11,7 @@ import net.minecraftforge.fml.network.simple.SimpleChannel;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import svenhjol.meson.Meson;
 import svenhjol.meson.MesonMod;
-import svenhjol.meson.iface.IMesonMessage;
+import svenhjol.meson.message.IMesonMessage;
 
 import java.util.function.BiConsumer;
 import java.util.function.Function;

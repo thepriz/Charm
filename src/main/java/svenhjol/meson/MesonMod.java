@@ -18,14 +18,13 @@ import svenhjol.meson.handler.ConfigHandler;
 import svenhjol.meson.handler.LogHandler;
 import svenhjol.meson.handler.PacketHandler;
 import svenhjol.meson.handler.RegistryHandler;
-import svenhjol.meson.iface.IForgeLoadEvents;
 
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
-public abstract class MesonMod implements IForgeLoadEvents {
+public abstract class MesonMod {
     private final String id;
     private final ConfigHandler configHandler;
     private final PacketHandler packetHandler;
@@ -96,7 +95,6 @@ public abstract class MesonMod implements IForgeLoadEvents {
         });
     }
 
-    @Override
     public void onClientSetup(FMLClientSetupEvent event) {
         eachEnabledModule(module -> module.onClientSetup(event));
     }
