@@ -5,13 +5,13 @@ import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Module;
 
 public class BlockOfGunpowder extends MesonModule {
-    public static GunpowderBlock BLOCK;
+    public static GunpowderBlock GUNPOWDER_BLOCK;
 
     @Module(description = "A storage block for gunpowder. It obeys gravity and dissolves in lava.")
     public BlockOfGunpowder() {}
 
     @Override
     public void init() {
-        BLOCK = new GunpowderBlock(this);
+        GUNPOWDER_BLOCK = new GunpowderBlock(this);
     }
 }

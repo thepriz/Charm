@@ -29,7 +29,7 @@ import java.util.Map;
 @SuppressWarnings("ConstantConditions")
 public class Crates extends MesonModule {
     public static final ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "crate");
-    public static final Map<IStorageMaterial, CrateBlock> BLOCKS = new HashMap<>();
+    public static final Map<IStorageMaterial, CrateBlock> CRATE_BLOCKS = new HashMap<>();
 
     public static ContainerType<CrateContainer> CONTAINER;
     public static TileEntityType<CrateTileEntity> TILE;
@@ -49,7 +49,7 @@ public class Crates extends MesonModule {
     @Override
     public void init() {
         for (VanillaStorageMaterial type : VanillaStorageMaterial.values()) {
-            BLOCKS.put(type, new CrateBlock(this, type));
+            CRATE_BLOCKS.put(type, new CrateBlock(this, type));
         }
 
         invalidBlocks.add(ShulkerBoxBlock.class);

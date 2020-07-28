@@ -16,7 +16,7 @@ import java.util.Map;
 @SuppressWarnings("ConstantConditions")
 public class VariantBarrels extends MesonModule {
     public static final ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "barrel");
-    public static final Map<IStorageMaterial, VariantBarrelBlock> BLOCKS = new HashMap<>();
+    public static final Map<IStorageMaterial, VariantBarrelBlock> BARREL_BLOCKS = new HashMap<>();
 
     public static TileEntityType<VariantBarrelTileEntity> TILE;
 
@@ -26,7 +26,7 @@ public class VariantBarrels extends MesonModule {
     @Override
     public void init() {
         for (VanillaStorageMaterial type : VanillaStorageMaterial.values()) {
-            BLOCKS.put(type, new VariantBarrelBlock(this, type));
+            BARREL_BLOCKS.put(type, new VariantBarrelBlock(this, type));
         }
 
         TILE = TileEntityType.Builder.create(VariantBarrelTileEntity::new).build(null);

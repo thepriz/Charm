@@ -5,13 +5,13 @@ import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Module;
 
 public class BlockOfSugar extends MesonModule {
-    public static SugarBlock BLOCK;
+    public static SugarBlock SUGAR_BLOCK;
 
     @Module(description = "A storage block for sugar. It obeys gravity and dissolves in water.")
     public BlockOfSugar() {}
 
     @Override
     public void init() {
-        BLOCK = new SugarBlock(this);
+        SUGAR_BLOCK = new SugarBlock(this);
     }
 }

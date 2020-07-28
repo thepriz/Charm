@@ -25,7 +25,7 @@ public class HuskImprovements extends MesonModule {
     public static boolean dropSand = true;
 
     @Config(name = "Drop chance", description = "Chance (out of 1.0) of a husk dropping sand when it is killed.")
-    public static double chance = 0.33D;
+    public static double dropChance = 0.33D;
 
     @Module(description = "Husks spawn anywhere within their biome and have a chance to drop sand.", hasSubscriptions = true)
     public HuskImprovements() {}
@@ -41,7 +41,7 @@ public class HuskImprovements extends MesonModule {
         if (dropSand
             && !entity.world.isRemote
             && entity instanceof HuskEntity
-            && entity.world.rand.nextFloat() <= (chance + (lootingBoost * lootingLevel))
+            && entity.world.rand.nextFloat() <= (dropChance + (lootingBoost * lootingLevel))
         ) {
             BlockPos pos = entity.getPosition();
             ItemStack sand = new ItemStack(Items.SAND);

@@ -25,8 +25,8 @@ public class MoreVillageBiomes extends MesonModule {
 
     @Module(description = "Villages can spawn in swamps, jungles and bedrock-edition biomes.", hasSubscriptions = true)
     public MoreVillageBiomes() {
-        plainsBiomes = Arrays.asList(Biomes.JUNGLE, Biomes.SWAMP, Biomes.SUNFLOWER_PLAINS);
-        taigaBiomes = Arrays.asList(Biomes.TAIGA_HILLS, Biomes.SNOWY_TAIGA, Biomes.SNOWY_TAIGA_HILLS);
+        plainsBiomes.addAll(Arrays.asList(Biomes.JUNGLE, Biomes.SWAMP, Biomes.SUNFLOWER_PLAINS));
+        taigaBiomes.addAll(Arrays.asList(Biomes.TAIGA_HILLS, Biomes.SNOWY_TAIGA, Biomes.SNOWY_TAIGA_HILLS));
     }
 
     @Override
@@ -38,9 +38,8 @@ public class MoreVillageBiomes extends MesonModule {
 
     @SubscribeEvent
     public void onVillagerJoinWorld(EntityJoinWorldEvent event) {
-        if (!event.isCanceled()) {
+        if (!event.isCanceled())
             changeVillagerSkin(event.getEntity());
-        }
     }
 
     public void changeVillagerSkin(Entity entity) {

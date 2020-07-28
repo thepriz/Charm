@@ -186,6 +186,6 @@ public class CrateBlock extends MesonBlock {
     }
 
     private static Block getBlockByMaterial(IStorageMaterial type) {
-        return Crates.BLOCKS.get(type);
+        return Crates.CRATE_BLOCKS.get(type);
     }
 }
