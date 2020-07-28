@@ -33,11 +33,11 @@ public class MineshaftImprovements extends MesonModule {
     public static List<BlockState> roomBlocks = new ArrayList<>();
     public static List<BlockState> roomDecoration = new ArrayList<>();
 
-    public static float floorBlockChance = 0.09F;
+    public static float floorBlockChance = 0.08F;
     public static float ceilingBlockChance = 0.04F;
-    public static float rareBlockChance = 0.09F;
+    public static float rareBlockChance = 0.08F;
     public static float roomBlockChance = 0.40F;
-    public static float blockPileChance = 0.14F;
+    public static float blockPileChance = 0.12F;
 
     @Config(name = "Corridor blocks", description = "If true, stone, ore, lanterns and TNT will spawn inside mineshaft corridors.")
     public static boolean generateCorridorBlocks = true;
@@ -87,8 +87,7 @@ public class MineshaftImprovements extends MesonModule {
         ));
 
         rareCeilngBlocks.addAll(Arrays.asList(
-            Blocks.GOLD_ORE.getDefaultState(),
-            Blocks.DIAMOND_ORE.getDefaultState()
+            Blocks.GOLD_ORE.getDefaultState()
         ));
 
         roomBlocks.addAll(Arrays.asList(
