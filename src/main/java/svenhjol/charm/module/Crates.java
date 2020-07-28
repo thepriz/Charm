@@ -15,16 +15,13 @@ import svenhjol.charm.client.CratesClient;
 import svenhjol.charm.container.CrateContainer;
 import svenhjol.charm.tileentity.CrateTileEntity;
 import svenhjol.meson.MesonModule;
+import svenhjol.meson.enums.IStorageMaterial;
 import svenhjol.meson.enums.VanillaStorageMaterial;
 import svenhjol.meson.helper.ItemHelper;
 import svenhjol.meson.iface.Config;
-import svenhjol.meson.enums.IStorageMaterial;
 import svenhjol.meson.iface.Module;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @SuppressWarnings("ConstantConditions")
 public class Crates extends MesonModule {
@@ -70,5 +67,10 @@ public class Crates extends MesonModule {
 
     public static boolean canInsertItem(ItemStack stack) {
         return !invalidItems.contains(stack.getItem().getClass()) && !invalidBlocks.contains(ItemHelper.getBlockClass(stack));
+    }
+
+    public static CrateBlock getRandomCrateBlock(Random rand) {
+        List<CrateBlock> values = new ArrayList<>(Crates.CRATE_BLOCKS.values());
+        return values.get(rand.nextInt(values.size()));
     }
 }
