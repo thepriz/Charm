@@ -1,4 +1,4 @@
-package svenhjol.meson.iface;
+package svenhjol.meson.item;
 
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;

@@ -7,7 +7,7 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import svenhjol.meson.MesonModule;
-import svenhjol.meson.iface.IMesonBlock;
+import svenhjol.meson.block.IMesonBlock;
 
 @SuppressWarnings("NullableProblems")
 public class GoldChainBlock extends ChainBlock implements IMesonBlock {

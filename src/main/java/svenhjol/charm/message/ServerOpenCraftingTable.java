@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent.Context;
 import svenhjol.charm.module.CraftingInventory;
-import svenhjol.meson.iface.IMesonMessage;
+import svenhjol.meson.message.IMesonMessage;
 
 import java.util.function.Supplier;
 

@@ -28,7 +28,7 @@ import svenhjol.charm.module.Crates;
 import svenhjol.charm.tileentity.CrateTileEntity;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.block.MesonBlock;
-import svenhjol.meson.iface.IStorageMaterial;
+import svenhjol.meson.enums.IStorageMaterial;
 
 import javax.annotation.Nullable;
 import java.util.List;

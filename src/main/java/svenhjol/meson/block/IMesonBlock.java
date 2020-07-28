@@ -1,4 +1,4 @@
-package svenhjol.meson.iface;
+package svenhjol.meson.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;

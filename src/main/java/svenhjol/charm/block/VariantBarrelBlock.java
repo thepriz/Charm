@@ -11,8 +11,8 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.world.IBlockReader;
 import svenhjol.charm.tileentity.VariantBarrelTileEntity;
 import svenhjol.meson.MesonModule;
-import svenhjol.meson.iface.IMesonBlock;
-import svenhjol.meson.iface.IStorageMaterial;
+import svenhjol.meson.block.IMesonBlock;
+import svenhjol.meson.enums.IStorageMaterial;
 
 import javax.annotation.Nullable;
 

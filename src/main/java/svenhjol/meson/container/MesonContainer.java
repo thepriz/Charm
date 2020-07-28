@@ -7,7 +7,6 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
-import svenhjol.meson.iface.IMesonContainer;
 
 public abstract class MesonContainer extends Container implements IMesonContainer {
     protected final IInventory inventory;

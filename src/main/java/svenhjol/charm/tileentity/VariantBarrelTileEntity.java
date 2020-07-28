@@ -12,7 +12,7 @@ import svenhjol.charm.module.VariantBarrels;
 import svenhjol.meson.Meson;
 import svenhjol.meson.MesonMod;
 import svenhjol.meson.enums.VanillaStorageMaterial;
-import svenhjol.meson.iface.IStorageMaterial;
+import svenhjol.meson.enums.IStorageMaterial;
 
 public class VariantBarrelTileEntity extends BarrelTileEntity {
     protected IStorageMaterial type;

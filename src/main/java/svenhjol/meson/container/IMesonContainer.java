@@ -1,4 +1,4 @@
-package svenhjol.meson.iface;
+package svenhjol.meson.container;
 
 public interface IMesonContainer {
 }

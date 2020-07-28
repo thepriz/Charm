@@ -1,7 +1,5 @@
 package svenhjol.meson.enums;
 
-import svenhjol.meson.iface.IStorageMaterial;
-
 public enum VanillaStorageMaterial implements IStorageMaterial {
     OAK,
     SPRUCE,
