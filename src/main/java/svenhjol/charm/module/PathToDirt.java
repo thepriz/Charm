@@ -22,11 +22,13 @@ public class PathToDirt extends MesonModule {
     @SubscribeEvent
     public void onPlayerRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
         if (!event.isCanceled()) {
-            convertPath(event.getEntity(), event.getPos(), event.getHand(), event.getItemStack());
+            boolean result = convertPath(event.getEntity(), event.getPos(), event.getHand(), event.getItemStack());
+            if (result)
+                event.setCanceled(true);
         }
     }
 
-    public void convertPath(Entity entity, BlockPos pos, Hand hand, ItemStack stack) {
+    public boolean convertPath(Entity entity, BlockPos pos, Hand hand, ItemStack stack) {
         if (entity.world != null
             && entity instanceof PlayerEntity
             && stack.getItem() instanceof ShovelItem
@@ -41,11 +43,11 @@ public class PathToDirt extends MesonModule {
                     entity.world.playSound(null, pos, SoundEvents.ITEM_SHOVEL_FLATTEN, SoundCategory.BLOCKS, 1.0F, 1.0F);
 
                     // damage the shovel a bit
-                    stack.damageItem(1, player, p -> {
-                        p.sendBreakAnimation(hand);
-                    });
+                    stack.damageItem(1, player, p -> p.sendBreakAnimation(hand));
+                    return true;
                 }
             }
         }
+        return false;
     }
 }
