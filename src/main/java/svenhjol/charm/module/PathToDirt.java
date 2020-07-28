@@ -16,7 +16,7 @@ import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Module;
 
 public class PathToDirt extends MesonModule {
-    @Module(description = "Right-clicking on a grass path block with a shovel turns it back into dirt.", hasSubscriptions = true)
+    @Module(description = "Right-clicking on a grass path block with a hoe turns it back into dirt.", hasSubscriptions = true)
     public PathToDirt() {}
 
     @SubscribeEvent
