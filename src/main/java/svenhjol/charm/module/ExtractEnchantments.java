@@ -21,6 +21,9 @@ public class ExtractEnchantments extends MesonModule {
     @Config(name = "Initial XP cost", description = "Initial XP cost before adding XP equivalent to the enchantment level(s) of the item.")
     public static int initialCost = 2;
 
+    @Config(name = "Treasure XP cost", description = "If the enchantment is a treasure enchantment, such as Mending, this cost will be added.")
+    public static int treasureCost = 15;
+
     @Module(description = "Extract enchantments from any enchanted item into an empty book.", hasSubscriptions = true)
     public ExtractEnchantments() {}
 
@@ -51,6 +54,9 @@ public class ExtractEnchantments extends MesonModule {
             if (level > 0 && ench.isAllowedOnBooks()) {
                 outEnchants.put(ench, level);
                 cost += level;
+
+                if (ench.isTreasureEnchantment())
+                    cost += treasureCost;
             }
         }
 
