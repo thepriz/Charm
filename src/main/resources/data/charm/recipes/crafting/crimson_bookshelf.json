@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "XXX",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:crimson_planks"
+    },
+    "X": {
+      "item": "minecraft:book"
+    }
+  },
+  "result": {
+    "item": "charm:crimson_bookshelf"
+  },
+  "conditions": [
+    {
+      "type": "meson:module_enabled",
+      "module": "charm:variant_bookshelves"
+    }
+  ]
+}

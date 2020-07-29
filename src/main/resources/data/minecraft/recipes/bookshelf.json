@@ -1,25 +1,25 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "PSP",
-    "P P",
-    "PSP"
+    "###",
+    "XXX",
+    "###"
   ],
   "key": {
-    "P": {
+    "#": {
       "tag": "minecraft:planks"
     },
-    "S": {
-      "tag": "minecraft:wooden_slabs"
+    "X": {
+      "item": "minecraft:book"
     }
   },
   "result": {
-    "item": "minecraft:barrel"
+    "item": "minecraft:bookshelf"
   },
   "conditions": [
     {
       "type": "meson:module_not_enabled",
-      "module": "charm:variant_barrels"
+      "module": "charm:variant_bookshelves"
     }
   ]
 }

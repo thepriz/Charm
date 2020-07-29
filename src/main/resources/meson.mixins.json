@@ -1,0 +1,24 @@
+{
+  "required": true,
+  "package": "svenhjol.meson.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "meson.refmap.json",
+  "mixins": [
+    "BarrelTileEntityAccessor",
+    "BlockAccessor",
+    "DispenserBlockAccessor",
+    "FireBlockAccessor",
+    "GoalSelectorAccessor",
+    "ItemAccessor",
+    "PlayerEntityAccessor",
+    "StructurePieceAccessor"
+  ],
+  "client": [
+    "SoundEngineAccessor",
+    "SoundHandlerAccessor"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "minVersion": "0.8"
+}
