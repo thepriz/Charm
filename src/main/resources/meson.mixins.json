@@ -11,6 +11,7 @@
     "GoalSelectorAccessor",
     "ItemAccessor",
     "PlayerEntityAccessor",
+    "ServerWorldAccessor",
     "StructurePieceAccessor"
   ],
   "client": [
