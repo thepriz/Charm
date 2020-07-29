@@ -58,6 +58,7 @@ public class Charm extends MesonMod {
             TamedAnimalsNoDamage.class,
             UseTotemFromInventory.class,
             VariantBarrels.class,
+            VariantBookshelves.class,
             VillagersFollowEmeralds.class,
             WanderingTraderImprovements.class,
             WitchesDropLuck.class
