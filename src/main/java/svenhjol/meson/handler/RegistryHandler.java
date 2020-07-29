@@ -29,7 +29,7 @@ public class RegistryHandler {
     /**
      * This method is attached to Forge's event bus by the Meson singleton.
      */
-    public static void onRegister(RegistryEvent.Register<?> event) {
+    public static void onRegister(RegistryEvent.Register<? extends IForgeRegistryEntry> event) {
         IForgeRegistry registry = event.getRegistry();
         Class<?> registryType = registry.getRegistrySuperType();
 
