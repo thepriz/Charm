@@ -37,6 +37,7 @@ public class Charm extends MesonMod {
             EndermitePowder.class,
             ExtractEnchantments.class,
             FeatherFallingCrops.class,
+            GoldBars.class,
             GoldChains.class,
             GoldLanterns.class,
             HoeHarvesting.class,
