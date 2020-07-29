@@ -44,7 +44,7 @@ public class SleepImprovements extends MesonModule {
             return;
 
         List<ServerPlayerEntity> validPlayers = server.getPlayerList().getPlayers().stream()
-            .filter(p -> p.isSpectator() || !p.isPlayerFullyAsleep())
+            .filter(p -> !p.isSpectator() && p.isPlayerFullyAsleep())
             .collect(Collectors.toList());
 
         if (validPlayers.size() < requiredPlayers)
