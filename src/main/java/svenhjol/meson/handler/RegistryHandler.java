@@ -3,7 +3,8 @@ package svenhjol.meson.handler;
 import com.google.common.collect.ArrayListMultimap;
 import net.minecraft.block.Block;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.RegistryEvent.Register;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import svenhjol.meson.Meson;
@@ -27,9 +28,10 @@ public class RegistryHandler {
     }
 
     /**
-     * This method is attached to Forge's event bus by the Meson singleton.
+     * This method is attached to Forge's mod bus by the class annotation
      */
-    public static void onRegister(RegistryEvent.Register<? extends IForgeRegistryEntry> event) {
+    @SubscribeEvent
+    public static void onRegister(Register<?> event) {
         IForgeRegistry registry = event.getRegistry();
         Class<?> registryType = registry.getRegistrySuperType();
 
@@ -53,5 +55,7 @@ public class RegistryHandler {
 
             queue.removeAll(registryType);
         });
+
+        Meson.LOG.debug("Meson registration has completed.");
     }
 }

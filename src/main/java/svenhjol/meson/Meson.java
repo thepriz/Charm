@@ -8,7 +8,6 @@ import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.IForgeRegistryEntry;
 import svenhjol.meson.condition.ModuleEnabledCondition;
 import svenhjol.meson.condition.ModuleNotEnabledCondition;
 import svenhjol.meson.handler.LogHandler;
@@ -27,9 +26,6 @@ public class Meson {
     private final IEventBus forgeEventBus = MinecraftForge.EVENT_BUS;
 
     private Meson() {
-        // subscribe handlers to Forge's event bus as required
-        modEventBus.addGenericListener(IForgeRegistryEntry.class, RegistryHandler::onRegister);
-
         // register crafting conditions
         ModuleEnabledCondition.Serializer modEnabled = new ModuleEnabledCondition.Serializer();
         ModuleNotEnabledCondition.Serializer modNotEnabled = new ModuleNotEnabledCondition.Serializer();
@@ -39,6 +35,9 @@ public class Meson {
 
     public void register(MesonMod mod) {
         mods.put(mod.getId(), mod);
+
+        // must be registered so we can register our register so that we register the registers
+        modEventBus.register(RegistryHandler.class);
 
         modEventBus.addListener(mod::onCommonSetup);
         modEventBus.addListener(mod::onModConfig);
