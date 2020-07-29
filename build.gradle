@@ -29,7 +29,8 @@ minecraft {
             properties 'forge.logging.markers': ''
             properties 'forge.logging.console.level': 'debug'
             workingDirectory project.file('run').canonicalPath
-            arg "-mixin.config=" + mod_id + ".mixins.json"
+            arg "-mixin.config=meson.mixins.json"
+            arg "-mixin.config=charm.mixins.json"
             source sourceSets.main
             jvmArgs "-Xmx1500M"
         }
@@ -37,7 +38,8 @@ minecraft {
             properties 'forge.logging.markers': ''
             properties 'forge.logging.console.level': 'debug'
             workingDirectory project.file('run').canonicalPath
-            arg "-mixin.config=" + mod_id + ".mixins.json"
+            arg "-mixin.config=meson.mixins.json"
+            arg "-mixin.config=charm.mixins.json"
             source sourceSets.main
         }
     }
@@ -94,9 +96,9 @@ jar {
             "Specification-Version": "1", // We are version 1 of ourselves
             "Implementation-Title": "${mod_name}",
             "Implementation-Version": "${mod_version}",
-            "Implementation-Vendor" :"svenhjol",
+            "Implementation-Vendor": "svenhjol",
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-            "MixinConfigs": "${mod_id}.mixins.json"
+            "MixinConfigs": ["${mod_id}.mixins.json", "meson.mixins.json"]
         ])
     }
 }

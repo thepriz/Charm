@@ -20,7 +20,7 @@ public class VariantBarrels extends MesonModule {
 
     public static TileEntityType<VariantBarrelTileEntity> TILE;
 
-    @Module(description = "Barrels are available in all types of vanilla wood.")
+    @Module(description = "Barrels available in all types of vanilla wood.")
     public VariantBarrels() {}
 
     @Override

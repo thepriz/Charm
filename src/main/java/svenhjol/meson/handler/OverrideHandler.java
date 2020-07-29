@@ -5,6 +5,8 @@ import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import svenhjol.meson.MesonMod;
+import svenhjol.meson.mixin.BlockAccessor;
+import svenhjol.meson.mixin.ItemAccessor;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -30,7 +32,7 @@ public class OverrideHandler {
             newKey = defaultItemKeys.get(item);
         }
 
-        item.translationKey = newKey;
+        ((ItemAccessor)item).setTranslationKey(newKey);
     }
 
     public static void changeBlockTranslationKey(Block block, @Nullable String newKey) {
@@ -43,7 +45,7 @@ public class OverrideHandler {
             newKey = defaultBlockKeys.get(block);
         }
 
-        block.translationKey = newKey;
+        ((BlockAccessor)block).setTranslationKey(newKey);
     }
 
     public static void changeVanillaBlock(MesonMod mod, Block block, ResourceLocation newRes) {

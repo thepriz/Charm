@@ -19,7 +19,6 @@ public class MusicImprovements extends MesonModule {
 
     @Override
     public void onClientSetup(FMLClientSetupEvent event) {
-        super.onClientSetup(event);
         client = new MusicClient(this, event);
         MinecraftForge.EVENT_BUS.register(client);
     }

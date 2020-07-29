@@ -24,6 +24,7 @@ import svenhjol.meson.Meson;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
+import svenhjol.meson.mixin.StructurePieceAccessor;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -146,10 +147,10 @@ public class MineshaftImprovements extends MesonModule {
                     continue; // rarely, spawn some block in the middle of the corridor
                 for (int z = 0; z < bz; z++) {
                     if (validFloorBlock(piece, world, x, 0, z, box) && rand.nextFloat() < floorBlockChance) {
-                        piece.setBlockState(world, getFloorBlock(rand), x, 0, z, box);
+                        ((StructurePieceAccessor)piece).callSetBlockState(world, getFloorBlock(rand), x, 0, z, box);
                     }
                     if (validCeilingBlock(piece, world, x, 2, z, box) && rand.nextFloat() < ceilingBlockChance) {
-                        piece.setBlockState(world, getCeilingBlock(rand), x, 2, z, box);
+                        ((StructurePieceAccessor)piece).callSetBlockState(world, getCeilingBlock(rand), x, 2, z, box);
                     }
                 }
             }
@@ -168,7 +169,7 @@ public class MineshaftImprovements extends MesonModule {
                         for (int iz = -1; iz <= 1; iz++) {
                             boolean valid = validFloorBlock(piece, world, ix, iy, iz, box);
                             if (valid && rand.nextFloat() < 0.75F)
-                                piece.setBlockState(world, rand.nextFloat() < 0.5 ? block1 : block2, ix, iy, iz, box);
+                                ((StructurePieceAccessor)piece).callSetBlockState(world, rand.nextFloat() < 0.5 ? block1 : block2, ix, iy, iz, box);
                         }
                     }
                 }
@@ -178,9 +179,9 @@ public class MineshaftImprovements extends MesonModule {
         if (generateCrates && rand.nextFloat() < crateChance && Meson.enabled("charm:crates")) {
             if (rand.nextFloat() < 0.9F) {
                 int r = rand.nextInt(3) + 12;
-                int y = piece.getYWithOffset(0);
-                int x = piece.getXWithOffset(1, r);
-                int z = piece.getZWithOffset(1, r);
+                int y = ((StructurePieceAccessor)piece).callGetYWithOffset(0);
+                int x = ((StructurePieceAccessor)piece).callGetXWithOffset(1, r);
+                int z = ((StructurePieceAccessor)piece).callGetZWithOffset(1, r);
 
                 BlockPos blockpos = new BlockPos(x, y, z);
 
@@ -221,7 +222,7 @@ public class MineshaftImprovements extends MesonModule {
                                 if (rand.nextFloat() < 0.5F) continue;
                                 state = getRandomBlockFromList(roomBlocks, rand);
                             }
-                            BlockPos pos = new BlockPos(piece.boundingBox.minX + x, piece.boundingBox.minY + y, piece.boundingBox.minZ + z);
+                            BlockPos pos = new BlockPos(((StructurePieceAccessor)piece).getBoundingBox().minX + x, ((StructurePieceAccessor)piece).getBoundingBox().minY + y, ((StructurePieceAccessor)piece).getBoundingBox().minZ + z);
 
                             if (world.isAirBlock(pos) && world.getBlockState(pos.down()).isOpaqueCube(world, pos.down()))
                                 world.setBlockState(pos, state, 11);
@@ -233,14 +234,21 @@ public class MineshaftImprovements extends MesonModule {
     }
 
     private static boolean validCeilingBlock(StructurePiece piece, IWorld world, int x, int y, int z, MutableBoundingBox box) {
-        BlockPos blockpos = new BlockPos(piece.getXWithOffset(x, z), piece.getYWithOffset(y), piece.getZWithOffset(x, z));
+        BlockPos blockpos = new BlockPos(
+            ((StructurePieceAccessor)piece).callGetXWithOffset(x, z),
+            ((StructurePieceAccessor)piece).callGetYWithOffset(y),
+            ((StructurePieceAccessor)piece).callGetZWithOffset(x, z));
         return box.isVecInside(blockpos)
             && world.getBlockState(blockpos.up()).isSolid()
             && world.isAirBlock(blockpos.down());
     }
 
     private static boolean validFloorBlock(StructurePiece piece, IWorld world, int x, int y, int z, MutableBoundingBox box) {
-        BlockPos blockpos = new BlockPos(piece.getXWithOffset(x, z), piece.getYWithOffset(y), piece.getZWithOffset(x, z));
+        BlockPos blockpos = new BlockPos(
+            ((StructurePieceAccessor)piece).callGetXWithOffset(x, z),
+            ((StructurePieceAccessor)piece).callGetYWithOffset(y),
+            ((StructurePieceAccessor)piece).callGetZWithOffset(x, z)
+        );
 
         boolean vecInside = box.isVecInside(blockpos);
         boolean solidBelow = world.getBlockState(blockpos.down()).isSolid();

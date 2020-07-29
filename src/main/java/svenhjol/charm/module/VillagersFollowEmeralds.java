@@ -11,6 +11,7 @@ import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.ModHelper;
 import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
+import svenhjol.meson.mixin.GoalSelectorAccessor;
 
 public class VillagersFollowEmeralds extends MesonModule {
     @Config(name = "Override", description = "This module is automatically disabled if Quark is present. Set true to force enable.")
@@ -34,7 +35,7 @@ public class VillagersFollowEmeralds extends MesonModule {
         if (entity instanceof VillagerEntity) {
             VillagerEntity villager = (VillagerEntity) entity;
             
-            if (villager.goalSelector.goals.stream().noneMatch(g -> g.getGoal() instanceof TemptGoal))
+            if (((GoalSelectorAccessor)villager.goalSelector).getGoals().stream().noneMatch(g -> g.getGoal() instanceof TemptGoal))
                 villager.goalSelector.addGoal(3, new TemptGoal(villager, 0.6, Ingredient.fromItems(Items.EMERALD), false));
         }
     }

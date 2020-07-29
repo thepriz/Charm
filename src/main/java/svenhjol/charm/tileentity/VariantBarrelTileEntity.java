@@ -13,6 +13,7 @@ import svenhjol.meson.Meson;
 import svenhjol.meson.MesonMod;
 import svenhjol.meson.enums.VanillaStorageMaterial;
 import svenhjol.meson.enums.IStorageMaterial;
+import svenhjol.meson.mixin.BarrelTileEntityAccessor;
 
 public class VariantBarrelTileEntity extends BarrelTileEntity {
     protected IStorageMaterial type;
@@ -23,7 +24,7 @@ public class VariantBarrelTileEntity extends BarrelTileEntity {
     }
 
     public VariantBarrelTileEntity(MesonMod mod, IStorageMaterial type) {
-        super(VariantBarrels.TILE);
+        BarrelTileEntityAccessor.invokeConstructor(VariantBarrels.TILE);
 
         this.mod = mod;
         this.type = type;
@@ -42,9 +43,9 @@ public class VariantBarrelTileEntity extends BarrelTileEntity {
         if (this.world == null)
             return;
 
-        this.numPlayersUsing = ChestTileEntity.calculatePlayersUsing(this.world, this, i, j, k);
-        if (this.numPlayersUsing > 0) {
-            this.scheduleTick();
+        ((BarrelTileEntityAccessor)this).setNumPlayersUsing(ChestTileEntity.calculatePlayersUsing(this.world, this, i, j, k));
+        if (((BarrelTileEntityAccessor)this).getNumPlayersUsing() > 0) {
+            ((BarrelTileEntityAccessor)this).callScheduleTick();
         } else {
             BlockState blockstate = this.getBlockState();
             if (!(blockstate.getBlock() instanceof BarrelBlock)) {
@@ -54,8 +55,8 @@ public class VariantBarrelTileEntity extends BarrelTileEntity {
 
             boolean flag = blockstate.get(BarrelBlock.PROPERTY_OPEN);
             if (flag) {
-                this.playSound(blockstate, SoundEvents.BLOCK_BARREL_CLOSE);
-                this.setOpenProperty(blockstate, false);
+                ((BarrelTileEntityAccessor)this).callPlaySound(blockstate, SoundEvents.BLOCK_BARREL_CLOSE);
+                ((BarrelTileEntityAccessor)this).callSetOpenProperty(blockstate, false);
             }
         }
     }

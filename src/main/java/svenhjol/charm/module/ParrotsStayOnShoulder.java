@@ -7,6 +7,7 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Module;
+import svenhjol.meson.mixin.PlayerEntityAccessor;
 
 public class ParrotsStayOnShoulder extends MesonModule {
     @Module(description = "Parrots stay on your shoulder when jumping and falling. Crouch to make them dismount.", hasSubscriptions = true)
@@ -26,12 +27,12 @@ public class ParrotsStayOnShoulder extends MesonModule {
         if (!player.world.isRemote) {
             final ServerPlayerEntity serverPlayer = (ServerPlayerEntity)player;
             if (!serverPlayer.getLeftShoulderEntity().isEmpty()) {
-                serverPlayer.spawnShoulderEntity(serverPlayer.getLeftShoulderEntity());
-                serverPlayer.setLeftShoulderEntity(new CompoundNBT());
+                ((PlayerEntityAccessor)serverPlayer).callSpawnShoulderEntity(serverPlayer.getLeftShoulderEntity());
+                ((PlayerEntityAccessor)serverPlayer).callSetLeftShoulderEntity(new CompoundNBT());
             }
             if (!serverPlayer.getRightShoulderEntity().isEmpty()) {
-                serverPlayer.spawnShoulderEntity(serverPlayer.getRightShoulderEntity());
-                serverPlayer.setRightShoulderEntity(new CompoundNBT());
+                ((PlayerEntityAccessor)serverPlayer).callSpawnShoulderEntity(serverPlayer.getRightShoulderEntity());
+                ((PlayerEntityAccessor)serverPlayer).callSetRightShoulderEntity(new CompoundNBT());
             }
         }
     }
