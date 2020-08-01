@@ -4,6 +4,8 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.Slot;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.items.IItemHandler;
@@ -12,17 +14,21 @@ import svenhjol.charm.client.InventorySortingClient;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Module;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.function.Predicate;
 
 import static svenhjol.charm.message.ServerSortInventory.PLAYER;
 import static svenhjol.charm.message.ServerSortInventory.TILE;
 
 public class InventorySorting extends MesonModule {
     public static InventorySortingClient client;
+    private static Map<Predicate<ItemStack>, Comparator<ItemStack>> testCompare = new HashMap<>();
 
     @Module(description = "LOLOL", hasSubscriptions = true)
-    public InventorySorting() {}
+    public InventorySorting() {
+        testCompare.put(clazzTest(BlockItem.class).negate(), anyCompare());
+        testCompare.put(clazzTest(BlockItem.class), blockCompare());
+    }
 
     @Override
     public void initClient() {
@@ -62,7 +68,8 @@ public class InventorySorting extends MesonModule {
 
         populate(inventory, stacks, startSlot, endSlot);
         mergeInventory(stacks);
-        setInventory(inventory, stacks, startSlot, endSlot);
+        stacks.sort(InventorySorting::compare); // TODO world's crappiest sorting
+        setInventory(inventory, stacks, startSlot, endSlot); // TODO handle fail here
     }
 
     private static void populate(IItemHandler inventory, List<ItemStack> stacks, int startSlot, int endSlot) {
@@ -74,6 +81,10 @@ public class InventorySorting extends MesonModule {
         }
     }
 
+    /**
+     * Core merging code from Quark's SortingHandler.
+     * @param stacks Inventory stack to merge within
+     */
     private static void mergeInventory(List<ItemStack> stacks) {
         for (int i = 0; i < stacks.size(); i++) {
             ItemStack stack = stacks.get(i);
@@ -104,6 +115,8 @@ public class InventorySorting extends MesonModule {
 
             stacks.set(i, stack);
         }
+
+        stacks.removeIf((ItemStack stack) -> stack.isEmpty() || stack.getCount() == 0);
     }
 
     private static boolean setInventory(IItemHandler inventory, List<ItemStack> stacks, int startSlot, int endSlot) {
@@ -118,5 +131,49 @@ public class InventorySorting extends MesonModule {
         }
 
         return true;
+    }
+
+    private static int compare(ItemStack stack1, ItemStack stack2) {
+        if (stack1 == stack2) {
+            return 0;
+        } else if (stack1.isEmpty()) {
+            return -1;
+        } else if (stack2.isEmpty()) {
+            return 1;
+        }
+
+        for (Predicate<ItemStack> predicate : testCompare.keySet()) {
+            if (predicate.test(stack1) && predicate.test(stack2))
+                return testCompare.get(predicate).compare(stack1, stack2);
+        }
+
+        return 0;
+    }
+
+    private static Comparator<ItemStack> blockCompare() {
+        return compare(Comparator.comparing(s -> Item.getIdFromItem(s.getItem())),
+            (ItemStack s1, ItemStack s2) -> s2.getCount() - s1.getCount(),
+            (ItemStack s1, ItemStack s2) -> s2.hashCode() - s1.hashCode());
+    }
+
+    private static Comparator<ItemStack> anyCompare() {
+        return compare(Comparator.comparing(s -> Item.getIdFromItem(s.getItem())),
+            (ItemStack s1, ItemStack s2) -> s2.getCount() - s1.getCount(),
+            (ItemStack s1, ItemStack s2) -> s2.hashCode() - s1.hashCode());
+    }
+
+    private static Comparator<ItemStack> compare(Comparator<ItemStack>... comparators) {
+        return ((stack1, stack2) -> {
+            for (Comparator<ItemStack> comparator : comparators) {
+                int res = comparator.compare(stack1, stack2);
+                if (res != 0)
+                    return res;
+            }
+            return 0;
+        });
+    }
+
+    private static Predicate<ItemStack> clazzTest(Class<? extends Item> clazz) {
+        return stack -> !stack.isEmpty() && clazz.isInstance(stack.getItem());
     }
 }
