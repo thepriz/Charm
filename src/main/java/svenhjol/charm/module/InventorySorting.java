@@ -22,7 +22,7 @@ import static svenhjol.charm.message.ServerSortInventory.TILE;
 
 public class InventorySorting extends MesonModule {
     public static InventorySortingClient client;
-    private static Map<Predicate<ItemStack>, Comparator<ItemStack>> testCompare = new HashMap<>();
+    private static final Map<Predicate<ItemStack>, Comparator<ItemStack>> testCompare = new HashMap<>();
 
     @Module(description = "LOLOL", hasSubscriptions = true)
     public InventorySorting() {
@@ -142,12 +142,21 @@ public class InventorySorting extends MesonModule {
             return 1;
         }
 
+        int index1 = -1, index2 = -1, index = 0;
+
         for (Predicate<ItemStack> predicate : testCompare.keySet()) {
-            if (predicate.test(stack1) && predicate.test(stack2))
+            if (predicate.test(stack1))
+                index1 = index;
+            if (predicate.test(stack2))
+                index2 = index;
+
+            if (index1 >= 0 && index1 == index2)
                 return testCompare.get(predicate).compare(stack1, stack2);
+
+            index++;
         }
 
-        return 0;
+        return index1 - index2;
     }
 
     private static Comparator<ItemStack> blockCompare() {
