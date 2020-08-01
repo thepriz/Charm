@@ -5,22 +5,21 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent.Context;
-import svenhjol.charm.module.CraftingInventory;
+import svenhjol.charm.module.InventoryCrafting;
 import svenhjol.meson.message.IMesonMessage;
 
 import java.util.function.Supplier;
 
 @SuppressWarnings("EmptyMethod")
-public class ServerOpenCraftingTable implements IMesonMessage {
-    public static void encode(ServerOpenCraftingTable msg, PacketBuffer buf) {
-    }
+public class ServerOpenCrafting implements IMesonMessage {
+    public static void encode(ServerOpenCrafting msg, PacketBuffer buf) { }
 
-    public static ServerOpenCraftingTable decode(PacketBuffer buf) {
-        return new ServerOpenCraftingTable();
+    public static ServerOpenCrafting decode(PacketBuffer buf) {
+        return new ServerOpenCrafting();
     }
 
     public static class Handler {
-        public static void handle(final ServerOpenCraftingTable msg, Supplier<Context> ctx) {
+        public static void handle(final ServerOpenCrafting msg, Supplier<Context> ctx) {
             ctx.get().enqueueWork(() -> {
                 Context context = ctx.get();
                 ServerPlayerEntity player = context.getSender();
@@ -29,7 +28,7 @@ public class ServerOpenCraftingTable implements IMesonMessage {
                 if (player == null || !player.inventory.hasItemStack(new ItemStack(Blocks.CRAFTING_TABLE)))
                     return;
 
-                CraftingInventory.openContainer(player);
+                InventoryCrafting.openContainer(player);
             });
             ctx.get().setPacketHandled(true);
         }

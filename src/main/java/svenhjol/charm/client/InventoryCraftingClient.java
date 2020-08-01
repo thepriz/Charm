@@ -5,25 +5,23 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.InventoryScreen;
 import net.minecraft.client.gui.widget.button.ImageButton;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.event.GuiContainerEvent;
-import net.minecraftforge.client.event.GuiScreenEvent;
+import net.minecraftforge.client.event.GuiContainerEvent.DrawForeground;
+import net.minecraftforge.client.event.GuiScreenEvent.InitGuiEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import svenhjol.charm.Charm;
-import svenhjol.charm.message.ServerOpenCraftingTable;
-import svenhjol.meson.MesonMod;
+import svenhjol.charm.base.CharmResources;
+import svenhjol.charm.message.ServerOpenCrafting;
+import svenhjol.meson.MesonModule;
 
-public class CraftingInventoryClient {
-    private static final ResourceLocation CRAFTING_BUTTON_TEXTURE = new ResourceLocation(Charm.MOD_ID, "textures/gui/crafting_button.png");
-    private final MesonMod mod;
+public class InventoryCraftingClient {
+    private final MesonModule module;
     private ImageButton craftingButton;
 
-    public CraftingInventoryClient(MesonMod mod) {
-        this.mod = mod;
+    public InventoryCraftingClient(MesonModule module) {
+        this.module = module;
     }
 
     @SubscribeEvent
-    public void onGuiContainer(GuiContainerEvent.DrawForeground event) {
+    public void onDrawForeground(DrawForeground event) {
         if (!(event.getGuiContainer() instanceof InventoryScreen))
             return;
 
@@ -42,7 +40,7 @@ public class CraftingInventoryClient {
     }
 
     @SubscribeEvent
-    public void onInitGui(GuiScreenEvent.InitGuiEvent.Post event) {
+    public void onInitGui(InitGuiEvent.Post event) {
         Minecraft mc = Minecraft.getInstance();
 
         if (mc.player == null)
@@ -53,8 +51,8 @@ public class CraftingInventoryClient {
 
         InventoryScreen screen = (InventoryScreen)event.getGui();
 
-        this.craftingButton = new ImageButton(screen.getGuiLeft() + 130, screen.height / 2 - 22, 20, 18, 0, 0, 19, CRAFTING_BUTTON_TEXTURE, click -> {
-            this.mod.getPacketHandler().sendToServer(new ServerOpenCraftingTable());
+        this.craftingButton = new ImageButton(screen.getGuiLeft() + 130, screen.height / 2 - 22, 20, 18, 0, 0, 19, CharmResources.INVENTORY_BUTTONS, click -> {
+            this.module.mod.getPacketHandler().sendToServer(new ServerOpenCrafting());
         });
 
         if (!mc.player.inventory.hasItemStack(new ItemStack(Blocks.CRAFTING_TABLE)))

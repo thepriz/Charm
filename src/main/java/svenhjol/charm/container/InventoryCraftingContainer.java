@@ -9,8 +9,8 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.message.ClientOpenInventory;
 import svenhjol.meson.Meson;
 
-public class CraftingInventoryContainer extends WorkbenchContainer {
-    public CraftingInventoryContainer(int i, PlayerInventory inv, IWorldPosCallable callable) {
+public class InventoryCraftingContainer extends WorkbenchContainer {
+    public InventoryCraftingContainer(int i, PlayerInventory inv, IWorldPosCallable callable) {
         super(i, inv, callable);
     }
 
