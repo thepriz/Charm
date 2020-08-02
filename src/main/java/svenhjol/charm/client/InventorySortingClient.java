@@ -1,8 +1,12 @@
 package svenhjol.charm.client;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screen.HopperScreen;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.inventory.ChestScreen;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.client.gui.screen.inventory.InventoryScreen;
+import net.minecraft.client.gui.screen.inventory.DispenserScreen;
+import net.minecraft.client.gui.screen.inventory.ShulkerBoxScreen;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.gui.widget.button.ImageButton;
 import net.minecraft.inventory.container.Container;
@@ -10,10 +14,12 @@ import net.minecraft.inventory.container.Slot;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import svenhjol.charm.base.CharmResources;
+import svenhjol.charm.gui.CrateScreen;
 import svenhjol.charm.message.ServerSortInventory;
 import svenhjol.meson.MesonModule;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static svenhjol.charm.message.ServerSortInventory.PLAYER;
@@ -23,8 +29,18 @@ public class InventorySortingClient {
     private final MesonModule module;
     private final List<ImageButton> sortingButtons = new ArrayList<>();
 
+    public final List<Class<? extends Screen>> tileScreens = new ArrayList<>();
+
     public InventorySortingClient(MesonModule module) {
         this.module = module;
+
+        tileScreens.addAll(Arrays.asList(
+            ChestScreen.class,
+            HopperScreen.class,
+            ShulkerBoxScreen.class,
+            DispenserScreen.class,
+            CrateScreen.class
+        ));
     }
 
     @SubscribeEvent
@@ -41,24 +57,24 @@ public class InventorySortingClient {
 
         ContainerScreen<?> screen = (ContainerScreen<?>) event.getGui();
         Container container = screen.getContainer();
+
+        int x = screen.getGuiLeft() + 159;
+        int y = screen.getGuiTop() - 19;
+
         List<Slot> slots = container.inventorySlots;
+        for (Slot slot : slots) {
+            if (tileScreens.contains(screen.getClass()) && slot.getSlotIndex() == 0) {
+                this.addSortingButton(screen, x, y + slot.yPos, click -> {
+                    module.mod.getPacketHandler().sendToServer(new ServerSortInventory(TILE));
+                });
+            }
 
-        int x = screen.getGuiLeft() + 160;
-        int y = screen.height / 2;
-
-        if (screen instanceof InventoryScreen) {
-            this.addSortingButton(screen, x,  y - 42, click -> {
-                module.mod.getPacketHandler().sendToServer(new ServerSortInventory(PLAYER));
-            });
-        } else if (slots.size() > 27) {
-            this.addSortingButton(screen, x, y - 80, click -> {
-                module.mod.getPacketHandler().sendToServer(new ServerSortInventory(TILE));
-            });
-            this.addSortingButton(screen, x, y - 14, click -> {
-                module.mod.getPacketHandler().sendToServer(new ServerSortInventory(PLAYER));
-            });
-        } else {
-            // shrug
+            if (slot.inventory == mc.player.inventory) {
+                this.addSortingButton(screen, x, y + slot.yPos, click -> {
+                    module.mod.getPacketHandler().sendToServer(new ServerSortInventory(PLAYER));
+                });
+                break;
+            }
         }
 
         this.sortingButtons.forEach(event::addWidget);
