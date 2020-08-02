@@ -31,7 +31,7 @@ import svenhjol.meson.block.MesonBlock;
 import java.util.Random;
 
 public class CandleBlock extends MesonBlock {
-    protected static final VoxelShape SHAPE = Block.makeCuboidShape(6.0D, 0.0D, 6.0D, 10.0D, 10.0D, 10.0D);
+    protected static final VoxelShape SHAPE = Block.makeCuboidShape(6.0D, 0.0D, 6.0D, 10.0D, 9.0D, 10.0D);
     private final IParticleData flame;
     public static BooleanProperty LIT = BlockStateProperties.LIT;
 
