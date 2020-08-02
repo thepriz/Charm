@@ -3,10 +3,7 @@ package svenhjol.charm.client;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.HopperScreen;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.inventory.ChestScreen;
-import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.client.gui.screen.inventory.DispenserScreen;
-import net.minecraft.client.gui.screen.inventory.ShulkerBoxScreen;
+import net.minecraft.client.gui.screen.inventory.*;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.gui.widget.button.ImageButton;
 import net.minecraft.inventory.container.Container;
@@ -70,6 +67,9 @@ public class InventorySortingClient {
             }
 
             if (slot.inventory == mc.player.inventory) {
+                if (screen instanceof InventoryScreen)
+                    y += 76;
+
                 this.addSortingButton(screen, x, y + slot.yPos, click -> {
                     module.mod.getPacketHandler().sendToServer(new ServerSortInventory(PLAYER));
                 });
