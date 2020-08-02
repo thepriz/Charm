@@ -2,6 +2,7 @@ package svenhjol.charm;
 
 import net.minecraftforge.fml.common.Mod;
 import svenhjol.charm.base.CharmMessages;
+import svenhjol.charm.base.CharmSounds;
 import svenhjol.charm.module.*;
 import svenhjol.meson.MesonMod;
 import svenhjol.meson.MesonModule;
@@ -15,7 +16,9 @@ public class Charm extends MesonMod {
 
     public Charm() {
         super(MOD_ID);
+
         CharmMessages.init(this);
+        CharmSounds.init(this);
     }
 
     protected List<Class<? extends MesonModule>> getModules() {
@@ -28,6 +31,8 @@ public class Charm extends MesonMod {
             BlockOfEnderPearls.class,
             BlockOfGunpowder.class,
             BlockOfSugar.class,
+            Bookcases.class,
+            Candles.class,
             CaveSpidersDropCobwebs.class,
             ChickensDropFeathers.class,
             Crates.class,

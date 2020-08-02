@@ -72,7 +72,8 @@ public class CrateTileEntity extends LockableLootTileEntity implements ICapabili
     @Override
     public boolean isEmpty() {
         for (ItemStack stack : this.items) {
-            if (!stack.isEmpty()) return false;
+            if (!stack.isEmpty())
+                return false;
         }
         return true;
     }

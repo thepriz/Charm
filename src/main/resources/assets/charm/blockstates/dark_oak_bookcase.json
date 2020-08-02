@@ -1,0 +1,24 @@
+{
+  "variants": {
+    "quark=false,slots=0": { "model": "charm:block/bookcase/dark_oak_bookcase_0" },
+    "quark=false,slots=1": { "model": "charm:block/bookcase/dark_oak_bookcase_1" },
+    "quark=false,slots=2": { "model": "charm:block/bookcase/dark_oak_bookcase_2" },
+    "quark=false,slots=3": { "model": "charm:block/bookcase/dark_oak_bookcase_3" },
+    "quark=false,slots=4": { "model": "charm:block/bookcase/dark_oak_bookcase_4" },
+    "quark=false,slots=5": { "model": "charm:block/bookcase/dark_oak_bookcase_5" },
+    "quark=false,slots=6": { "model": "charm:block/bookcase/dark_oak_bookcase_6" },
+    "quark=false,slots=7": { "model": "charm:block/bookcase/dark_oak_bookcase_7" },
+    "quark=false,slots=8": { "model": "charm:block/bookcase/dark_oak_bookcase_8" },
+    "quark=false,slots=9": { "model": "charm:block/bookcase/dark_oak_bookcase_9" },
+    "quark=true,slots=0": { "model": "charm:block/bookcase_quark/dark_oak_bookcase_0" },
+    "quark=true,slots=1": { "model": "charm:block/bookcase_quark/dark_oak_bookcase_1" },
+    "quark=true,slots=2": { "model": "charm:block/bookcase_quark/dark_oak_bookcase_2" },
+    "quark=true,slots=3": { "model": "charm:block/bookcase_quark/dark_oak_bookcase_3" },
+    "quark=true,slots=4": { "model": "charm:block/bookcase_quark/dark_oak_bookcase_4" },
+    "quark=true,slots=5": { "model": "charm:block/bookcase_quark/dark_oak_bookcase_5" },
+    "quark=true,slots=6": { "model": "charm:block/bookcase_quark/dark_oak_bookcase_6" },
+    "quark=true,slots=7": { "model": "charm:block/bookcase_quark/dark_oak_bookcase_7" },
+    "quark=true,slots=8": { "model": "charm:block/bookcase_quark/dark_oak_bookcase_8" },
+    "quark=true,slots=9": { "model": "charm:block/bookcase_quark/dark_oak_bookcase_9" }
+  }
+}
