@@ -9,6 +9,7 @@ import net.minecraftforge.event.TickEvent.WorldTickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
 import svenhjol.meson.MesonModule;
+import svenhjol.meson.helper.ModHelper;
 import svenhjol.meson.helper.WorldHelper;
 import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
@@ -21,8 +22,16 @@ public class SleepImprovements extends MesonModule {
     @Config(name = "Number of required players", description = "The number of players required to sleep in order to bring the next day.")
     public static int requiredPlayers = 1;
 
+    @Config(name = "Override", description = "This module is automatically disabled if Quark is present. Set true to force enable.")
+    public static boolean override = false;
+
     @Module(description = "Allows the night to pass when a specified number of players are asleep.", hasSubscriptions = true)
     public SleepImprovements() {}
+
+    @Override
+    public boolean test() {
+        return !ModHelper.present("quark") || override;
+    }
 
     @SubscribeEvent
     public void onWorldTick(WorldTickEvent event) {
