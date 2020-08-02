@@ -12,6 +12,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import svenhjol.charm.render.*;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.enums.IMesonEnum;
+import svenhjol.meson.helper.ModHelper;
+import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
 
 import java.util.ArrayList;
@@ -26,6 +28,24 @@ public class VariantAnimalTextures extends MesonModule {
     public static List<String> squid = new ArrayList<>();
     public static List<String> chicken = new ArrayList<>();
     public static List<String> pig = new ArrayList<>();
+
+    @Config(name = "Variant wolves", description = "If true, wolves may spawn with different textures.")
+    public static boolean variantWolves = true;
+
+    @Config(name = "Variant cows", description = "If true, cows may spawn with different textures. This is disabled if Quark is present.")
+    public static boolean variantCows = true;
+
+    @Config(name = "Variant squids", description = "If true, squids may spawn with different textures.")
+    public static boolean variantSquids = true;
+
+    @Config(name = "Variant chickens", description = "If true, chickens may spawn with different textures. This is disabled if Quark is present.")
+    public static boolean variantChickens = true;
+
+    @Config(name = "Variant pigs", description = "If true, pigs may spawn with different textures. This is disabled if Quark is present.")
+    public static boolean variantPigs = true;
+
+    @Config(name = "Override", description = "Some animal textures are disabled if Quark is present. Set true to force enable them.")
+    public static boolean override = false;
 
     @Module(description = "Animals may spawn with different textures.")
     public VariantAnimalTextures() {}
@@ -74,11 +94,20 @@ public class VariantAnimalTextures extends MesonModule {
     @Override
     @OnlyIn(Dist.CLIENT)
     public void onClientSetup(FMLClientSetupEvent event) {
-        RenderingRegistry.registerEntityRenderingHandler(EntityType.WOLF, VariantWolfRenderer.factory());
-        RenderingRegistry.registerEntityRenderingHandler(EntityType.COW, VariantCowRenderer.factory());
-        RenderingRegistry.registerEntityRenderingHandler(EntityType.PIG, VariantPigRenderer.factory());
-        RenderingRegistry.registerEntityRenderingHandler(EntityType.CHICKEN, VariantChickenRenderer.factory());
-        RenderingRegistry.registerEntityRenderingHandler(EntityType.SQUID, VariantSquidRenderer.factory());
+        if (variantWolves)
+            RenderingRegistry.registerEntityRenderingHandler(EntityType.WOLF, VariantWolfRenderer.factory());
+
+        if (variantSquids)
+            RenderingRegistry.registerEntityRenderingHandler(EntityType.SQUID, VariantSquidRenderer.factory());
+
+        if (variantCows && (!ModHelper.present("quark") || override))
+            RenderingRegistry.registerEntityRenderingHandler(EntityType.COW, VariantCowRenderer.factory());
+
+        if (variantPigs && (!ModHelper.present("quark") || override))
+            RenderingRegistry.registerEntityRenderingHandler(EntityType.PIG, VariantPigRenderer.factory());
+
+        if (variantChickens && (!ModHelper.present("quark") || override))
+            RenderingRegistry.registerEntityRenderingHandler(EntityType.CHICKEN, VariantChickenRenderer.factory());
     }
 
     @OnlyIn(Dist.CLIENT)
