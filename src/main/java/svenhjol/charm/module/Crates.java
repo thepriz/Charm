@@ -53,7 +53,7 @@ public class Crates extends MesonModule {
         invalidBlocks.add(CrateBlock.class);
 
         CONTAINER = new ContainerType<>(CrateContainer::instance);
-        TILE = TileEntityType.Builder.create(CrateTileEntity::new).build(null); // TODO register blocks?
+        TILE = TileEntityType.Builder.create(CrateTileEntity::new).build(null);
 
         mod.register(CONTAINER, ID);
         mod.register(TILE, ID);
