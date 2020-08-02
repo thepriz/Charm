@@ -10,15 +10,15 @@
     "quark=false,slots=7": { "model": "charm:block/bookcase/oak_bookcase_7" },
     "quark=false,slots=8": { "model": "charm:block/bookcase/oak_bookcase_8" },
     "quark=false,slots=9": { "model": "charm:block/bookcase/oak_bookcase_9" },
-    "quark=true,slots=0": { "model": "charm:block/bookcase_quark/oak_bookcase_0_quark" },
-    "quark=true,slots=1": { "model": "charm:block/bookcase_quark/oak_bookcase_1_quark" },
-    "quark=true,slots=2": { "model": "charm:block/bookcase_quark/oak_bookcase_2_quark" },
-    "quark=true,slots=3": { "model": "charm:block/bookcase_quark/oak_bookcase_3_quark" },
-    "quark=true,slots=4": { "model": "charm:block/bookcase_quark/oak_bookcase_4_quark" },
-    "quark=true,slots=5": { "model": "charm:block/bookcase_quark/oak_bookcase_5_quark" },
-    "quark=true,slots=6": { "model": "charm:block/bookcase_quark/oak_bookcase_6_quark" },
-    "quark=true,slots=7": { "model": "charm:block/bookcase_quark/oak_bookcase_7_quark" },
-    "quark=true,slots=8": { "model": "charm:block/bookcase_quark/oak_bookcase_8_quark" },
-    "quark=true,slots=9": { "model": "charm:block/bookcase_quark/oak_bookcase_9_quark" }
+    "quark=true,slots=0": { "model": "charm:block/bookcase_quark/oak_bookcase_0" },
+    "quark=true,slots=1": { "model": "charm:block/bookcase_quark/oak_bookcase_1" },
+    "quark=true,slots=2": { "model": "charm:block/bookcase_quark/oak_bookcase_2" },
+    "quark=true,slots=3": { "model": "charm:block/bookcase_quark/oak_bookcase_3" },
+    "quark=true,slots=4": { "model": "charm:block/bookcase_quark/oak_bookcase_4" },
+    "quark=true,slots=5": { "model": "charm:block/bookcase_quark/oak_bookcase_5" },
+    "quark=true,slots=6": { "model": "charm:block/bookcase_quark/oak_bookcase_6" },
+    "quark=true,slots=7": { "model": "charm:block/bookcase_quark/oak_bookcase_7" },
+    "quark=true,slots=8": { "model": "charm:block/bookcase_quark/oak_bookcase_8" },
+    "quark=true,slots=9": { "model": "charm:block/bookcase_quark/oak_bookcase_9" }
   }
 }
