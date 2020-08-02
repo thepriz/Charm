@@ -9,6 +9,8 @@ import net.minecraftforge.items.wrapper.InvWrapper;
 import svenhjol.charm.client.InventorySortingClient;
 import svenhjol.charm.handler.InventorySortingHandler;
 import svenhjol.meson.MesonModule;
+import svenhjol.meson.helper.ModHelper;
+import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
 
 import java.util.List;
@@ -17,11 +19,19 @@ import static svenhjol.charm.message.ServerSortInventory.PLAYER;
 import static svenhjol.charm.message.ServerSortInventory.TILE;
 
 public class InventorySorting extends MesonModule {
+    @Config(name = "Override", description = "This module is automatically disabled if Quark is present. Set true to force enable.")
+    public static boolean override = false;
+
     public static InventorySortingClient client;
 
-    @Module(description = "LOLOL", hasSubscriptions = true)
+    @Module(description = "Button to automatically tidy inventories.", hasSubscriptions = true)
     public InventorySorting() {
         InventorySortingHandler.init();
+    }
+
+    @Override
+    public boolean test() {
+        return !ModHelper.present("quark") || override;
     }
 
     @Override
