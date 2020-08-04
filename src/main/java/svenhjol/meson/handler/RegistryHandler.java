@@ -2,6 +2,7 @@ package svenhjol.meson.handler;
 
 import com.google.common.collect.ArrayListMultimap;
 import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -18,18 +19,11 @@ import java.util.function.Supplier;
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class RegistryHandler {
 
-    /**
-     * Do custom/additional registry actions here.
-     */
     public static void customRegisters(MesonMod mod, Class<?> registryType, @Nonnull IForgeRegistryEntry<?> obj, @Nonnull ResourceLocation res) {
-        if (registryType == Block.class && obj instanceof IMesonBlock) {
-            mod.register(((IMesonBlock)obj).getBlockItem(), res); // also register BlockItem
-        }
+        if (registryType == Block.class && obj instanceof IMesonBlock)
+            mod.getRegistryQueue().put(Item.class, ((IMesonBlock) obj)::getBlockItem);
     }
 
-    /**
-     * This method is attached to Forge's mod bus by the class annotation
-     */
     @SubscribeEvent
     public static void onRegister(Register<?> event) {
         IForgeRegistry registry = event.getRegistry();
