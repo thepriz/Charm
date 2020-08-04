@@ -1,8 +1,13 @@
 package svenhjol.charm.block;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ChestBlock;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Stat;
@@ -61,6 +66,20 @@ public class VariantTrappedChestBlock extends ChestBlock implements IMesonBlock,
     @Override
     public IStorageMaterial getMaterialType() {
         return type;
+    }
+
+    @Nullable
+    @Override
+    public ItemStackTileEntityRenderer getISTER() {
+        return new ItemStackTileEntityRenderer() {
+            private final VariantTrappedChestTileEntity tile = new VariantTrappedChestTileEntity();
+
+            @Override
+            public void func_239207_a_(ItemStack stack, ItemCameraTransforms.TransformType transformType, MatrixStack matrix, IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay) {
+                tile.setMaterialType(getMaterialType());
+                TileEntityRendererDispatcher.instance.renderItem(tile, matrix, buffer, combinedLight, combinedOverlay);
+            }
+        };
     }
 
     /**
