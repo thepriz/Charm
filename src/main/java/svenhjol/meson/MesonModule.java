@@ -2,6 +2,7 @@ package svenhjol.meson;
 
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -46,6 +47,11 @@ public abstract class MesonModule {
     @OnlyIn(Dist.CLIENT)
     public void onClientSetup(FMLClientSetupEvent event) {
         // runs on client when module has been successfully initialised and is enabled
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public void onTextureStitch(TextureStitchEvent event) {
+        // runs on client when atlas textures are doing their thing
     }
 
     public void onModConfig(ModConfig.ModConfigEvent event) {

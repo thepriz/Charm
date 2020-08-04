@@ -46,7 +46,10 @@ public class Meson {
         forgeEventBus.addListener(mod::onServerStarting);
         forgeEventBus.addListener(mod::onServerStarted);
 
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> modEventBus.addListener(mod::onClientSetup));
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
+            modEventBus.addListener(mod::onClientSetup);
+            modEventBus.addListener(mod::onTextureStich);
+        });
     }
 
     public static MesonMod getMod(String id) {

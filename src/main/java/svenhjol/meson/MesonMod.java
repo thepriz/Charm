@@ -3,6 +3,8 @@ package svenhjol.meson;
 import com.google.common.collect.ArrayListMultimap;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.config.ModConfig.ModConfigEvent;
@@ -95,8 +97,14 @@ public abstract class MesonMod {
         });
     }
 
+    @OnlyIn(Dist.CLIENT)
     public void onClientSetup(FMLClientSetupEvent event) {
         eachEnabledModule(module -> module.onClientSetup(event));
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public void onTextureStich(TextureStitchEvent event) {
+        eachEnabledModule(module -> module.onTextureStitch(event));
     }
 
     public void onModConfig(ModConfigEvent event) {
