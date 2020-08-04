@@ -36,15 +36,16 @@ public class VariantChests extends MesonModule {
 
     @Override
     public void init() {
-        VanillaStorageMaterial type = VanillaStorageMaterial.SPRUCE;
-        NORMAL_CHEST_BLOCKS.put(type, new VariantChestBlock(this, type));
-        TRAPPED_CHEST_BLOCKS.put(type, new VariantTrappedChestBlock(this, type));
+        for (VanillaStorageMaterial type : VanillaStorageMaterial.values()) {
+            NORMAL_CHEST_BLOCKS.put(type, new VariantChestBlock(this, type));
+            TRAPPED_CHEST_BLOCKS.put(type, new VariantTrappedChestBlock(this, type));
 
-        NORMAL_TILE = TileEntityType.Builder.create(VariantChestTileEntity::new, NORMAL_CHEST_BLOCKS.values().toArray(new Block[0])).build(null);
-        TRAPPED_TILE = TileEntityType.Builder.create(VariantTrappedChestTileEntity::new, TRAPPED_CHEST_BLOCKS.values().toArray(new Block[0])).build(null);
+            NORMAL_TILE = TileEntityType.Builder.create(VariantChestTileEntity::new, NORMAL_CHEST_BLOCKS.values().toArray(new Block[0])).build(null);
+            TRAPPED_TILE = TileEntityType.Builder.create(VariantTrappedChestTileEntity::new, TRAPPED_CHEST_BLOCKS.values().toArray(new Block[0])).build(null);
 
-        mod.register(NORMAL_TILE, NORMAL_ID);
-        mod.register(TRAPPED_TILE, TRAPPED_ID);
+            mod.register(NORMAL_TILE, NORMAL_ID);
+            mod.register(TRAPPED_TILE, TRAPPED_ID);
+        }
     }
 
     @Override
