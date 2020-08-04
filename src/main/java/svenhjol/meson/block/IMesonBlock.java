@@ -2,12 +2,15 @@ package svenhjol.meson.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.ResourceLocation;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.mixin.FireBlockAccessor;
+
+import javax.annotation.Nullable;
 
 public interface IMesonBlock {
     ItemGroup getItemGroup();
@@ -33,6 +36,10 @@ public interface IMesonBlock {
             if (group != null) props.group(group);
             props.maxStackSize(getMaxStackSize());
 
+            ItemStackTileEntityRenderer ister = getISTER();
+            if (ister != null)
+                props.setISTER(() -> this::getISTER);
+
             MesonBlockItem blockItem = new MesonBlockItem((Block)this, props);
 
             // set attributes on the blockitem instance
@@ -46,5 +53,10 @@ public interface IMesonBlock {
 
     default void setFireInfo(int encouragement, int flammability) {
         ((FireBlockAccessor) Blocks.FIRE).callSetFireInfo((Block)this, encouragement, flammability);
+    }
+
+    @Nullable
+    default ItemStackTileEntityRenderer getISTER() {
+        return null;
     }
 }
