@@ -9,8 +9,10 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import svenhjol.charm.Charm;
 import svenhjol.charm.block.VariantChestBlock;
+import svenhjol.charm.block.VariantTrappedChestBlock;
 import svenhjol.charm.render.VariantChestTileEntityRenderer;
 import svenhjol.charm.tileentity.VariantChestTileEntity;
+import svenhjol.charm.tileentity.VariantTrappedChestTileEntity;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.enums.IStorageMaterial;
 import svenhjol.meson.enums.VanillaStorageMaterial;
@@ -20,50 +22,57 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class VariantChests extends MesonModule {
-    public static final ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "chest");
-    public static final Map<IStorageMaterial, VariantChestBlock> CHEST_BLOCKS = new HashMap<>();
-    public static TileEntityType<VariantChestTileEntity> TILE;
+    public static final ResourceLocation NORMAL_ID = new ResourceLocation("variant_chest");
+    public static final ResourceLocation TRAPPED_ID = new ResourceLocation(Charm.MOD_ID, "trapped_chest");
+
+    public static final Map<IStorageMaterial, VariantChestBlock> NORMAL_CHEST_BLOCKS = new HashMap<>();
+    public static final Map<IStorageMaterial, VariantTrappedChestBlock> TRAPPED_CHEST_BLOCKS = new HashMap<>();
+
+    public static TileEntityType<VariantChestTileEntity> NORMAL_TILE;
+    public static TileEntityType<VariantTrappedChestTileEntity> TRAPPED_TILE;
 
     @Module(description = "ARGH", hasSubscriptions = true)
     public VariantChests() {}
 
     @Override
     public void init() {
-        for (VanillaStorageMaterial type : VanillaStorageMaterial.values()) {
-            CHEST_BLOCKS.put(type, new VariantChestBlock(this, type));
-        }
+        VanillaStorageMaterial type = VanillaStorageMaterial.SPRUCE;
+        NORMAL_CHEST_BLOCKS.put(type, new VariantChestBlock(this, type));
+            TRAPPED_CHEST_BLOCKS.put(type, new VariantTrappedChestBlock(this, type));
 
-        TILE = TileEntityType.Builder.create(VariantChestTileEntity::new, CHEST_BLOCKS.values().toArray(new Block[0])).build(null);
-        mod.register(TILE, ID);
+        NORMAL_TILE = TileEntityType.Builder.create(VariantChestTileEntity::new, NORMAL_CHEST_BLOCKS.values().toArray(new Block[0])).build(null);
+        TRAPPED_TILE = TileEntityType.Builder.create(VariantTrappedChestTileEntity::new, TRAPPED_CHEST_BLOCKS.values().toArray(new Block[0])).build(null);
+
+        mod.register(NORMAL_TILE, NORMAL_ID);
+        mod.register(TRAPPED_TILE, TRAPPED_ID);
     }
 
     @Override
     public void onClientSetup(FMLClientSetupEvent event) {
-        ClientRegistry.bindTileEntityRenderer(TILE, VariantChestTileEntityRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(NORMAL_TILE, VariantChestTileEntityRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(TRAPPED_TILE, VariantChestTileEntityRenderer::new);
     }
 
     @Override
     public void onTextureStitch(TextureStitchEvent event) {
-        if (event instanceof TextureStitchEvent.Pre
-            && event.getMap().getTextureLocation().toString().equals("minecraft:textures/atlas/chest.png")
-        ) {
+        if (event instanceof TextureStitchEvent.Pre && event.getMap().getTextureLocation().toString().equals("minecraft:textures/atlas/chest.png")) {
             TextureStitchEvent.Pre ev = (TextureStitchEvent.Pre)event;
-            VariantChests.CHEST_BLOCKS.keySet().forEach(type -> {
-                // add normal chest
-                addChestTexture(ev, type, ChestType.LEFT, new ResourceLocation(Charm.MOD_ID, "entity/chest/" + type.getString() + "_normal_left"));
-                addChestTexture(ev, type, ChestType.RIGHT, new ResourceLocation(Charm.MOD_ID, "entity/chest/" + type.getString() + "_normal_right"));
-                addChestTexture(ev, type, ChestType.SINGLE, new ResourceLocation(Charm.MOD_ID, "entity/chest/" + type.getString() + "_normal"));
-
-                // add trapped chest
-                addChestTexture(ev, type, ChestType.LEFT, new ResourceLocation(Charm.MOD_ID, "entity/chest/" + type.getString() + "_trapped_left"));
-                addChestTexture(ev, type, ChestType.RIGHT, new ResourceLocation(Charm.MOD_ID, "entity/chest/" + type.getString() + "_trapped_right"));
-                addChestTexture(ev, type, ChestType.SINGLE, new ResourceLocation(Charm.MOD_ID, "entity/chest/" + type.getString() + "_trapped"));
+            VariantChests.NORMAL_CHEST_BLOCKS.keySet().forEach(type -> {
+                addChestTexture(ev, type, ChestType.LEFT);
+                addChestTexture(ev, type, ChestType.RIGHT);
+                addChestTexture(ev, type, ChestType.SINGLE);
             });
         }
     }
 
-    private void addChestTexture(TextureStitchEvent.Pre event, IStorageMaterial materialType, ChestType chestType, ResourceLocation res) {
-        event.addSprite(res);
-        VariantChestTileEntityRenderer.addMaterial(materialType, chestType, res);
+    private void addChestTexture(TextureStitchEvent.Pre event, IStorageMaterial variant, ChestType chestType) {
+        String chestTypeName = chestType != ChestType.SINGLE ? "_" + chestType.getString().toLowerCase() : "";
+        String[] bases = {"trapped", "normal"};
+
+        for (String base : bases) {
+            ResourceLocation res = new ResourceLocation(Charm.MOD_ID, "entity/chest/" + variant.getString() + "_" + base + chestTypeName);
+            VariantChestTileEntityRenderer.addTexture(variant, chestType, res, base.equals("trapped"));
+            event.addSprite(res);
+        }
     }
 }
