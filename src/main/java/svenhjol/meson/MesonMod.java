@@ -49,11 +49,7 @@ public abstract class MesonMod {
     protected abstract List<Class<? extends MesonModule>> getModules();
 
     public void register(IForgeRegistryEntry<?> obj, ResourceLocation res) {
-        if (res == null)
-            throw new RuntimeException("Can't register something without a resource location");
-
-        if (obj.getRegistryName() == null)
-            obj.setRegistryName(GameData.checkPrefix(res.toString(), false));
+        obj.setRegistryName(GameData.checkPrefix(res.toString(), false));
 
         // add to the mod's registry queue for later registration
         Class<?> registryType = obj.getRegistryType();
