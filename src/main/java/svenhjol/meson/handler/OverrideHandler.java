@@ -28,9 +28,8 @@ public class OverrideHandler {
             defaultItemKeys.put(item, item.getTranslationKey());
         }
 
-        if (newKey == null) {
+        if (newKey == null)
             newKey = defaultItemKeys.get(item);
-        }
 
         ((ItemAccessor)item).setTranslationKey(newKey);
     }
@@ -41,20 +40,17 @@ public class OverrideHandler {
             defaultBlockKeys.put(block, block.getTranslationKey());
         }
 
-        if (newKey == null) {
+        if (newKey == null)
             newKey = defaultBlockKeys.get(block);
-        }
 
         ((BlockAccessor)block).setTranslationKey(newKey);
     }
 
     public static void changeVanillaBlock(MesonMod mod, Block block, ResourceLocation newRes) {
         Registry.register(Registry.BLOCK, newRes, block);
-        mod.register(block, newRes);
     }
 
     public static void changeVanillaItem(MesonMod mod, Item item, ResourceLocation newRes) {
         Registry.register(Registry.ITEM, newRes, item);
-        mod.register(item, newRes);
     }
 }
