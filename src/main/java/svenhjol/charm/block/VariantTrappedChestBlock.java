@@ -20,6 +20,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockReader;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import svenhjol.charm.module.VariantChests;
 import svenhjol.charm.tileentity.VariantTrappedChestTileEntity;
 import svenhjol.meson.MesonModule;
@@ -27,6 +29,8 @@ import svenhjol.meson.block.IMesonBlock;
 import svenhjol.meson.enums.IStorageMaterial;
 
 import javax.annotation.Nullable;
+import java.util.concurrent.Callable;
+import java.util.function.Supplier;
 
 public class VariantTrappedChestBlock extends ChestBlock implements IMesonBlock, IVariantChestBlock {
     private MesonModule module;
@@ -70,8 +74,9 @@ public class VariantTrappedChestBlock extends ChestBlock implements IMesonBlock,
 
     @Nullable
     @Override
-    public ItemStackTileEntityRenderer getISTER() {
-        return new ItemStackTileEntityRenderer() {
+    @OnlyIn(Dist.CLIENT)
+    public Supplier<Callable<ItemStackTileEntityRenderer>> getISTER() {
+        return () -> () -> new ItemStackTileEntityRenderer() {
             private final VariantTrappedChestTileEntity tile = new VariantTrappedChestTileEntity();
 
             @Override
@@ -81,6 +86,19 @@ public class VariantTrappedChestBlock extends ChestBlock implements IMesonBlock,
             }
         };
     }
+
+    //    @Override
+//    public void setISTER(Item.Properties props) {
+//        props.setISTER(() -> () -> new ItemStackTileEntityRenderer() {
+//            private final VariantTrappedChestTileEntity tile = new VariantTrappedChestTileEntity();
+//
+//            @Override
+//            public void func_239207_a_(ItemStack stack, ItemCameraTransforms.TransformType transformType, MatrixStack matrix, IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay) {
+//                tile.setMaterialType(getMaterialType());
+//                TileEntityRendererDispatcher.instance.renderItem(tile, matrix, buffer, combinedLight, combinedOverlay);
+//            }
+//        });
+//    }
 
     /**
      * Copypasta from {@link net.minecraft.block.TrappedChestBlock}

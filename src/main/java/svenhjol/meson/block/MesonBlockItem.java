@@ -7,11 +7,16 @@ import net.minecraft.item.ItemStack;
 public class MesonBlockItem extends BlockItem {
     private int burnTime;
 
-    public MesonBlockItem(Block blockIn, Properties props) {
-        super(blockIn, props);
+    public MesonBlockItem(IMesonBlock blockIn, Properties props) {
+        super((Block)blockIn, props);
 
-        if (blockIn.getRegistryName() != null)
-            this.setRegistryName(blockIn.getRegistryName());
+        // set blockitem's registryname same as block's
+        Block b = (Block)blockIn;
+        if (b.getRegistryName() != null)
+            this.setRegistryName(b.getRegistryName());
+
+        // set other props
+        this.setBurnTime(blockIn.getBurnTime());
     }
 
     public void setBurnTime(int burnTime) {

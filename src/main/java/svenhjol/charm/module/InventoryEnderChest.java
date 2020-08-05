@@ -13,7 +13,7 @@ import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Module;
 
 public class InventoryEnderChest extends MesonModule {
-    private static ITextComponent LABEL = new TranslationTextComponent("container.charm.portable_ender_chest");
+    private static final ITextComponent LABEL = new TranslationTextComponent("container.charm.portable_ender_chest");
     public static InventoryEnderChestClient client;
 
     @Module(description = "Allows access to chest contents if the player has an Ender Chest in their inventory.")

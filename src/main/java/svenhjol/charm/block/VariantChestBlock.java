@@ -12,6 +12,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.IBlockReader;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import svenhjol.charm.module.VariantChests;
 import svenhjol.charm.tileentity.VariantChestTileEntity;
 import svenhjol.meson.MesonModule;
@@ -19,6 +21,8 @@ import svenhjol.meson.block.IMesonBlock;
 import svenhjol.meson.enums.IStorageMaterial;
 
 import javax.annotation.Nullable;
+import java.util.concurrent.Callable;
+import java.util.function.Supplier;
 
 @SuppressWarnings("NullableProblems")
 public class VariantChestBlock extends ChestBlock implements IMesonBlock, IVariantChestBlock {
@@ -63,8 +67,9 @@ public class VariantChestBlock extends ChestBlock implements IMesonBlock, IVaria
 
     @Nullable
     @Override
-    public ItemStackTileEntityRenderer getISTER() {
-        return new ItemStackTileEntityRenderer() {
+    @OnlyIn(Dist.CLIENT)
+    public Supplier<Callable<ItemStackTileEntityRenderer>> getISTER() {
+        return () -> () -> new ItemStackTileEntityRenderer() {
             private final VariantChestTileEntity tile = new VariantChestTileEntity();
 
             @Override

@@ -7,10 +7,15 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.DistExecutor;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.mixin.FireBlockAccessor;
 
 import javax.annotation.Nullable;
+import java.util.concurrent.Callable;
+import java.util.function.Supplier;
 
 public interface IMesonBlock {
     ItemGroup getItemGroup();
@@ -34,18 +39,18 @@ public interface IMesonBlock {
             // set up custom props for the blockitem
             ItemGroup group = getItemGroup();
             if (group != null) props.group(group);
+
             props.maxStackSize(getMaxStackSize());
 
-            ItemStackTileEntityRenderer ister = getISTER();
-            if (ister != null)
-                props.setISTER(() -> this::getISTER);
+            // set item stack renderer function if present
+            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
+                Supplier<Callable<ItemStackTileEntityRenderer>> ister = this.getISTER();
 
-            MesonBlockItem blockItem = new MesonBlockItem((Block)this, props);
+                if (ister != null)
+                    props.setISTER(ister);
+            });
 
-            // set attributes on the blockitem instance
-            blockItem.setBurnTime(getBurnTime());
-
-            return blockItem;
+            return new MesonBlockItem(this, props);
         }
 
         return new BlockItem((Block)this, props);
@@ -56,7 +61,6 @@ public interface IMesonBlock {
     }
 
     @Nullable
-    default ItemStackTileEntityRenderer getISTER() {
-        return null;
-    }
+    @OnlyIn(Dist.CLIENT)
+    default Supplier<Callable<ItemStackTileEntityRenderer>> getISTER() { return null; }
 }
