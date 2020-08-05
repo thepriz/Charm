@@ -12,7 +12,7 @@ import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Module;
 
 public class InventoryCrafting extends MesonModule {
-    private static final ITextComponent LABEL = new TranslationTextComponent("container.crafting");
+    private static final ITextComponent LABEL = new TranslationTextComponent("container.charm.portable_crafting_table");
     public static InventoryCraftingClient client;
 
     @Module(description = "Allows crafting from inventory if the player has a crafting table in their inventory.", hasSubscriptions = true)

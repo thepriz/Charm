@@ -2,6 +2,8 @@ package svenhjol.charm.module;
 
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.SimpleNamedContainerProvider;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.MinecraftForge;
@@ -11,7 +13,7 @@ import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Module;
 
 public class InventoryEnderChest extends MesonModule {
-    private static ITextComponent LABEL = new TranslationTextComponent("container.enderchest");
+    private static ITextComponent LABEL = new TranslationTextComponent("container.charm.portable_ender_chest");
     public static InventoryEnderChestClient client;
 
     @Module(description = "Allows access to chest contents if the player has an Ender Chest in their inventory.")
@@ -24,6 +26,7 @@ public class InventoryEnderChest extends MesonModule {
     }
 
     public static void openContainer(ServerPlayerEntity player) {
+        player.world.playSound(null, player.getPosition(), SoundEvents.BLOCK_ENDER_CHEST_OPEN, SoundCategory.PLAYERS, 0.4F, 1.08F);
         player.openContainer(new SimpleNamedContainerProvider((i, inv, p) -> new InventoryEnderChestContainer(i, inv, p.getInventoryEnderChest()), LABEL));
     }
 }
