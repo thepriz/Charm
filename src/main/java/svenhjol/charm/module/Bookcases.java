@@ -26,6 +26,7 @@ import java.util.*;
 public class Bookcases extends MesonModule {
     public static final ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "bookcase");
     public static final Map<IStorageMaterial, BookcaseBlock> BOOKCASE_BLOCKS = new HashMap<>();
+
     public static ContainerType<BookcaseContainer> CONTAINER;
     public static TileEntityType<BookcaseTileEntity> TILE;
 
