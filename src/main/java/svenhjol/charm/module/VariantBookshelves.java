@@ -25,8 +25,6 @@ public class VariantBookshelves extends MesonModule {
         VanillaStorageMaterial.getTypes().forEach(type -> {
             BOOKSHELF_BLOCKS.put(type, new VariantBookshelfBlock(this, type));
         });
-
-        // TODO: set flammability and burntime
     }
 
     @Override

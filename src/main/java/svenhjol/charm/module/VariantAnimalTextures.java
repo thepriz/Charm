@@ -32,11 +32,11 @@ public class VariantAnimalTextures extends MesonModule {
     @Config(name = "Variant wolves", description = "If true, wolves may spawn with different textures.")
     public static boolean variantWolves = true;
 
-    @Config(name = "Variant cows", description = "If true, cows may spawn with different textures. This is disabled if Quark is present.")
-    public static boolean variantCows = true;
-
     @Config(name = "Variant squids", description = "If true, squids may spawn with different textures.")
     public static boolean variantSquids = true;
+
+    @Config(name = "Variant cows", description = "If true, cows may spawn with different textures. This is disabled if Quark is present.")
+    public static boolean variantCows = true;
 
     @Config(name = "Variant chickens", description = "If true, chickens may spawn with different textures. This is disabled if Quark is present.")
     public static boolean variantChickens = true;
@@ -64,22 +64,22 @@ public class VariantAnimalTextures extends MesonModule {
 
         // cow textures. Corianthes: add the names of the textures in textures/entity/cow here, without the .png
         cow.addAll(Arrays.asList(
-            "minecraft:cow", "charm:cow1", "charm:cow2"
+            "minecraft:cow"
         ));
 
         // squid textures. Corianthes: add the names of the textures in textures/entity/squid here, without the .png
         squid.addAll(Arrays.asList(
-            "minecraft:squid", "charm:squid1", "charm:squid2"
+            "minecraft:squid", "charm:squid1", "charm:squid2", "charm:squid3", "charm:squid6", "charm:squid7"
         ));
 
         // chicken textures. Corianthes: add the names of the textures in textures/entity/chicken here, without the .png
         chicken.addAll(Arrays.asList(
-            "minecraft:chicken", "charm:chicken1", "charm:chicken2"
+            "minecraft:chicken"
         ));
 
         // pig textures. Corianthes: add the names of the textures in textures/entity/pig here, without the .png
         pig.addAll(Arrays.asList(
-            "minecraft:pig", "charm:pig1", "charm:pig2"
+            "minecraft:pig"
         ));
     }
 
