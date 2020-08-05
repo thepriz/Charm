@@ -1,23 +1,33 @@
 package svenhjol.charm.mixin;
 
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.monster.AbstractSkeletonEntity;
 import net.minecraft.entity.monster.StrayEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import svenhjol.meson.Meson;
 
+import java.util.Random;
+
 @Mixin(StrayEntity.class)
-public class StrayImprovementsMixin {
-    @Redirect(
-        method = "func_223327_b(Lnet/minecraft/entity/EntityType;Lnet/minecraft/world/IWorld;Lnet/minecraft/entity/SpawnReason;Lnet/minecraft/util/math/BlockPos;Ljava/util/Random;)Z",
-            at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/world/IWorld;canSeeSky(Lnet/minecraft/util/math/BlockPos;)Z"
-        )
+public abstract class StrayImprovementsMixin extends AbstractSkeletonEntity {
+    protected StrayImprovementsMixin(EntityType<? extends AbstractSkeletonEntity> type, World worldIn) {
+        super(type, worldIn);
+    }
+
+    @Inject(
+        method = "func_223327_b",
+        at = @At("HEAD"),
+        cancellable = true
     )
-    private static boolean spawnCheckHook(IWorld world, BlockPos pos) {
-        return Meson.enabled("charm:stray_improvements") || world.canSeeSky(pos);
+    private static void spawnCheckHook(EntityType<StrayEntity> entity, IWorld world, SpawnReason reason, BlockPos pos, Random rand, CallbackInfoReturnable<Boolean> cir) {
+        if (Meson.enabled("charm:stray_improvements"))
+            cir.setReturnValue(canMonsterSpawnInLight(entity, world, reason, pos, rand) && (reason == SpawnReason.SPAWNER));
     }
 }

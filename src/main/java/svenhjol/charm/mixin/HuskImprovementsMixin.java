@@ -1,22 +1,33 @@
 package svenhjol.charm.mixin;
 
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.monster.HuskEntity;
+import net.minecraft.entity.monster.ZombieEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import svenhjol.meson.Meson;
 
+import java.util.Random;
+
 @Mixin(HuskEntity.class)
-public class HuskImprovementsMixin {
-    @Redirect(
-        method = "func_223334_b", at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/world/IWorld;canSeeSky(Lnet/minecraft/util/math/BlockPos;)Z"
-        )
+public abstract class HuskImprovementsMixin extends ZombieEntity {
+    public HuskImprovementsMixin(EntityType<? extends ZombieEntity> type, World worldIn) {
+        super(type, worldIn);
+    }
+
+    @Inject(
+        method = "func_223334_b",
+        at = @At("HEAD"),
+        cancellable = true
     )
-    private static boolean spawnCheckHook(IWorld world, BlockPos pos) {
-        return Meson.enabled("charm:husk_improvements") || world.canSeeSky(pos);
+    private static void spawnCheckHook(EntityType<HuskEntity> entity, IWorld world, SpawnReason reason, BlockPos pos, Random rand, CallbackInfoReturnable<Boolean> cir) {
+        if (Meson.enabled("charm:husk_improvements"))
+            cir.setReturnValue(canMonsterSpawnInLight(entity, world, reason, pos, rand) && (reason == SpawnReason.SPAWNER));
     }
 }
