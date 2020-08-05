@@ -1,7 +1,11 @@
 package svenhjol.meson.helper;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screen.inventory.InventoryScreen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class PlayerHelper {
     /**
@@ -17,5 +21,15 @@ public class PlayerHelper {
             return false;
         }
         return true;
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public static void openInventory() {
+        Minecraft mc = Minecraft.getInstance();
+
+        if (mc.player == null)
+            return;
+
+        mc.displayGuiScreen(new InventoryScreen(mc.player));
     }
 }
