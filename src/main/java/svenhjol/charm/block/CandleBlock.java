@@ -25,6 +25,7 @@ import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import svenhjol.charm.module.Candles;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.block.MesonBlock;
 
@@ -39,11 +40,11 @@ public class CandleBlock extends MesonBlock {
         super(module, "candle", AbstractBlock.Properties
             .create(Material.ORGANIC)
             .sound(SoundType.CLOTH)
-            .setLightLevel(s -> s.get(LIT) ? 9 : 0)
+            .setLightLevel(s -> s.get(LIT) ? Candles.lightLevel : 0)
             .hardnessAndResistance(0.5F));
 
         this.flame = ParticleTypes.FLAME;
-        this.setDefaultState(getDefaultState().with(LIT, false));
+        this.setDefaultState(getDefaultState().with(LIT, Candles.litWhenPlaced));
     }
 
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {

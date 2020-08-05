@@ -2,7 +2,7 @@ package svenhjol.charm.message;
 
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
-import svenhjol.charm.module.InventoryCrafting;
+import svenhjol.meson.helper.PlayerHelper;
 import svenhjol.meson.message.IMesonMessage;
 
 import java.util.function.Supplier;
@@ -17,9 +17,7 @@ public class ClientOpenInventory implements IMesonMessage {
 
     public static class Handler {
         public static void handle(final ClientOpenInventory msg, Supplier<NetworkEvent.Context> ctx) {
-            ctx.get().enqueueWork(() -> {
-                InventoryCrafting.client.openInventory();
-            });
+            ctx.get().enqueueWork(PlayerHelper::openInventory);
             ctx.get().setPacketHandled(true);
         }
     }

@@ -17,15 +17,20 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import svenhjol.meson.MesonModule;
+import svenhjol.meson.helper.ModHelper;
+import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HoeHarvesting extends MesonModule {
-    private static List<BlockState> harvestable = new ArrayList<>();
+    private static final List<BlockState> harvestable = new ArrayList<>();
 
-    @Module(description = "", hasSubscriptions = true)
+    @Config(name = "Override", description = "This module is automatically disabled if Quark is present. Set true to force enable.")
+    public static boolean override = false;
+
+    @Module(description = "Right-click with a hoe to quickly harvest and replant a fully-grown crop.", hasSubscriptions = true)
     public HoeHarvesting() {}
 
     @Override
@@ -35,6 +40,11 @@ public class HoeHarvesting extends MesonModule {
         addHarvestable("minecraft:nether_wart[age=3]");
         addHarvestable("minecraft:potatoes[age=7]");
         addHarvestable("minecraft:wheat[age=7]");
+    }
+
+    @Override
+    public boolean test() {
+        return !ModHelper.present("quark") || override;
     }
 
     public static void addHarvestable(String blockState) {

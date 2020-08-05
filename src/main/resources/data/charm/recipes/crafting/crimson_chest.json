@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "# #",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:crimson_planks"
+    }
+  },
+  "result": {
+    "item": "charm:crimson_chest"
+  },
+  "conditions": [
+    {
+      "type": "meson:module_enabled",
+      "module": "charm:variant_chests"
+    }
+  ]
+}

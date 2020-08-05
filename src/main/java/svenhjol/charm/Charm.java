@@ -1,8 +1,11 @@
 package svenhjol.charm;
 
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import svenhjol.charm.base.CharmMessages;
 import svenhjol.charm.base.CharmSounds;
+import svenhjol.charm.handler.InventoryButtonHandler;
 import svenhjol.charm.module.*;
 import svenhjol.meson.MesonMod;
 import svenhjol.meson.MesonModule;
@@ -19,6 +22,12 @@ public class Charm extends MesonMod {
 
         CharmMessages.init(this);
         CharmSounds.init(this);
+    }
+
+    @Override
+    public void onClientSetup(FMLClientSetupEvent event) {
+        super.onClientSetup(event);
+        MinecraftForge.EVENT_BUS.register(new InventoryButtonHandler());
     }
 
     protected List<Class<? extends MesonModule>> getModules() {
@@ -47,6 +56,7 @@ public class Charm extends MesonMod {
             HoeHarvesting.class,
             HuskImprovements.class,
             InventoryCrafting.class,
+            InventoryEnderChest.class,
             InventorySorting.class,
             LanternsObeyGravity.class,
             MineshaftImprovements.class,
@@ -61,7 +71,7 @@ public class Charm extends MesonMod {
             RemoveNitwits.class,
             RemovePotionGlint.class,
             SleepImprovements.class,
-            StackableBooks.class,
+            StackableEnchantedBooks.class,
             StackablePotions.class,
             StrayImprovements.class,
             TamedAnimalsNoDamage.class,

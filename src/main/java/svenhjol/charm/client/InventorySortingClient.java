@@ -8,7 +8,8 @@ import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.gui.widget.button.ImageButton;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.Slot;
-import net.minecraftforge.client.event.GuiScreenEvent;
+import net.minecraftforge.client.event.GuiContainerEvent.DrawForeground;
+import net.minecraftforge.client.event.GuiScreenEvent.InitGuiEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import svenhjol.charm.base.CharmResources;
 import svenhjol.charm.gui.CrateScreen;
@@ -23,6 +24,8 @@ import static svenhjol.charm.message.ServerSortInventory.PLAYER;
 import static svenhjol.charm.message.ServerSortInventory.TILE;
 
 public class InventorySortingClient {
+    private static final int LEFT = 159;
+    private static final int TOP = 12;
     private final MesonModule module;
     private final List<ImageButton> sortingButtons = new ArrayList<>();
 
@@ -41,7 +44,7 @@ public class InventorySortingClient {
     }
 
     @SubscribeEvent
-    public void onInitGui(GuiScreenEvent.InitGuiEvent.Post event) {
+    public void onInitGui(InitGuiEvent.Post event) {
         Minecraft mc = Minecraft.getInstance();
 
         if (mc.player == null)
@@ -55,8 +58,8 @@ public class InventorySortingClient {
         ContainerScreen<?> screen = (ContainerScreen<?>) event.getGui();
         Container container = screen.getContainer();
 
-        int x = screen.getGuiLeft() + 159;
-        int y = screen.getGuiTop() - 19;
+        int x = screen.getGuiLeft() + LEFT;
+        int y = screen.getGuiTop() - TOP;
 
         List<Slot> slots = container.inventorySlots;
         for (Slot slot : slots) {
@@ -80,7 +83,17 @@ public class InventorySortingClient {
         this.sortingButtons.forEach(event::addWidget);
     }
 
+    @SubscribeEvent
+    public void onDrawForeground(DrawForeground event) {
+
+        // redraw all buttons on inventory to handle recipe open/close
+        if (event.getGuiContainer() instanceof InventoryScreen) {
+            InventoryScreen screen = (InventoryScreen)event.getGuiContainer();
+            this.sortingButtons.forEach(button -> button.setPosition(screen.getGuiLeft() + LEFT, button.y));
+        }
+    }
+
     private void addSortingButton(ContainerScreen<?> screen, int x, int y, Button.IPressable onPress) {
-        this.sortingButtons.add(new ImageButton(x, y, 20, 18, 20, 0, 19, CharmResources.INVENTORY_BUTTONS, onPress));
+        this.sortingButtons.add(new ImageButton(x, y, 10, 10, 40, 0, 10, CharmResources.INVENTORY_BUTTONS, onPress));
     }
 }

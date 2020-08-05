@@ -8,17 +8,21 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.ModHelper;
+import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
 
 import java.util.Collection;
 
 public class AutomaticRecipeUnlock extends MesonModule {
+    @Config(name = "Override", description = "This module is automatically disabled if Quark is present. Set true to force enable.")
+    public static boolean override = false;
+
     @Module(description = "Unlocks all vanilla recipes.", hasSubscriptions = true)
     public AutomaticRecipeUnlock() { }
 
     @Override
     public boolean test() {
-        return !ModHelper.present("quark");
+        return !ModHelper.present("quark") || override;
     }
 
     @SubscribeEvent

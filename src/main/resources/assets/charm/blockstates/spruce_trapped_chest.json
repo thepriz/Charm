@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "charm:block/spruce_trapped_chest"
+      "model": "charm:block/spruce_chest"
     }
   }
 }
