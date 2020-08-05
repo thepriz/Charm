@@ -12,14 +12,14 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.Slice;
-import svenhjol.charm.module.StackableBooks;
+import svenhjol.charm.module.StackableEnchantedBooks;
 import svenhjol.meson.Meson;
 
 import javax.annotation.Nullable;
 
 @Mixin(RepairContainer.class)
-public abstract class StackableBooksMixin extends AbstractRepairContainer {
-    public StackableBooksMixin(@Nullable ContainerType<?> container, int i, PlayerInventory inv, IWorldPosCallable posCallable) {
+public abstract class StackableEnchantedBooksMixin extends AbstractRepairContainer {
+    public StackableEnchantedBooksMixin(@Nullable ContainerType<?> container, int i, PlayerInventory inv, IWorldPosCallable posCallable) {
         super(container, i, inv, posCallable);
     }
 
@@ -39,8 +39,8 @@ public abstract class StackableBooksMixin extends AbstractRepairContainer {
         )
     )
     private void anvilUpdateHook(IInventory inv, int index, ItemStack stack) {
-        if (Meson.enabled("charm:stackable_books"))
-            stack = StackableBooks.getReducedStack(inv.getStackInSlot(index));
+        if (Meson.enabled("charm:stackable_enchanted_books"))
+            stack = StackableEnchantedBooks.getReducedStack(inv.getStackInSlot(index));
 
         inv.setInventorySlotContents(index, stack);
     }

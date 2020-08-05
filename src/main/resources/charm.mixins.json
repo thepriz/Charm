@@ -10,7 +10,7 @@
     "HuskImprovementsMixin",
     "MineshaftImprovementsMixin",
     "ParrotsStayOnShoulderMixin",
-    "StackableBooksMixin",
+    "StackableEnchantedBooksMixin",
     "StackablePotionsMixin",
     "StrayImprovementsMixin",
     "WanderingTraderImprovementsMixin"
