@@ -44,6 +44,7 @@ public class Charm extends MesonMod {
             Candles.class,
             CaveSpidersDropCobwebs.class,
             ChickensDropFeathers.class,
+            Core.class,
             Crates.class,
             DecreaseRepairCost.class,
             DirtToPath.class,
