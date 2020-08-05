@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
+import svenhjol.charm.module.Core;
 
 public class LogHandler {
     public String name;
@@ -19,7 +20,11 @@ public class LogHandler {
     }
 
     public void debug(Marker marker, String msg) {
-        getLogger().debug(marker, msg);
+        if (Core.debug) {
+            info(marker, msg);
+        } else {
+            getLogger().debug(marker, msg);
+        }
     }
 
     public void info(String msg) {

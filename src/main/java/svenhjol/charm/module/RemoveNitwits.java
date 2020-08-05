@@ -16,9 +16,8 @@ public class RemoveNitwits extends MesonModule {
 
     @SubscribeEvent
     public void onVillagerJoinWorld(EntityJoinWorldEvent event) {
-        if (!event.isCanceled()) {
+        if (!event.isCanceled())
             changeNitwitProfession(event.getEntity());
-        }
     }
 
     public void changeNitwitProfession(Entity entity) {

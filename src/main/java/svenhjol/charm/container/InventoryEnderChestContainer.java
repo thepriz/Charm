@@ -8,6 +8,7 @@ import net.minecraft.inventory.container.ChestContainer;
 import net.minecraft.inventory.container.ContainerType;
 import svenhjol.charm.Charm;
 import svenhjol.charm.message.ClientOpenInventory;
+import svenhjol.charm.module.Core;
 import svenhjol.meson.Meson;
 
 public class InventoryEnderChestContainer extends ChestContainer {
@@ -24,7 +25,7 @@ public class InventoryEnderChestContainer extends ChestContainer {
     public void onContainerClosed(PlayerEntity playerIn) {
         super.onContainerClosed(playerIn);
 
-        if (!playerIn.world.isRemote)
+        if (!playerIn.world.isRemote && Core.inventoryButtonReturn)
             Meson.getMod(Charm.MOD_ID).getPacketHandler().sendToPlayer(new ClientOpenInventory(), (ServerPlayerEntity)playerIn);
     }
 }

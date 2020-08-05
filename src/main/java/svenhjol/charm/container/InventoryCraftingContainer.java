@@ -7,6 +7,7 @@ import net.minecraft.inventory.container.WorkbenchContainer;
 import net.minecraft.util.IWorldPosCallable;
 import svenhjol.charm.Charm;
 import svenhjol.charm.message.ClientOpenInventory;
+import svenhjol.charm.module.Core;
 import svenhjol.meson.Meson;
 
 public class InventoryCraftingContainer extends WorkbenchContainer {
@@ -23,7 +24,7 @@ public class InventoryCraftingContainer extends WorkbenchContainer {
     public void onContainerClosed(PlayerEntity playerIn) {
         super.onContainerClosed(playerIn);
 
-        if (!playerIn.world.isRemote)
+        if (!playerIn.world.isRemote && Core.inventoryButtonReturn)
             Meson.getMod(Charm.MOD_ID).getPacketHandler().sendToPlayer(new ClientOpenInventory(), (ServerPlayerEntity)playerIn);
     }
 }
