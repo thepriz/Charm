@@ -15,7 +15,7 @@ public class GoldBars extends MesonModule {
     @Config(name = "Override", description = "This module is automatically disabled if Quark is present. Set true to force enable.")
     public static boolean override = false;
 
-    @Module(description = "Gold variant of iron bars.")
+    @Module(description = "Gold variant of vanilla iron bars.")
     public GoldBars() {}
 
     @Override
