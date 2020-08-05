@@ -26,6 +26,7 @@ public class Charm extends MesonMod {
 
     @Override
     public void onClientSetup(FMLClientSetupEvent event) {
+        super.onClientSetup(event);
         MinecraftForge.EVENT_BUS.register(new InventoryButtonHandler());
     }
 
