@@ -11,7 +11,7 @@ public class GoldLanterns extends MesonModule {
     public static GoldLanternBlock GOLD_LANTERN;
     public static GoldLanternBlock GOLD_SOUL_LANTERN;
 
-    @Module(description = "Golden versions of the vanilla lanterns.")
+    @Module(description = "Gold version of the vanilla lanterns.")
     public GoldLanterns() {}
 
     @Override
