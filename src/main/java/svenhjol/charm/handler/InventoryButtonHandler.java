@@ -20,6 +20,8 @@ public class InventoryButtonHandler {
         // get recipe button from the widgetlist
         if (!event.getWidgetList().isEmpty() && event.getWidgetList().get(0) instanceof ImageButton)
             this.recipeButton = (ImageButton)event.getWidgetList().get(0);
+
+        redrawButtons((InventoryScreen)event.getGui());
     }
 
     @SubscribeEvent
@@ -27,8 +29,10 @@ public class InventoryButtonHandler {
         if (!(event.getGuiContainer() instanceof InventoryScreen) || event.getGuiContainer() instanceof CreativeScreen)
             return;
 
-        InventoryScreen screen = (InventoryScreen)event.getGuiContainer();
+        redrawButtons((InventoryScreen)event.getGuiContainer());
+    }
 
+    private void redrawButtons(InventoryScreen screen) {
         int y = screen.height / 2 - 22;
         int left = screen.getGuiLeft();
 

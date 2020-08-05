@@ -8,6 +8,7 @@ import net.minecraft.client.gui.widget.button.ImageButton;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.GuiContainerEvent.DrawForeground;
 import net.minecraftforge.client.event.GuiScreenEvent.InitGuiEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import svenhjol.charm.base.CharmResources;
 import svenhjol.charm.message.ServerOpenCrafting;
@@ -21,7 +22,7 @@ public class InventoryCraftingClient {
         this.module = module;
     }
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.LOW)
     public void onInitGui(InitGuiEvent.Post event) {
         Minecraft mc = Minecraft.getInstance();
 
@@ -33,7 +34,7 @@ public class InventoryCraftingClient {
 
         InventoryScreen screen = (InventoryScreen)event.getGui();
 
-        this.craftingButton = new ImageButton(screen.getGuiLeft() + 120, screen.height / 2 - 22, 20, 18, 0, 0, 19, CharmResources.INVENTORY_BUTTONS, click -> {
+        this.craftingButton = new ImageButton(screen.getGuiLeft() + 130, screen.height / 2 - 22, 20, 18, 0, 0, 19, CharmResources.INVENTORY_BUTTONS, click -> {
             this.module.mod.getPacketHandler().sendToServer(new ServerOpenCrafting());
         });
 

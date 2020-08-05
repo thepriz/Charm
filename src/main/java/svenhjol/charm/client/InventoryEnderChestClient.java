@@ -32,7 +32,7 @@ public class InventoryEnderChestClient {
 
         InventoryScreen screen = (InventoryScreen) event.getGui();
 
-        this.chestButton = new ImageButton(screen.getGuiLeft() + 120, screen.height / 2 - 22, 20, 18, 20, 0, 19, CharmResources.INVENTORY_BUTTONS, click -> {
+        this.chestButton = new ImageButton(screen.getGuiLeft() + 130, screen.height / 2 - 22, 20, 18, 20, 0, 19, CharmResources.INVENTORY_BUTTONS, click -> {
             this.module.mod.getPacketHandler().sendToServer(new ServerOpenEnderChest());
         });
 
