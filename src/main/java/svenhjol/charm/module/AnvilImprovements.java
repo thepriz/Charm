@@ -8,6 +8,6 @@ public class AnvilImprovements extends MesonModule {
     @Config(name = "Remove Too Expensive", description = "If true, removes the maximum cost of 40 XP when working items on the anvil.")
     public static boolean removeTooExpensive = true;
 
-    @Module(description = "Removes minimum cost and maximum XP costs on the anvil.")
+    @Module(description = "Removes minimum and maximum XP costs on the anvil.")
     public AnvilImprovements() { }
 }

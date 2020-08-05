@@ -14,7 +14,7 @@ public class InventoryEnderChest extends MesonModule {
     private static ITextComponent LABEL = new TranslationTextComponent("container.enderchest");
     public static InventoryEnderChestClient client;
 
-    @Module(description = "Access Ender Chest contents from the player's inventory.")
+    @Module(description = "Allows access to chest contents if the player has an Ender Chest in their inventory.")
     public InventoryEnderChest() {}
 
     @Override
