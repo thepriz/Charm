@@ -56,7 +56,7 @@ public class InventorySortingClient {
         Container container = screen.getContainer();
 
         int x = screen.getGuiLeft() + 159;
-        int y = screen.getGuiTop() - 19;
+        int y = screen.getGuiTop() - 12;
 
         List<Slot> slots = container.inventorySlots;
         for (Slot slot : slots) {
@@ -81,6 +81,6 @@ public class InventorySortingClient {
     }
 
     private void addSortingButton(ContainerScreen<?> screen, int x, int y, Button.IPressable onPress) {
-        this.sortingButtons.add(new ImageButton(x, y, 20, 18, 20, 0, 19, CharmResources.INVENTORY_BUTTONS, onPress));
+        this.sortingButtons.add(new ImageButton(x, y, 10, 10, 40, 0, 10, CharmResources.INVENTORY_BUTTONS, onPress));
     }
 }
