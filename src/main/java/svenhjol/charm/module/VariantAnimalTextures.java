@@ -160,7 +160,7 @@ public class VariantAnimalTextures extends MesonModule {
         String file = a[1].toLowerCase();
         String prefix = "textures/entity/";
 
-        if (mod.equals("minecraft") && !TEXTURE_HAS_SUBDIRS.contains(typeName))
+        if (mod.equals("minecraft") && TEXTURE_HAS_SUBDIRS.contains(typeName))
             prefix += typeName + "/";
 
         return new ResourceLocation(mod, prefix + file + ".png");
