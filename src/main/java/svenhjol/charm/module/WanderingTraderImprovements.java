@@ -9,7 +9,6 @@ import net.minecraft.item.Items;
 import net.minecraft.item.MerchantOffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -27,7 +26,10 @@ import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
 
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 public class WanderingTraderImprovements extends MesonModule {
     public static final List<TraderMap> traderMaps = new ArrayList<>();
@@ -154,7 +156,7 @@ public class WanderingTraderImprovements extends MesonModule {
             if (nearestStructure == null)
                 return null;
 
-            ITextComponent structureName = new TranslationTextComponent("structure.charm." + structure.getStructureName());
+            TranslationTextComponent structureName = new TranslationTextComponent("structure.charm." + structure.getStructureName());
             TranslationTextComponent mapName = new TranslationTextComponent("filled_map.charm.trader_map", structureName);
             return MapHelper.getMap(world, nearestStructure, mapName, MapDecoration.Type.TARGET_X, color);
         }
