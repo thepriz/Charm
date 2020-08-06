@@ -23,6 +23,8 @@ import java.util.UUID;
 
 @SuppressWarnings("unchecked")
 public class VariantAnimalTextures extends MesonModule {
+    private static List<String> FLAT_DIRS = new ArrayList<>();
+
     public static List<String> wolf = new ArrayList<>();
     public static List<String> cow = new ArrayList<>();
     public static List<String> squid = new ArrayList<>();
@@ -48,7 +50,9 @@ public class VariantAnimalTextures extends MesonModule {
     public static boolean override = false;
 
     @Module(description = "Animals may spawn with different textures.")
-    public VariantAnimalTextures() {}
+    public VariantAnimalTextures() {
+        FLAT_DIRS = new ArrayList<>(Arrays.asList("chicken", "squid"));
+    }
 
     @Override
     public void onCommonSetup(FMLCommonSetupEvent event) {
@@ -149,10 +153,16 @@ public class VariantAnimalTextures extends MesonModule {
     }
 
     public static ResourceLocation getTextureFromString(MobType type, String texture) {
+        String typeName = type.getLowercaseName();
         String[] a = texture.split(":");
-        String namespace = a[0].toLowerCase();
-        String filename = a[1].toLowerCase();
-        String prefix = namespace.equals("minecraft") ? "textures/entity/" : "textures/entity/" + type.getLowercaseName() + "/";
-        return new ResourceLocation(namespace, prefix + filename + ".png");
+
+        String mod = a[0].toLowerCase();
+        String file = a[1].toLowerCase();
+        String prefix = "textures/entity/";
+
+        if (mod.equals("minecraft") && FLAT_DIRS.contains(typeName))
+            prefix += typeName + "/";
+
+        return new ResourceLocation(mod, prefix + file + ".png");
     }
 }
