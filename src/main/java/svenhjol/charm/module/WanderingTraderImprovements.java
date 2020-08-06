@@ -82,11 +82,12 @@ public class WanderingTraderImprovements extends MesonModule {
     @SubscribeEvent
     public void onWandererTrades(WandererTradesEvent event) {
         if (!event.isCanceled()) {
-            addToRareTrades(event.getRareTrades());
+            addToTrades(event.getGenericTrades());
+            addToTrades(event.getRareTrades());
         }
     }
 
-    public void addToRareTrades(List<VillagerTrades.ITrade> rareTrades) {
+    public void addToTrades(List<VillagerTrades.ITrade> rareTrades) {
         for (int i = 0; i < 3; i++) {
             rareTrades.add(new StructureMapForEmeraldsTrade());
         }
@@ -189,7 +190,7 @@ public class WanderingTraderImprovements extends MesonModule {
             if (biomeRegName == null)
                 return null;
 
-            TranslationTextComponent mapName = new TranslationTextComponent("filled_map.charm.trader_map", biome.getDisplayName());
+            TranslationTextComponent mapName = new TranslationTextComponent("filled_map.charm.trader_map", new TranslationTextComponent(biome.getTranslationKey()));
             return MapHelper.getMap(world, nearestBiome, mapName, MapDecoration.Type.TARGET_X, color);
         }
 
