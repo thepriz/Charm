@@ -7,7 +7,7 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Module;
-import svenhjol.meson.mixin.PlayerEntityAccessor;
+import svenhjol.charm.mixin.accessor.PlayerEntityAccessor;
 
 public class ParrotsStayOnShoulder extends MesonModule {
     @Module(description = "Parrots stay on your shoulder when jumping and falling. Crouch to make them dismount.", hasSubscriptions = true)

@@ -24,7 +24,7 @@ import svenhjol.meson.Meson;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
-import svenhjol.meson.mixin.StructurePieceAccessor;
+import svenhjol.charm.mixin.accessor.StructurePieceAccessor;
 
 import java.util.ArrayList;
 import java.util.Arrays;

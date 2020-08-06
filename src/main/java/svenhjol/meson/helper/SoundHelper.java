@@ -8,8 +8,8 @@ import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.util.SoundCategory;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import svenhjol.meson.mixin.SoundEngineAccessor;
-import svenhjol.meson.mixin.SoundHandlerAccessor;
+import svenhjol.charm.mixin.accessor.SoundEngineAccessor;
+import svenhjol.charm.mixin.accessor.SoundHandlerAccessor;
 
 public class SoundHelper {
     public static SoundHandler getSoundHandler() {

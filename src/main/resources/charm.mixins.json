@@ -4,6 +4,15 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "charm.refmap.json",
   "mixins": [
+    "accessor.BarrelTileEntityAccessor",
+    "accessor.BlockAccessor",
+    "accessor.DispenserBlockAccessor",
+    "accessor.FireBlockAccessor",
+    "accessor.GoalSelectorAccessor",
+    "accessor.ItemAccessor",
+    "accessor.PlayerEntityAccessor",
+    "accessor.ServerWorldAccessor",
+    "accessor.StructurePieceAccessor",
     "AnvilImprovementsContainerMixin",
     "ArmorInvisibilityLivingEntityMixin",
     "BeaconsHealMobsMixin",
@@ -16,6 +25,8 @@
     "WanderingTraderImprovementsMixin"
   ],
   "client":[
+    "accessor.SoundEngineAccessor",
+    "accessor.SoundHandlerAccessor",
     "AnvilImprovementsScreenMixin",
     "ArmorInvisibilityBipedArmorLayerMixin",
     "MusicImprovementsMixin",

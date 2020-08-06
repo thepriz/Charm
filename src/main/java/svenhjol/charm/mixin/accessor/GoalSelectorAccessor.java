@@ -1,4 +1,4 @@
-package svenhjol.meson.mixin;
+package svenhjol.charm.mixin.accessor;
 
 import net.minecraft.entity.ai.goal.GoalSelector;
 import net.minecraft.entity.ai.goal.PrioritizedGoal;

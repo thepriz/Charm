@@ -5,8 +5,8 @@ import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import svenhjol.meson.MesonMod;
-import svenhjol.meson.mixin.BlockAccessor;
-import svenhjol.meson.mixin.ItemAccessor;
+import svenhjol.charm.mixin.accessor.BlockAccessor;
+import svenhjol.charm.mixin.accessor.ItemAccessor;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;

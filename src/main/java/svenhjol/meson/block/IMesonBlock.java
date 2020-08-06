@@ -11,7 +11,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.DistExecutor;
 import svenhjol.meson.MesonModule;
-import svenhjol.meson.mixin.FireBlockAccessor;
+import svenhjol.charm.mixin.accessor.FireBlockAccessor;
 
 import javax.annotation.Nullable;
 import java.util.concurrent.Callable;

@@ -1,4 +1,4 @@
-package svenhjol.meson.mixin;
+package svenhjol.charm.mixin.accessor;
 
 import com.google.common.collect.Multimap;
 import net.minecraft.client.audio.ISound;

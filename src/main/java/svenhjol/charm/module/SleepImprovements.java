@@ -13,7 +13,7 @@ import svenhjol.meson.helper.ModHelper;
 import svenhjol.meson.helper.WorldHelper;
 import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
-import svenhjol.meson.mixin.ServerWorldAccessor;
+import svenhjol.charm.mixin.accessor.ServerWorldAccessor;
 
 import java.util.List;
 import java.util.stream.Collectors;

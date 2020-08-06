@@ -8,7 +8,7 @@ import svenhjol.meson.MesonModule;
 import svenhjol.meson.handler.OverrideHandler;
 import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
-import svenhjol.meson.mixin.DispenserBlockAccessor;
+import svenhjol.charm.mixin.accessor.DispenserBlockAccessor;
 
 public class StackablePotions extends MesonModule {
     @Config(name = "Stack size", description = "Maximum potion stack size.")

@@ -1,4 +1,4 @@
-package svenhjol.meson.mixin;
+package svenhjol.charm.mixin.accessor;
 
 import net.minecraft.world.server.ServerWorld;
 import org.spongepowered.asm.mixin.Mixin;

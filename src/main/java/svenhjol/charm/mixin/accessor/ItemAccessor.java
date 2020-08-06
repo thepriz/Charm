@@ -1,11 +1,11 @@
-package svenhjol.meson.mixin;
+package svenhjol.charm.mixin.accessor;
 
-import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(Block.class)
-public interface BlockAccessor {
+@Mixin(Item.class)
+public interface ItemAccessor {
     @Accessor()
     void setTranslationKey(String key);
 }
