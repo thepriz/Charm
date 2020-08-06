@@ -1,9 +1,11 @@
 package svenhjol.charm.module;
 
+import net.minecraft.block.Blocks;
 import svenhjol.charm.block.VariantBookshelfBlock;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.enums.IStorageMaterial;
 import svenhjol.meson.enums.VanillaStorageMaterial;
+import svenhjol.meson.handler.OverrideHandler;
 import svenhjol.meson.helper.ModHelper;
 import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
@@ -22,9 +24,12 @@ public class VariantBookshelves extends MesonModule {
 
     @Override
     public void init() {
-        VanillaStorageMaterial.getTypes().forEach(type -> {
+        VanillaStorageMaterial.getTypesWithout(VanillaStorageMaterial.OAK).forEach(type -> {
             BOOKSHELF_BLOCKS.put(type, new VariantBookshelfBlock(this, type));
         });
+
+        if (enabled)
+            OverrideHandler.changeBlockTranslationKey(Blocks.BOOKSHELF, "blocks.charm.oak_bookshelf");
     }
 
     @Override
