@@ -11,6 +11,7 @@ description='''
 Smaller things.
 '''
 authors="svenhjol, warlordwossman, Coranthes"
+license="MIT"
 
 [[dependencies.charm]]
     modId="forge"
