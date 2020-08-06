@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import svenhjol.charm.module.HuskImprovements;
 import svenhjol.meson.Meson;
 
 import java.util.Random;
@@ -28,6 +29,6 @@ public abstract class HuskImprovementsMixin extends ZombieEntity {
     )
     private static void spawnCheckHook(EntityType<HuskEntity> entity, IWorld world, SpawnReason reason, BlockPos pos, Random rand, CallbackInfoReturnable<Boolean> cir) {
         if (Meson.enabled("charm:husk_improvements"))
-            cir.setReturnValue(canMonsterSpawnInLight(entity, world, reason, pos, rand) && (reason == SpawnReason.SPAWNER));
+            cir.setReturnValue(canMonsterSpawnInLight(entity, world, reason, pos, rand) && (reason == SpawnReason.SPAWNER || HuskImprovements.canHuskSpawnInLight(world, pos)));
     }
 }

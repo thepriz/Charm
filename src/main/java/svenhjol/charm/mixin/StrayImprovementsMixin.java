@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import svenhjol.charm.module.StrayImprovements;
 import svenhjol.meson.Meson;
 
 import java.util.Random;
@@ -28,6 +29,6 @@ public abstract class StrayImprovementsMixin extends AbstractSkeletonEntity {
     )
     private static void spawnCheckHook(EntityType<StrayEntity> entity, IWorld world, SpawnReason reason, BlockPos pos, Random rand, CallbackInfoReturnable<Boolean> cir) {
         if (Meson.enabled("charm:stray_improvements"))
-            cir.setReturnValue(canMonsterSpawnInLight(entity, world, reason, pos, rand) && (reason == SpawnReason.SPAWNER));
+            cir.setReturnValue(canMonsterSpawnInLight(entity, world, reason, pos, rand) && (reason == SpawnReason.SPAWNER || StrayImprovements.canStraySpawnInLight(world, pos)));
     }
 }
