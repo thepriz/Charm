@@ -29,7 +29,7 @@ public class VariantBookshelves extends MesonModule {
         });
 
         if (enabled)
-            OverrideHandler.changeBlockTranslationKey(Blocks.BOOKSHELF, "blocks.charm.oak_bookshelf");
+            OverrideHandler.changeBlockTranslationKey(Blocks.BOOKSHELF, "block.charm.oak_bookshelf");
     }
 
     @Override
