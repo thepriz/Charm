@@ -1,5 +1,6 @@
 package svenhjol.charm.module;
 
+import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
@@ -22,7 +23,7 @@ public class BeaconsHealMobs extends MesonModule {
             AxisAlignedBB bb = (new AxisAlignedBB(pos)).grow(d0).expand(0.0D, world.getHeight(), 0.0D);
 
             if (primaryEffect == Effects.REGENERATION || secondaryEffect == Effects.REGENERATION) {
-                List<AnimalEntity> list = world.getEntitiesWithinAABB(AnimalEntity.class, bb);
+                List<AgeableEntity> list = world.getEntitiesWithinAABB(AnimalEntity.class, bb);
                 list.forEach(animal -> animal.addPotionEffect(new EffectInstance(Effects.REGENERATION, 4 * 20, 1)));
             }
         }
