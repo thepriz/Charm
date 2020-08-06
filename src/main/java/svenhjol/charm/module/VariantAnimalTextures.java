@@ -23,7 +23,7 @@ import java.util.UUID;
 
 @SuppressWarnings("unchecked")
 public class VariantAnimalTextures extends MesonModule {
-    private static List<String> FLAT_DIRS = new ArrayList<>();
+    private static List<String> TEXTURE_HAS_SUBDIRS = new ArrayList<>();
 
     public static List<String> wolf = new ArrayList<>();
     public static List<String> cow = new ArrayList<>();
@@ -51,7 +51,7 @@ public class VariantAnimalTextures extends MesonModule {
 
     @Module(description = "Animals may spawn with different textures.")
     public VariantAnimalTextures() {
-        FLAT_DIRS = new ArrayList<>(Arrays.asList("chicken", "squid"));
+        TEXTURE_HAS_SUBDIRS = new ArrayList<>(Arrays.asList("cow", "pig", "wolf"));
     }
 
     @Override
@@ -160,7 +160,7 @@ public class VariantAnimalTextures extends MesonModule {
         String file = a[1].toLowerCase();
         String prefix = "textures/entity/";
 
-        if (mod.equals("minecraft") && FLAT_DIRS.contains(typeName))
+        if (mod.equals("minecraft") && !TEXTURE_HAS_SUBDIRS.contains(typeName))
             prefix += typeName + "/";
 
         return new ResourceLocation(mod, prefix + file + ".png");
