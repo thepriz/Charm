@@ -23,6 +23,7 @@ import java.util.UUID;
 
 @SuppressWarnings("unchecked")
 public class VariantAnimalTextures extends MesonModule {
+    private static final String PREFIX = "textures/entity/";
     private static List<String> TEXTURE_HAS_SUBDIRS = new ArrayList<>();
 
     public static List<String> wolf = new ArrayList<>();
@@ -158,11 +159,14 @@ public class VariantAnimalTextures extends MesonModule {
 
         String mod = a[0].toLowerCase();
         String file = a[1].toLowerCase();
-        String prefix = "textures/entity/";
 
-        if (!mod.equals("minecraft") || TEXTURE_HAS_SUBDIRS.contains(typeName))
-            prefix += typeName + "/";
+        // TODO should cache this
+        if (!mod.equals("minecraft") || TEXTURE_HAS_SUBDIRS.contains(typeName)) {
+            file = PREFIX + typeName + "/" + file + ".png";
+        } else {
+            file = PREFIX + file + ".png";
+        }
 
-        return new ResourceLocation(mod, prefix + file + ".png");
+        return new ResourceLocation(mod, file);
     }
 }
