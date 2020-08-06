@@ -149,8 +149,10 @@ public class VariantAnimalTextures extends MesonModule {
     }
 
     public static ResourceLocation getTextureFromString(MobType type, String texture) {
-        String prefix = "textures/entity/" + type.getLowercaseName() + "/";
         String[] a = texture.split(":");
-        return new ResourceLocation(a[0], prefix + a[1] + ".png");
+        String namespace = a[0].toLowerCase();
+        String filename = a[1].toLowerCase();
+        String prefix = namespace.equals("minecraft") ? "textures/entity/" : "textures/entity/" + type.getLowercaseName() + "/";
+        return new ResourceLocation(namespace, prefix + filename + ".png");
     }
 }
