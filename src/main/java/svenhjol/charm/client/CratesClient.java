@@ -7,6 +7,7 @@ import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
@@ -87,9 +88,10 @@ public class CratesClient {
                 tag = tag.copy();
                 tag.putString("id", "charm:crate");
             }
-            TileEntity tile = TileEntity.readTileEntity(null, tag);
+            BlockItem blockItem = (BlockItem)stack.getItem();
+            TileEntity tile = TileEntity.readTileEntity(blockItem.getBlock().getDefaultState(), tag);
             if (tile != null) {
-                final LazyOptional<IItemHandler> handler = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+                LazyOptional<IItemHandler> handler = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
                 handler.ifPresent(cap -> {
                     int size = cap.getSlots();
 
