@@ -1,16 +1,20 @@
 package svenhjol.charm.client;
 
 import net.minecraft.block.Blocks;
+import net.minecraft.block.EnderChestBlock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.InventoryScreen;
 import net.minecraft.client.gui.widget.button.ImageButton;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.GuiContainerEvent.DrawForeground;
 import net.minecraftforge.client.event.GuiScreenEvent.InitGuiEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import svenhjol.charm.base.CharmResources;
 import svenhjol.charm.message.ServerOpenEnderChest;
+import svenhjol.charm.module.InventoryEnderChest;
 import svenhjol.meson.MesonModule;
+import svenhjol.meson.helper.ItemHelper;
 
 public class InventoryEnderChestClient {
     private final MesonModule module;
@@ -36,9 +40,7 @@ public class InventoryEnderChestClient {
             this.module.mod.getPacketHandler().sendToServer(new ServerOpenEnderChest());
         });
 
-        if (!mc.player.inventory.hasItemStack(new ItemStack(Blocks.ENDER_CHEST)))
-            chestButton.visible = false;
-
+        chestButton.visible = this.hasChest(mc.player);
         event.addWidget(this.chestButton);
     }
 
@@ -55,7 +57,12 @@ public class InventoryEnderChestClient {
             return;
 
         if (mc.player.world.getGameTime() % 5 == 0)
-            chestButton.visible = mc.player.inventory.hasItemStack(new ItemStack(Blocks.ENDER_CHEST));
+            chestButton.visible = this.hasChest(mc.player);
+    }
+
+    public boolean hasChest(PlayerEntity player) {
+        return InventoryEnderChest.offhandOnly && ItemHelper.getBlockClass(player.getHeldItemOffhand()) == EnderChestBlock.class
+            || !InventoryEnderChest.offhandOnly && player.inventory.hasItemStack(new ItemStack(Blocks.ENDER_CHEST));
     }
 
     public boolean isButtonVisible() {

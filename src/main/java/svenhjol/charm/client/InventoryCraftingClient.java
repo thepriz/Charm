@@ -1,10 +1,12 @@
 package svenhjol.charm.client;
 
 import net.minecraft.block.Blocks;
+import net.minecraft.block.CraftingTableBlock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.CreativeScreen;
 import net.minecraft.client.gui.screen.inventory.InventoryScreen;
 import net.minecraft.client.gui.widget.button.ImageButton;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.GuiContainerEvent.DrawForeground;
 import net.minecraftforge.client.event.GuiScreenEvent.InitGuiEvent;
@@ -12,7 +14,9 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import svenhjol.charm.base.CharmResources;
 import svenhjol.charm.message.ServerOpenCrafting;
+import svenhjol.charm.module.InventoryCrafting;
 import svenhjol.meson.MesonModule;
+import svenhjol.meson.helper.ItemHelper;
 
 public class InventoryCraftingClient {
     private final MesonModule module;
@@ -38,9 +42,7 @@ public class InventoryCraftingClient {
             this.module.mod.getPacketHandler().sendToServer(new ServerOpenCrafting());
         });
 
-        if (!mc.player.inventory.hasItemStack(new ItemStack(Blocks.CRAFTING_TABLE)))
-            craftingButton.visible = false;
-
+        craftingButton.visible = this.hasCrafting(mc.player);
         event.addWidget(this.craftingButton);
     }
 
@@ -57,7 +59,12 @@ public class InventoryCraftingClient {
             return;
 
         if (mc.player.world.getGameTime() % 5 == 0)
-            craftingButton.visible = mc.player.inventory.hasItemStack(new ItemStack(Blocks.CRAFTING_TABLE));
+            craftingButton.visible = this.hasCrafting(mc.player);
+    }
+
+    public boolean hasCrafting(PlayerEntity player) {
+        return InventoryCrafting.offhandOnly && ItemHelper.getBlockClass(player.getHeldItemOffhand()) == CraftingTableBlock.class
+            || !InventoryCrafting.offhandOnly && player.inventory.hasItemStack(new ItemStack(Blocks.CRAFTING_TABLE));
     }
 
     public boolean isButtonVisible() {

@@ -10,11 +10,15 @@ import net.minecraftforge.common.MinecraftForge;
 import svenhjol.charm.client.InventoryEnderChestClient;
 import svenhjol.charm.container.InventoryEnderChestContainer;
 import svenhjol.meson.MesonModule;
+import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
 
 public class InventoryEnderChest extends MesonModule {
     private static final ITextComponent LABEL = new TranslationTextComponent("container.charm.portable_ender_chest");
     public static InventoryEnderChestClient client;
+
+    @Config(name = "Offhand only", description = "If true, the chest button will only appear when the player holds the ender chest in their offhand.")
+    public static boolean offhandOnly = false;
 
     @Module(description = "Allows access to chest contents if the player has an Ender Chest in their inventory.")
     public InventoryEnderChest() {}
