@@ -44,12 +44,14 @@ public class InventoryButtonHandler {
                     this.recipeButton.visible = false;
                 InventoryCrafting.client.craftingButton.setPosition(left + 104, y);
                 InventoryEnderChest.client.chestButton.setPosition(left + 130, y);
+
             } else {
 
                 // just the recipe and crafting buttons
                 if (this.recipeButton != null)
                     this.recipeButton.visible = true;
                 InventoryCrafting.client.craftingButton.setPosition(left + 130, y);
+
             }
         } else if (InventoryEnderChest.client.isButtonVisible()) {
 
@@ -57,6 +59,7 @@ public class InventoryButtonHandler {
             if (this.recipeButton != null)
                 this.recipeButton.visible = true;
             InventoryEnderChest.client.chestButton.setPosition(left + 130, y);
+
         }
     }
 }

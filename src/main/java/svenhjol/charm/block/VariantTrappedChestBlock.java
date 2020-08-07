@@ -93,19 +93,6 @@ public class VariantTrappedChestBlock extends ChestBlock implements IMesonBlock,
         };
     }
 
-    //    @Override
-//    public void setISTER(Item.Properties props) {
-//        props.setISTER(() -> () -> new ItemStackTileEntityRenderer() {
-//            private final VariantTrappedChestTileEntity tile = new VariantTrappedChestTileEntity();
-//
-//            @Override
-//            public void func_239207_a_(ItemStack stack, ItemCameraTransforms.TransformType transformType, MatrixStack matrix, IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay) {
-//                tile.setMaterialType(getMaterialType());
-//                TileEntityRendererDispatcher.instance.renderItem(tile, matrix, buffer, combinedLight, combinedOverlay);
-//            }
-//        });
-//    }
-
     /**
      * Copypasta from {@link net.minecraft.block.TrappedChestBlock}
      */
