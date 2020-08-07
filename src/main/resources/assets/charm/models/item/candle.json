@@ -1,3 +1,6 @@
 {
-  "parent": "charm:block/candle"
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "charm:item/candle"
+  }
 }
