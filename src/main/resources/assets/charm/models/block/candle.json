@@ -1,5 +1,6 @@
 {
 	"textures": {
+		"particle": "charm:block/wax",
 		"candle": "charm:block/wax"
 	},
 	"elements": [
