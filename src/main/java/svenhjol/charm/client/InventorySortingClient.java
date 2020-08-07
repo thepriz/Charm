@@ -30,6 +30,7 @@ public class InventorySortingClient {
     private final List<ImageButton> sortingButtons = new ArrayList<>();
 
     public final List<Class<? extends Screen>> tileScreens = new ArrayList<>();
+    public final List<Class<? extends Screen>> blacklistScreens = new ArrayList<>();
 
     public InventorySortingClient(MesonModule module) {
         this.module = module;
@@ -41,6 +42,10 @@ public class InventorySortingClient {
             DispenserScreen.class,
             CrateScreen.class
         ));
+
+        blacklistScreens.addAll(Arrays.asList(
+            CreativeScreen.class
+        ));
     }
 
     @SubscribeEvent
@@ -51,6 +56,9 @@ public class InventorySortingClient {
             return;
 
         if (!(event.getGui() instanceof ContainerScreen))
+            return;
+
+        if (blacklistScreens.contains(event.getGui().getClass()))
             return;
 
         this.sortingButtons.clear();
@@ -87,7 +95,9 @@ public class InventorySortingClient {
     public void onDrawForeground(DrawForeground event) {
 
         // redraw all buttons on inventory to handle recipe open/close
-        if (event.getGuiContainer() instanceof InventoryScreen) {
+        if (event.getGuiContainer() instanceof InventoryScreen
+            && !blacklistScreens.contains(event.getGuiContainer().getClass())
+        ) {
             InventoryScreen screen = (InventoryScreen)event.getGuiContainer();
             this.sortingButtons.forEach(button -> button.setPosition(screen.getGuiLeft() + LEFT, button.y));
         }
