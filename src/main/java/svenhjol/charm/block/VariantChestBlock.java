@@ -11,6 +11,7 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -57,7 +58,12 @@ public class VariantChestBlock extends ChestBlock implements IMesonBlock, IVaria
     @Nullable
     @Override
     public TileEntity createNewTileEntity(IBlockReader worldIn) {
-        return new VariantChestTileEntity();
+        VariantChestTileEntity chest = new VariantChestTileEntity();
+
+        // TODO this might be a shit way to set display names, please check
+        chest.setCustomName(new TranslationTextComponent("block." + this.module.mod.getId() + "." + type.getLowercaseName() + "_chest"));
+
+        return chest;
     }
 
     @Override

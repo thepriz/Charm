@@ -20,6 +20,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
@@ -108,7 +109,12 @@ public class BookcaseBlock extends MesonBlock {
     @Nullable
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return new BookcaseTileEntity();
+        BookcaseTileEntity bookcase = new BookcaseTileEntity();
+
+        // TODO this might be a shit way to set display names, please check
+        bookcase.setCustomName(new TranslationTextComponent("block." + this.module.mod.getId() + "." + type.getLowercaseName() + "_bookcase"));
+
+        return bookcase;
     }
 
     @Override

@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import svenhjol.charm.tileentity.VariantBarrelTileEntity;
 import svenhjol.meson.MesonModule;
@@ -54,6 +55,11 @@ public class VariantBarrelBlock extends BarrelBlock implements IMesonBlock {
     @Nullable
     @Override
     public TileEntity createNewTileEntity(IBlockReader worldIn) {
-        return new VariantBarrelTileEntity(module.getMod(), type);
+        VariantBarrelTileEntity barrel = new VariantBarrelTileEntity();
+
+        // TODO this might be a shit way to set display names, please check
+        barrel.setCustomName(new TranslationTextComponent("block." + this.module.mod.getId() + "." + type.getLowercaseName() + "_barrel"));
+
+        return barrel;
     }
 }

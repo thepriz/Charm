@@ -19,6 +19,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -64,7 +65,12 @@ public class VariantTrappedChestBlock extends ChestBlock implements IMesonBlock,
     @Nullable
     @Override
     public TileEntity createNewTileEntity(IBlockReader worldIn) {
-        return new VariantTrappedChestTileEntity();
+        VariantTrappedChestTileEntity chest = new VariantTrappedChestTileEntity();
+
+        // TODO this might be a shit way to set display names, please check
+        chest.setCustomName(new TranslationTextComponent("block." + this.module.mod.getId() + "." + type.getLowercaseName() + "_trapped_chest"));
+
+        return chest;
     }
 
     @Override

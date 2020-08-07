@@ -22,6 +22,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import svenhjol.charm.module.Crates;
@@ -50,7 +51,12 @@ public class CrateBlock extends MesonBlock {
     @Nullable
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return new CrateTileEntity();
+        CrateTileEntity crate = new CrateTileEntity();
+
+        // TODO this might be a shit way to set display names, please check
+        crate.setCustomName(new TranslationTextComponent("block." + this.module.mod.getId() + "." + type.getLowercaseName() + "_crate"));
+
+        return crate;
     }
 
     @Override
