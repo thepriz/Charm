@@ -4,15 +4,6 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "charm.refmap.json",
   "mixins": [
-    "accessor.BarrelTileEntityAccessor",
-    "accessor.BlockAccessor",
-    "accessor.DispenserBlockAccessor",
-    "accessor.FireBlockAccessor",
-    "accessor.GoalSelectorAccessor",
-    "accessor.ItemAccessor",
-    "accessor.PlayerEntityAccessor",
-    "accessor.ServerWorldAccessor",
-    "accessor.StructurePieceAccessor",
     "AnvilImprovementsContainerMixin",
     "ArmorInvisibilityLivingEntityMixin",
     "BeaconsHealMobsMixin",
@@ -22,15 +13,25 @@
     "StackableEnchantedBooksMixin",
     "StackablePotionsMixin",
     "StrayImprovementsMixin",
-    "WanderingTraderImprovementsMixin"
+    "VariantChestsMixin",
+    "WanderingTraderImprovementsMixin",
+    "accessor.BarrelTileEntityAccessor",
+    "accessor.BlockAccessor",
+    "accessor.DispenserBlockAccessor",
+    "accessor.FireBlockAccessor",
+    "accessor.GoalSelectorAccessor",
+    "accessor.ItemAccessor",
+    "accessor.PlayerEntityAccessor",
+    "accessor.ServerWorldAccessor",
+    "accessor.StructurePieceAccessor"
   ],
-  "client":[
-    "accessor.SoundEngineAccessor",
-    "accessor.SoundHandlerAccessor",
+  "client": [
     "AnvilImprovementsScreenMixin",
     "ArmorInvisibilityBipedArmorLayerMixin",
     "MusicImprovementsMixin",
-    "RemovePotionGlintMixin"
+    "RemovePotionGlintMixin",
+    "accessor.SoundEngineAccessor",
+    "accessor.SoundHandlerAccessor"
   ],
   "injectors": {
     "defaultRequire": 1
