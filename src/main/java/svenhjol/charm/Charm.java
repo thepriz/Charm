@@ -41,6 +41,7 @@ public class Charm extends MesonMod {
             BlockOfGunpowder.class,
             BlockOfSugar.class,
             Bookcases.class,
+            CampfiresNoDamage.class,
             Candles.class,
             CaveSpidersDropCobwebs.class,
             ChickensDropFeathers.class,
