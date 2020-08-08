@@ -90,60 +90,62 @@ public class CratesClient {
             }
             BlockItem blockItem = (BlockItem)stack.getItem();
             TileEntity tile = TileEntity.readTileEntity(blockItem.getBlock().getDefaultState(), tag);
-            if (tile != null) {
-                LazyOptional<IItemHandler> handler = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
-                handler.ifPresent(cap -> {
-                    int size = cap.getSlots();
+            if (tile == null) return;
 
-                    int x = event.getX() - 5;
-                    int y = event.getY() - 35;
-                    int w = 172;
-                    int h = 27;
-                    int right = x + w;
+            LazyOptional<IItemHandler> handler = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+            if (handler == null) return;
 
-                    if (right > mc.getMainWindow().getScaledWidth())
-                        x -= (right - mc.getMainWindow().getScaledWidth());
+            handler.ifPresent(cap -> {
+                int size = cap.getSlots();
 
-                    if (y < 0)
-                        y = event.getY() + event.getLines().size() * 10 + 5;
+                int x = event.getX() - 5;
+                int y = event.getY() - 35;
+                int w = 172;
+                int h = 27;
+                int right = x + w;
 
-                    RenderSystem.pushMatrix();
-                    RenderHelper.enableStandardItemLighting();
-                    RenderSystem.enableRescaleNormal();
-                    RenderSystem.color3f(1f, 1f, 1f);
-                    RenderSystem.translatef(0, 0, 700);
-                    mc.getTextureManager().bindTexture(WIDGET_RESOURCE);
+                if (right > mc.getMainWindow().getScaledWidth())
+                    x -= (right - mc.getMainWindow().getScaledWidth());
 
-                    RenderHelper.disableStandardItemLighting();
-                    renderTooltipBackground(mc, matrix, x, y, 9, 1, -1);
-                    RenderSystem.color3f(1f, 1f, 1f);
+                if (y < 0)
+                    y = event.getY() + event.getLines().size() * 10 + 5;
 
-                    ItemRenderer render = mc.getItemRenderer();
-                    RenderHelper.enableStandardItemLighting();
-                    RenderSystem.enableDepthTest();
+                RenderSystem.pushMatrix();
+                RenderHelper.enableStandardItemLighting();
+                RenderSystem.enableRescaleNormal();
+                RenderSystem.color3f(1f, 1f, 1f);
+                RenderSystem.translatef(0, 0, 700);
+                mc.getTextureManager().bindTexture(WIDGET_RESOURCE);
 
-                    for (int i = 0; i < size; i++) {
-                        ItemStack itemstack;
-                        try {
-                            itemstack = cap.getStackInSlot(i);
-                        } catch (Exception e) {
-                            // catch null issue with itemstack. Needs investigation. #255
-                            continue;
-                        }
-                        int xp = x + 6 + (i % 9) * 18;
-                        int yp = y + 6 + (i / 9) * 18;
+                RenderHelper.disableStandardItemLighting();
+                renderTooltipBackground(mc, matrix, x, y, 9, 1, -1);
+                RenderSystem.color3f(1f, 1f, 1f);
 
-                        if (!itemstack.isEmpty()) {
-                            render.renderItemAndEffectIntoGUI(itemstack, xp, yp);
-                            render.renderItemOverlays(mc.fontRenderer, itemstack, xp, yp);
-                        }
+                ItemRenderer render = mc.getItemRenderer();
+                RenderHelper.enableStandardItemLighting();
+                RenderSystem.enableDepthTest();
+
+                for (int i = 0; i < size; i++) {
+                    ItemStack itemstack;
+                    try {
+                        itemstack = cap.getStackInSlot(i);
+                    } catch (Exception e) {
+                        // catch null issue with itemstack. Needs investigation. #255
+                        continue;
                     }
+                    int xp = x + 6 + (i % 9) * 18;
+                    int yp = y + 6 + (i / 9) * 18;
 
-                    RenderSystem.disableDepthTest();
-                    RenderSystem.disableRescaleNormal();
-                    RenderSystem.popMatrix();
-                });
-            }
+                    if (!itemstack.isEmpty()) {
+                        render.renderItemAndEffectIntoGUI(itemstack, xp, yp);
+                        render.renderItemOverlays(mc.fontRenderer, itemstack, xp, yp);
+                    }
+                }
+
+                RenderSystem.disableDepthTest();
+                RenderSystem.disableRescaleNormal();
+                RenderSystem.popMatrix();
+            });
         }
     }
 
