@@ -50,6 +50,8 @@ public class InventorySortingClient {
 
     @SubscribeEvent
     public void onInitGui(InitGuiEvent.Post event) {
+        if (!module.enabled) return;
+
         Minecraft mc = Minecraft.getInstance();
 
         if (mc.player == null)
@@ -93,6 +95,7 @@ public class InventorySortingClient {
 
     @SubscribeEvent
     public void onDrawForeground(DrawForeground event) {
+        if (!module.enabled) return;
 
         // redraw all buttons on inventory to handle recipe open/close
         if (event.getGuiContainer() instanceof InventoryScreen
