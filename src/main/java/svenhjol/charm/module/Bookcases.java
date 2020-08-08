@@ -12,6 +12,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import svenhjol.charm.Charm;
 import svenhjol.charm.block.BookcaseBlock;
+import svenhjol.charm.block.QuarkBookcaseBlock;
 import svenhjol.charm.container.BookcaseContainer;
 import svenhjol.charm.gui.BookcaseScreen;
 import svenhjol.charm.tileentity.BookcaseTileEntity;
@@ -56,11 +57,11 @@ public class Bookcases extends MesonModule {
     @Override
     public void init() {
         VanillaStorageMaterial.getTypes().forEach(type -> {
-            BOOKCASE_BLOCKS.put(type, new BookcaseBlock(this, type, type.getString() + "_bookcase"));
+            BOOKCASE_BLOCKS.put(type, new BookcaseBlock(this, type));
         });
 
         VanillaStorageMaterial.getTypesWithout(VanillaStorageMaterial.OAK).forEach(type -> {
-            QUARK_BOOKCASE_BLOCKS.put(type, new BookcaseBlock(this, type, "quark_" + type.getString() + "_bookcase"));
+            QUARK_BOOKCASE_BLOCKS.put(type, new QuarkBookcaseBlock(this, type));
         });
 
         CONTAINER = new ContainerType<>(BookcaseContainer::instance);

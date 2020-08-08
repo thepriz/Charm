@@ -33,10 +33,14 @@ import javax.annotation.Nullable;
 public class BookcaseBlock extends MesonBlock {
     public static final IntegerProperty SLOTS = IntegerProperty.create("slots", 0, 9);
 
-    private MesonModule module;
-    private IStorageMaterial type;
+    protected MesonModule module;
+    protected IStorageMaterial type;
 
-    public BookcaseBlock(MesonModule module, IStorageMaterial type, String name) {
+    public BookcaseBlock(MesonModule module, IStorageMaterial type) {
+        this(module, type, type.getString() + "_bookcase");
+    }
+
+    protected BookcaseBlock(MesonModule module, IStorageMaterial type, String name) {
         super(module, name, AbstractBlock.Properties.from(Blocks.BOOKSHELF));
 
         this.module = module;
