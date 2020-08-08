@@ -5,6 +5,7 @@
   "refmap": "charm.refmap.json",
   "mixins": [
     "AnvilImprovementsContainerMixin",
+    "AnvilImprovementsDamageMixin",
     "ArmorInvisibilityLivingEntityMixin",
     "BeaconsHealMobsMixin",
     "CampfiresNoDamageMixin",
