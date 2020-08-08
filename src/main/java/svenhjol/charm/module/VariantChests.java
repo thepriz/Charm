@@ -16,8 +16,6 @@ import svenhjol.charm.tileentity.VariantTrappedChestTileEntity;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.enums.IStorageMaterial;
 import svenhjol.meson.enums.VanillaStorageMaterial;
-import svenhjol.meson.helper.ModHelper;
-import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
 
 import java.util.HashMap;
@@ -32,9 +30,6 @@ public class VariantChests extends MesonModule {
 
     public static TileEntityType<VariantChestTileEntity> NORMAL_TILE;
     public static TileEntityType<VariantTrappedChestTileEntity> TRAPPED_TILE;
-
-    @Config(name = "Override", description = "This module is automatically disabled if Quark is present. Set true to force enable.")
-    public static boolean override = false;
 
     @Module(description = "Chests available in all types of vanilla wood.", hasSubscriptions = true)
     public VariantChests() {}
@@ -51,11 +46,6 @@ public class VariantChests extends MesonModule {
 
         mod.register(NORMAL_TILE, NORMAL_ID);
         mod.register(TRAPPED_TILE, TRAPPED_ID);
-    }
-
-    @Override
-    public boolean test() {
-        return !ModHelper.present("quark") || override;
     }
 
     @Override

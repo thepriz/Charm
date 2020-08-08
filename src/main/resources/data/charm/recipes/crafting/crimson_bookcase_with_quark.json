@@ -14,12 +14,21 @@
     }
   },
   "result": {
-    "item": "charm:crimson_bookcase"
+    "item": "charm:quark_crimson_bookcase"
   },
   "conditions": [
     {
-      "type": "forge:mod_loaded",
-      "modid": "quark"
+      "type": "forge:and",
+      "values": [
+        {
+          "type": "meson:module_enabled",
+          "module": "charm:bookcases"
+        },
+        {
+          "type": "forge:mod_loaded",
+          "modid": "quark"
+        }
+      ]
     }
   ]
 }

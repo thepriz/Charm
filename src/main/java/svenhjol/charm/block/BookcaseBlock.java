@@ -11,7 +11,6 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
@@ -28,34 +27,22 @@ import svenhjol.charm.tileentity.BookcaseTileEntity;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.block.MesonBlock;
 import svenhjol.meson.enums.IStorageMaterial;
-import svenhjol.meson.helper.ModHelper;
-import vazkii.arl.util.ItemNBTHelper;
 
 import javax.annotation.Nullable;
-import java.util.function.BiConsumer;
 
 public class BookcaseBlock extends MesonBlock {
-    public static final String TAG_QUARK = "quark";
     public static final IntegerProperty SLOTS = IntegerProperty.create("slots", 0, 9);
-    public static final BooleanProperty QUARK = BooleanProperty.create(TAG_QUARK);
 
     private MesonModule module;
     private IStorageMaterial type;
-    private boolean quarkEnabled;
 
-    public BookcaseBlock(MesonModule module, IStorageMaterial type) {
-        super(module, type.getLowercaseName() + "_bookcase", AbstractBlock.Properties.from(Blocks.BOOKSHELF));
+    public BookcaseBlock(MesonModule module, IStorageMaterial type, String name) {
+        super(module, name, AbstractBlock.Properties.from(Blocks.BOOKSHELF));
 
         this.module = module;
         this.type = type;
-        this.quarkEnabled = ModHelper.present("quark");
 
-        this.setDefaultState(getDefaultState().with(SLOTS, 0).with(QUARK, quarkEnabled));
-    }
-
-    @Override
-    public BiConsumer<ItemStack, Boolean> getInventoryTickConsumer() {
-        return ((stack, isSelected) -> ItemNBTHelper.setBoolean(stack, TAG_QUARK, ModHelper.present("quark"))); // TODO cache mod check
+        this.setDefaultState(getDefaultState().with(SLOTS, 0));
     }
 
     @Override
@@ -88,9 +75,8 @@ public class BookcaseBlock extends MesonBlock {
     public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {
         if (stack.hasDisplayName()) {
             TileEntity tile = world.getTileEntity(pos);
-            if (tile instanceof BookcaseTileEntity) {
+            if (tile instanceof BookcaseTileEntity)
                 ((BookcaseTileEntity) tile).setCustomName(stack.getDisplayName());
-            }
         }
     }
 
@@ -154,6 +140,5 @@ public class BookcaseBlock extends MesonBlock {
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         super.fillStateContainer(builder);
         builder.add(SLOTS);
-        builder.add(QUARK);
     }
 }

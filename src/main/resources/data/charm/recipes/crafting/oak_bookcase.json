@@ -19,7 +19,7 @@
   "conditions": [
     {
       "type": "meson:module_enabled",
-      "module": "charm:variant_bookshelves"
+      "module": "charm:bookcases"
     }
   ]
 }

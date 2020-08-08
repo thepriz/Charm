@@ -1,9 +1,3 @@
 {
-  "parent": "charm:block/bookcase/warped_bookcase_0",
-  "overrides": [
-    {
-      "predicate": { "quark": 1 },
-      "model": "charm:item/bookcase_quark/warped_bookcase"
-    }
-  ]
+  "parent": "charm:block/bookcase/warped_bookcase_0"
 }

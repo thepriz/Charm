@@ -3,7 +3,6 @@ package svenhjol.charm.module;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemModelsProperties;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.tileentity.TileEntityType;
@@ -21,13 +20,13 @@ import svenhjol.meson.enums.IStorageMaterial;
 import svenhjol.meson.enums.VanillaStorageMaterial;
 import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
-import vazkii.arl.util.ItemNBTHelper;
 
 import java.util.*;
 
 public class Bookcases extends MesonModule {
     public static final ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "bookcase");
     public static final Map<IStorageMaterial, BookcaseBlock> BOOKCASE_BLOCKS = new HashMap<>();
+    public static final Map<IStorageMaterial, BookcaseBlock> QUARK_BOOKCASE_BLOCKS = new HashMap<>();
 
     public static ContainerType<BookcaseContainer> CONTAINER;
     public static TileEntityType<BookcaseTileEntity> TILE;
@@ -56,9 +55,13 @@ public class Bookcases extends MesonModule {
 
     @Override
     public void init() {
-        for (VanillaStorageMaterial type : VanillaStorageMaterial.values()) {
-            BOOKCASE_BLOCKS.put(type, new BookcaseBlock(this, type));
-        }
+        VanillaStorageMaterial.getTypes().forEach(type -> {
+            BOOKCASE_BLOCKS.put(type, new BookcaseBlock(this, type, type.getString() + "_bookcase"));
+        });
+
+        VanillaStorageMaterial.getTypesWithout(VanillaStorageMaterial.OAK).forEach(type -> {
+            QUARK_BOOKCASE_BLOCKS.put(type, new BookcaseBlock(this, type, "quark_" + type.getString() + "_bookcase"));
+        });
 
         CONTAINER = new ContainerType<>(BookcaseContainer::instance);
         TILE = TileEntityType.Builder.create(BookcaseTileEntity::new).build(null);
@@ -79,13 +82,9 @@ public class Bookcases extends MesonModule {
     @Override
     public void onClientSetup(FMLClientSetupEvent event) {
         ScreenManager.registerFactory(CONTAINER, BookcaseScreen::new);
-
-        BOOKCASE_BLOCKS.forEach((type, block) -> ItemModelsProperties.func_239418_a_(block.blockItem, new ResourceLocation(BookcaseBlock.TAG_QUARK),
-            (stack, world, entity) -> ItemNBTHelper.getBoolean(stack, BookcaseBlock.TAG_QUARK, false) ? 1 : 0));
     }
 
     public static boolean canInsertItem(ItemStack stack) {
         return validItems.contains(stack.getItem().getClass());
     }
-
 }
