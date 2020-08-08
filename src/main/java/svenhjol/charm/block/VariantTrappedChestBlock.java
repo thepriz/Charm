@@ -48,7 +48,7 @@ public class VariantTrappedChestBlock extends ChestBlock implements IMesonBlock,
 
     @Override
     public ItemGroup getItemGroup() {
-        return ItemGroup.DECORATIONS;
+        return ItemGroup.REDSTONE;
     }
 
     @Override
