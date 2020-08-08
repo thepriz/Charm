@@ -49,10 +49,18 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:jei-${jei}:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${jei}")
 
-    // enable to test quark compat
-    if (compile_quark==true) {
+    // enable in gradle.properties to test quark compat
+    if (compile_quark == "true") {
         compile fg.deobf("vazkii.autoreglib:AutoRegLib:${arl}")
         compile fg.deobf("vazkii.quark:Quark:${quark}")
+        compile fg.deobf("curse.maven:${quark_oddities}")
+    }
+
+    // enable in gradle.properties to test botania compat
+    if (compile_botania == "true") {
+        compile fg.deobf("curse.maven:${botania}")
+        compile fg.deobf("curse.maven:${patchouli}")
+        compile fg.deobf("curse.maven:${curios}")
     }
 }
 
