@@ -1,3 +1,9 @@
 {
-  "parent": "charm:block/bookcase/birch_bookcase_0"
+  "parent": "charm:block/bookcase/birch_bookcase_0",
+  "overrides": [
+    {
+      "predicate": { "quark": 1 },
+      "model": "charm:item/bookcase_quark/birch_bookcase"
+    }
+  ]
 }
