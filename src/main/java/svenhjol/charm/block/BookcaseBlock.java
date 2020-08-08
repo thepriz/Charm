@@ -29,12 +29,15 @@ import svenhjol.meson.MesonModule;
 import svenhjol.meson.block.MesonBlock;
 import svenhjol.meson.enums.IStorageMaterial;
 import svenhjol.meson.helper.ModHelper;
+import vazkii.arl.util.ItemNBTHelper;
 
 import javax.annotation.Nullable;
+import java.util.function.BiConsumer;
 
 public class BookcaseBlock extends MesonBlock {
+    public static final String TAG_QUARK = "quark";
     public static final IntegerProperty SLOTS = IntegerProperty.create("slots", 0, 9);
-    public static final BooleanProperty QUARK = BooleanProperty.create("quark");
+    public static final BooleanProperty QUARK = BooleanProperty.create(TAG_QUARK);
 
     private MesonModule module;
     private IStorageMaterial type;
@@ -48,6 +51,11 @@ public class BookcaseBlock extends MesonBlock {
         this.quarkEnabled = ModHelper.present("quark");
 
         this.setDefaultState(getDefaultState().with(SLOTS, 0).with(QUARK, quarkEnabled));
+    }
+
+    @Override
+    public BiConsumer<ItemStack, Boolean> getInventoryTickConsumer() {
+        return ((stack, isSelected) -> ItemNBTHelper.setBoolean(stack, TAG_QUARK, ModHelper.present("quark"))); // TODO cache mod check
     }
 
     @Override

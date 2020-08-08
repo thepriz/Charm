@@ -3,6 +3,7 @@ package svenhjol.charm.module;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemModelsProperties;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.tileentity.TileEntityType;
@@ -20,6 +21,7 @@ import svenhjol.meson.enums.IStorageMaterial;
 import svenhjol.meson.enums.VanillaStorageMaterial;
 import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
+import vazkii.arl.util.ItemNBTHelper;
 
 import java.util.*;
 
@@ -77,6 +79,9 @@ public class Bookcases extends MesonModule {
     @Override
     public void onClientSetup(FMLClientSetupEvent event) {
         ScreenManager.registerFactory(CONTAINER, BookcaseScreen::new);
+
+        BOOKCASE_BLOCKS.forEach((type, block) -> ItemModelsProperties.func_239418_a_(block.blockItem, new ResourceLocation(BookcaseBlock.TAG_QUARK),
+            (stack, world, entity) -> ItemNBTHelper.getBoolean(stack, BookcaseBlock.TAG_QUARK, false) ? 1 : 0));
     }
 
     public static boolean canInsertItem(ItemStack stack) {
