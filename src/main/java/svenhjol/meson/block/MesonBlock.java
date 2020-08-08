@@ -1,6 +1,7 @@
 package svenhjol.meson.block;
 
 import net.minecraft.block.Block;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
@@ -8,6 +9,7 @@ import svenhjol.meson.MesonModule;
 
 public abstract class MesonBlock extends Block implements IMesonBlock {
     public MesonModule module;
+    public BlockItem blockItem;
 
     public MesonBlock(MesonModule module, String name, Block.Properties props) {
         super(props);
@@ -18,6 +20,10 @@ public abstract class MesonBlock extends Block implements IMesonBlock {
     @Override
     public ItemGroup getItemGroup() {
         return ItemGroup.BUILDING_BLOCKS;
+    }
+
+    public void setBlockItem(BlockItem blockItem) {
+        this.blockItem = blockItem;
     }
 
     @Override

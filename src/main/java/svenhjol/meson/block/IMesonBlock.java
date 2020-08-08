@@ -6,15 +6,17 @@ import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.DistExecutor;
-import svenhjol.meson.MesonModule;
 import svenhjol.charm.mixin.accessor.FireBlockAccessor;
+import svenhjol.meson.MesonModule;
 
 import javax.annotation.Nullable;
 import java.util.concurrent.Callable;
+import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
 public interface IMesonBlock {
@@ -32,7 +34,7 @@ public interface IMesonBlock {
         module.getMod().register((Block)this, new ResourceLocation(module.getMod().getId(), name));
     }
 
-    default BlockItem getBlockItem() {
+    default BlockItem createBlockItem() {
         Item.Properties props = new Item.Properties();
 
         if (enabled()) {
@@ -56,6 +58,10 @@ public interface IMesonBlock {
         return new BlockItem((Block)this, props);
     }
 
+    default void setBlockItem(BlockItem blockItem) {
+        // no op
+    }
+
     default void setFireInfo(int encouragement, int flammability) {
         ((FireBlockAccessor) Blocks.FIRE).callSetFireInfo((Block)this, encouragement, flammability);
     }
@@ -63,4 +69,9 @@ public interface IMesonBlock {
     @Nullable
     @OnlyIn(Dist.CLIENT)
     default Supplier<Callable<ItemStackTileEntityRenderer>> getISTER() { return null; }
+
+    @Nullable
+    default BiConsumer<ItemStack, Boolean> getInventoryTickConsumer() {
+        return null;
+    }
 }
