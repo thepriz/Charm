@@ -49,8 +49,11 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:jei-${jei}:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${jei}")
 
-//    compile fg.deobf("vazkii.autoreglib:AutoRegLib:${arl}")
-//    compile fg.deobf("vazkii.quark:Quark:${quark}")
+    // enable to test quark compat
+    if (true) {
+        compile fg.deobf("vazkii.autoreglib:AutoRegLib:${arl}")
+        compile fg.deobf("vazkii.quark:Quark:${quark}")
+    }
 }
 
 repositories {
