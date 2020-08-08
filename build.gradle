@@ -50,7 +50,7 @@ dependencies {
     runtimeOnly fg.deobf("mezz.jei:jei-${jei}")
 
     // enable to test quark compat
-    if (compile_quark) {
+    if (compile_quark==true) {
         compile fg.deobf("vazkii.autoreglib:AutoRegLib:${arl}")
         compile fg.deobf("vazkii.quark:Quark:${quark}")
     }
