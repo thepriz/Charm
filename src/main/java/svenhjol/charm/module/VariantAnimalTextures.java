@@ -69,7 +69,7 @@ public class VariantAnimalTextures extends MesonModule {
 
         // cow textures. Corianthes: add the names of the textures in textures/entity/cow here, without the .png
         cow.addAll(Arrays.asList(
-            "minecraft:cow"
+            "minecraft:cow", "charm:cow1", "charm:cow2", "charm:cow3","charm:cow4", "charm:cow5", "charm:cow6", "charm:cow7", "charm:cow8"
         ));
 
         // squid textures. Corianthes: add the names of the textures in textures/entity/squid here, without the .png
