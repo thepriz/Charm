@@ -63,7 +63,7 @@ public interface IMesonBlock {
     }
 
     default void setFireInfo(int encouragement, int flammability) {
-        ((FireBlockAccessor) Blocks.FIRE).callSetFireInfo((Block)this, encouragement, flammability);
+        ((FireBlockAccessor) Blocks.FIRE).invokeSetFireInfo((Block)this, encouragement, flammability);
     }
 
     @Nullable
