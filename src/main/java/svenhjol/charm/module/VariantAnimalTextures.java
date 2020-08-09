@@ -26,11 +26,17 @@ public class VariantAnimalTextures extends MesonModule {
     private static final String PREFIX = "textures/entity/";
     private static List<String> TEXTURE_HAS_SUBDIRS = new ArrayList<>();
 
-    public static List<String> wolf = new ArrayList<>();
-    public static List<String> cow = new ArrayList<>();
-    public static List<String> squid = new ArrayList<>();
-    public static List<String> chicken = new ArrayList<>();
-    public static List<String> pig = new ArrayList<>();
+    public static List<String> wolves = new ArrayList<>();
+    public static List<String> cows = new ArrayList<>();
+    public static List<String> squids = new ArrayList<>();
+    public static List<String> chickens = new ArrayList<>();
+    public static List<String> pigs = new ArrayList<>();
+
+    public static List<String> rareWolves = new ArrayList<>();
+    public static List<String> rareCows = new ArrayList<>();
+    public static List<String> rareSquids = new ArrayList<>();
+    public static List<String> rareChickens = new ArrayList<>();
+    public static List<String> rarePigs = new ArrayList<>();
 
     @Config(name = "Variant wolves", description = "If true, wolves may spawn with different textures.")
     public static boolean variantWolves = true;
@@ -57,35 +63,46 @@ public class VariantAnimalTextures extends MesonModule {
 
     @Override
     public void onCommonSetup(FMLCommonSetupEvent event) {
-        // wolf textures
-        wolf.addAll(Arrays.asList(
-            "minecraft:wolf", "charm:brownwolf", "charm:greywolf", "charm:blackwolf", "charm:amotwolf", "charm:jupiter1390"
-        ));
+        // add vanilla textures
+        wolves.add("minecraft:wolf");
+        cows.add("minecraft:cow");
+        squids.add("minecraft:squid");
+        chickens.add("minecraft:chicken");
+        pigs.add("minecraft:pig");
 
-        // add NeverLoseGuy wolf textures
-        for (int i = 1; i <= 25; i++) {
-            wolf.add("charm:wolf" + i);
-        }
+        wolves.addAll(Arrays.asList("charm:brownwolf", "charm:greywolf", "charm:blackwolf", "charm:amotwolf", "charm:jupiter1390"));
 
-        // cow textures. Corianthes: add the names of the textures in textures/entity/cow here, without the .png
-        cow.addAll(Arrays.asList(
-            "minecraft:cow", "charm:cow1", "charm:cow2", "charm:cow3","charm:cow4", "charm:cow5", "charm:cow6", "charm:cow7", "charm:cow8"
-        ));
+        for (int i = 1; i <= 25; i++)
+            wolves.add("charm:nlg_wolf" + i); // add NeverLoseGuy wolf textures
 
-        // squid textures. Corianthes: add the names of the textures in textures/entity/squid here, without the .png
-        squid.addAll(Arrays.asList(
-            "minecraft:squid", "charm:squid1", "charm:squid2", "charm:squid3", "charm:squid6", "charm:squid7"
-        ));
+        for (int i = 1; i <= 8; i++)
+            cows.add("charm:cow" + i);
 
-        // chicken textures. Corianthes: add the names of the textures in textures/entity/chicken here, without the .png
-        chicken.addAll(Arrays.asList(
-            "minecraft:chicken", "charm:chicken1", "charm:chicken2", "charm:chicken4", "charm:chicken5"
-        ));
+        for (int i = 1; i <= 5; i++)
+            squids.add("charm:squid" + i);
 
-        // pig textures. Corianthes: add the names of the textures in textures/entity/pig here, without the .png
-        pig.addAll(Arrays.asList(
-            "minecraft:pig"
-        ));
+        for (int i = 1; i <= 4; i++)
+            chickens.add("charm:chicken" + i);
+
+        // when pigs are added
+//        for (int i = 1; i <= 1; i++)
+//            pigs.add("charm:pig" + i);
+
+        // when rares are added
+//        for (int i = 1; i <= 1; i++)
+//            rareWolves.add("charm:rare_wolf" + i);
+
+        for (int i = 1; i <= 1; i++)
+            rareChickens.add("charm:rare_chicken" + i);
+
+//        for (int i = 1; i <= 1; i++)
+//            rareCows.add("charm:rare_cow" + i);
+
+//        for (int i = 1; i <= 1; i++)
+//            rarePigs.add("charm:rare_pig" + i);
+
+//        for (int i = 1; i <= 1; i++)
+//            rareSquids.add("charm:rare_squid" + i);
     }
 
     public enum MobType implements IMesonEnum {
@@ -117,7 +134,7 @@ public class VariantAnimalTextures extends MesonModule {
 
     @OnlyIn(Dist.CLIENT)
     public static ResourceLocation getWolfTexture(WolfEntity entity) {
-        String texture = getRandomTexture(entity, wolf);
+        String texture = getRandomTexture(entity, wolves, rareWolves);
         if (entity.isTamed()) {
             texture += "_tame";
         } else if (entity.func_233678_J__()) {
@@ -129,26 +146,29 @@ public class VariantAnimalTextures extends MesonModule {
 
     @OnlyIn(Dist.CLIENT)
     public static ResourceLocation getCowTexture(CowEntity entity) {
-        return getTextureFromString(MobType.COW, getRandomTexture(entity, cow));
+        return getTextureFromString(MobType.COW, getRandomTexture(entity, cows, rareCows));
     }
 
     @OnlyIn(Dist.CLIENT)
     public static ResourceLocation getSquidTexture(SquidEntity entity) {
-        return getTextureFromString(MobType.SQUID, getRandomTexture(entity, squid));
+        return getTextureFromString(MobType.SQUID, getRandomTexture(entity, squids, rareSquids));
     }
 
     @OnlyIn(Dist.CLIENT)
     public static ResourceLocation getChickenTexture(ChickenEntity entity) {
-        return getTextureFromString(MobType.CHICKEN, getRandomTexture(entity, chicken));
+        return getTextureFromString(MobType.CHICKEN, getRandomTexture(entity, chickens, rareChickens));
     }
 
     @OnlyIn(Dist.CLIENT)
     public static ResourceLocation getPigTexture(PigEntity entity) {
-        return getTextureFromString(MobType.PIG, getRandomTexture(entity, pig));
+        return getTextureFromString(MobType.PIG, getRandomTexture(entity, pigs, rarePigs));
     }
 
-    public static String getRandomTexture(Entity entity, List<String> set) {
+    public static String getRandomTexture(Entity entity, List<String> normalSet, List<String> rareSet) {
         UUID id = entity.getUniqueID();
+        boolean isRare = !rareSet.isEmpty() && (id.getLeastSignificantBits() + id.getMostSignificantBits()) % 20 == 0;
+
+        List<String> set = isRare ? rareSet : normalSet;
         int choice = Math.abs((int)(id.getMostSignificantBits() % set.size()));
         return set.get(choice);
     }
