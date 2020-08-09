@@ -166,7 +166,7 @@ public class VariantAnimalTextures extends MesonModule {
 
     public static String getRandomTexture(Entity entity, List<String> normalSet, List<String> rareSet) {
         UUID id = entity.getUniqueID();
-        boolean isRare = !rareSet.isEmpty() && (id.getLeastSignificantBits() + id.getMostSignificantBits()) % 20 == 0;
+        boolean isRare = !rareSet.isEmpty() && (id.getLeastSignificantBits() + id.getMostSignificantBits()) % 50 == 0;
 
         List<String> set = isRare ? rareSet : normalSet;
         int choice = Math.abs((int)(id.getMostSignificantBits() % set.size()));
