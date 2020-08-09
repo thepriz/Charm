@@ -44,7 +44,9 @@ minecraft {
 }
 
 mixin {
-    add sourceSets.main, "${mod_id}.refmap.json"
+    if (compile_refmap == "true") {
+        add sourceSets.main, "${mod_id}.refmap.json"
+    }
 }
 
 dependencies {
