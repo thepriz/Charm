@@ -75,18 +75,17 @@ public class VariantAnimalTextures extends MesonModule {
         for (int i = 1; i <= 25; i++)
             wolves.add("charm:nlg_wolf" + i); // add NeverLoseGuy wolf textures
 
-        for (int i = 1; i <= 8; i++)
+        for (int i = 1; i <= 7; i++)
             cows.add("charm:cow" + i);
 
-        for (int i = 1; i <= 5; i++)
+        for (int i = 1; i <= 4; i++)
             squids.add("charm:squid" + i);
 
-        for (int i = 1; i <= 4; i++)
+        for (int i = 1; i <= 3; i++)
             chickens.add("charm:chicken" + i);
 
-        // when pigs are added
-//        for (int i = 1; i <= 1; i++)
-//            pigs.add("charm:pig" + i);
+        for (int i = 1; i <= 2; i++)
+            pigs.add("charm:pig" + i);
 
         // when rares are added
 //        for (int i = 1; i <= 1; i++)
@@ -95,8 +94,8 @@ public class VariantAnimalTextures extends MesonModule {
         for (int i = 1; i <= 1; i++)
             rareChickens.add("charm:rare_chicken" + i);
 
-//        for (int i = 1; i <= 1; i++)
-//            rareCows.add("charm:rare_cow" + i);
+        for (int i = 1; i <= 1; i++)
+            rareCows.add("charm:rare_cow" + i);
 
 //        for (int i = 1; i <= 1; i++)
 //            rarePigs.add("charm:rare_pig" + i);
