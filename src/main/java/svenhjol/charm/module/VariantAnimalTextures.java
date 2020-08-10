@@ -53,6 +53,9 @@ public class VariantAnimalTextures extends MesonModule {
     @Config(name = "Variant pigs", description = "If true, pigs may spawn with different textures. This is disabled if Quark is present.")
     public static boolean variantPigs = true;
 
+    @Config(name = "Rare variants", description = "If true, all animals have a chance to spawn as a rare variant.")
+    public static boolean rareVariants = true;
+
     @Config(name = "Override", description = "Some animal textures are disabled if Quark is present. Set true to force enable them.")
     public static boolean override = false;
 
@@ -165,7 +168,7 @@ public class VariantAnimalTextures extends MesonModule {
 
     public static String getRandomTexture(Entity entity, List<String> normalSet, List<String> rareSet) {
         UUID id = entity.getUniqueID();
-        boolean isRare = !rareSet.isEmpty() && (id.getLeastSignificantBits() + id.getMostSignificantBits()) % 50 == 0;
+        boolean isRare = rareVariants && !rareSet.isEmpty() && (id.getLeastSignificantBits() + id.getMostSignificantBits()) % 50 == 0;
 
         List<String> set = isRare ? rareSet : normalSet;
         int choice = Math.abs((int)(id.getMostSignificantBits() % set.size()));
