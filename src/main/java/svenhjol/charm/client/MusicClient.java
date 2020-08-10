@@ -33,8 +33,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+@SuppressWarnings("unused")
 public class MusicClient {
-    private MesonModule module;
+    private final MesonModule module;
     private ISound musicToStop = null;
     private int ticksBeforeStop = 0;
     private static ISound currentMusic;
@@ -183,5 +184,9 @@ public class MusicClient {
             condition = new MusicCondition(Minecraft.getInstance().func_238178_U_());
 
         return condition;
+    }
+
+    public static List<MusicCondition> getMusicConditions() {
+        return musicConditions;
     }
 }

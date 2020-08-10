@@ -7,9 +7,9 @@ import net.minecraft.util.SoundEvent;
 import java.util.function.Predicate;
 
 public class MusicCondition {
-    private SoundEvent sound;
-    private int minDelay;
-    private int maxDelay;
+    private final SoundEvent sound;
+    private final int minDelay;
+    private final int maxDelay;
     private Predicate<Minecraft> condition;
 
     public MusicCondition(SoundEvent sound, int minDelay, int maxDelay, Predicate<Minecraft> condition) {
