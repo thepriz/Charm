@@ -35,7 +35,7 @@ public class MineshaftImprovements extends MesonModule {
     public static List<BlockState> commonFloorBlocks = new ArrayList<>();
     public static List<BlockState> commonCeilingBlocks = new ArrayList<>();
     public static List<BlockState> rareFloorBlocks = new ArrayList<>();
-    public static List<BlockState> rareCeilngBlocks = new ArrayList<>();
+    public static List<BlockState> rareCeilingBlocks = new ArrayList<>();
     public static List<BlockState> pileBlocks = new ArrayList<>();
     public static List<BlockState> roomBlocks = new ArrayList<>();
     public static List<BlockState> roomDecoration = new ArrayList<>();
@@ -44,7 +44,7 @@ public class MineshaftImprovements extends MesonModule {
     public static float floorBlockChance = 0.08F;
     public static float ceilingBlockChance = 0.04F;
     public static float rareBlockChance = 0.08F;
-    public static float roomBlockChance = 0.38F;
+    public static float roomBlockChance = 0.36F;
     public static float blockPileChance = 0.12F;
     public static float crateChance = 0.14F;
 
@@ -66,10 +66,6 @@ public class MineshaftImprovements extends MesonModule {
     @Override
     public void onCommonSetup(FMLCommonSetupEvent event) {
         commonFloorBlocks.addAll(Arrays.asList(
-            Blocks.COBBLESTONE.getDefaultState(),
-            Blocks.COBBLESTONE_SLAB.getDefaultState(),
-            Blocks.STONE_SLAB.getDefaultState(),
-            Blocks.ANDESITE_SLAB.getDefaultState(),
             Blocks.IRON_ORE.getDefaultState(),
             Blocks.COAL_ORE.getDefaultState(),
             Blocks.GOLD_ORE.getDefaultState()
@@ -81,7 +77,6 @@ public class MineshaftImprovements extends MesonModule {
         ));
 
         pileBlocks.addAll(Arrays.asList(
-            Blocks.EMERALD_ORE.getDefaultState(),
             Blocks.IRON_ORE.getDefaultState(),
             Blocks.COAL_ORE.getDefaultState(),
             Blocks.REDSTONE_ORE.getDefaultState(),
@@ -98,7 +93,7 @@ public class MineshaftImprovements extends MesonModule {
             Blocks.COAL_ORE.getDefaultState()
         ));
 
-        rareCeilngBlocks.addAll(Arrays.asList(
+        rareCeilingBlocks.addAll(Arrays.asList(
             Blocks.GOLD_ORE.getDefaultState()
         ));
 
@@ -112,9 +107,7 @@ public class MineshaftImprovements extends MesonModule {
         roomDecoration.addAll(Arrays.asList(
             Blocks.MOSSY_COBBLESTONE.getDefaultState(),
             Blocks.MOSSY_COBBLESTONE_SLAB.getDefaultState(),
-            Blocks.GRASS.getDefaultState(),
-            Blocks.FERN.getDefaultState(),
-            Blocks.OAK_SAPLING.getDefaultState()
+            Blocks.DIRT.getDefaultState()
         ));
 
         crateLootTables.addAll(Arrays.asList(
@@ -268,7 +261,7 @@ public class MineshaftImprovements extends MesonModule {
 
     private static BlockState getCeilingBlock(Random rand) {
         return rand.nextFloat() < rareBlockChance
-            ? getRandomBlockFromList(rareCeilngBlocks, rand)
+            ? getRandomBlockFromList(rareCeilingBlocks, rand)
             : getRandomBlockFromList(commonCeilingBlocks, rand);
     }
 
