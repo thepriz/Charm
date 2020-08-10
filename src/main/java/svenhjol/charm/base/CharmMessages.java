@@ -11,7 +11,9 @@ public class CharmMessages {
         handler.register(ServerOpenCrafting.class, ServerOpenCrafting::encode, ServerOpenCrafting::decode, ServerOpenCrafting.Handler::handle);
         handler.register(ServerOpenEnderChest.class, ServerOpenEnderChest::encode, ServerOpenEnderChest::decode, ServerOpenEnderChest.Handler::handle);
         handler.register(ServerSortInventory.class, ServerSortInventory::encode, ServerSortInventory::decode, ServerSortInventory.Handler::handle);
-        handler.register(ClientOpenInventory.class, ClientOpenInventory::encode, ClientOpenInventory::decode, ClientOpenInventory.Handler::handle);
+        handler.register(ServerUpdatePlayerState.class, ServerUpdatePlayerState::encode, ServerUpdatePlayerState::decode, ServerUpdatePlayerState.Handler::handle);
         handler.register(ClientSetGlowingEntities.class, ClientSetGlowingEntities::encode, ClientSetGlowingEntities::decode, ClientSetGlowingEntities.Handler::handle);
+        handler.register(ClientOpenInventory.class, ClientOpenInventory::encode, ClientOpenInventory::decode, ClientOpenInventory.Handler::handle);
+        handler.register(ClientUpdatePlayerState.class, ClientUpdatePlayerState::encode, ClientUpdatePlayerState::decode, ClientUpdatePlayerState.Handler::handle);
     }
 }
