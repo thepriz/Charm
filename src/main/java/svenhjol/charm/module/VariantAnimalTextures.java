@@ -100,8 +100,8 @@ public class VariantAnimalTextures extends MesonModule {
         for (int i = 1; i <= 1; i++)
             rareCows.add("charm:rare_cow" + i);
 
-//        for (int i = 1; i <= 1; i++)
-//            rarePigs.add("charm:rare_pig" + i);
+        for (int i = 1; i <= 1; i++)
+            rarePigs.add("charm:rare_pig" + i);
 
         for (int i = 1; i <= 1; i++)
             rareSquids.add("charm:rare_squid" + i);
