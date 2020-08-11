@@ -1,22 +1,24 @@
 package svenhjol.charm.module;
 
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.monster.HuskEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import svenhjol.meson.MesonModule;
+import svenhjol.meson.helper.ItemHelper;
 import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
 
 import java.util.Collection;
 
 public class HuskImprovements extends MesonModule {
-    public static double lootingBoost = 0.1D;
+    public static double lootingBoost = 0.3D;
 
     @Config(name = "Spawn anywhere in biome", description = "If true, husks can spawn anywhere within their biome rather than just the surface.")
     public static boolean spawnAnywhere = true;
@@ -24,8 +26,8 @@ public class HuskImprovements extends MesonModule {
     @Config(name = "Drop sand when killed", description = "If true, husks drop sand when killed.")
     public static boolean dropSand = true;
 
-    @Config(name = "Drop chance", description = "Chance (out of 1.0) of a husk dropping sand when it is killed.")
-    public static double dropChance = 0.33D;
+    @Config(name = "Maximum drops", description = "Maximum sand dropped when husk is killed.")
+    public static double maxDrops = 2;
 
     @Module(description = "Husks spawn anywhere within their biome and have a chance to drop sand.", hasSubscriptions = true)
     public HuskImprovements() {}
@@ -41,11 +43,12 @@ public class HuskImprovements extends MesonModule {
         if (dropSand
             && !entity.world.isRemote
             && entity instanceof HuskEntity
-            && entity.world.rand.nextFloat() <= (dropChance + (lootingBoost * lootingLevel))
         ) {
+            World world = entity.getEntityWorld();
             BlockPos pos = entity.getPosition();
-            ItemStack sand = new ItemStack(Items.SAND);
-            drops.add(new ItemEntity(entity.getEntityWorld(), pos.getX(), pos.getY(), pos.getZ(), sand));
+
+            int amount = ItemHelper.getAmountWithLooting(world.rand, (int)maxDrops, lootingLevel, (float)lootingBoost);
+            drops.add(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(Blocks.SAND, amount)));
         }
     }
 
