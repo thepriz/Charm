@@ -65,11 +65,12 @@ public class VariantAnimalTextures extends MesonModule {
     @Override
     public void onCommonSetup(FMLCommonSetupEvent event) {
         // add vanilla textures
-        wolves.add(new ResourceLocation(PREFIX + "/wolf/wolf.png"));
-        cows.add(new ResourceLocation(PREFIX + "/cow/cow.png"));
-        squids.add(new ResourceLocation(PREFIX + "/squid/squid.png"));
-        chickens.add(new ResourceLocation(PREFIX + "/chicken.png"));
-        pigs.add(new ResourceLocation(PREFIX + "/pig/pig.png"));
+        wolves.add(new ResourceLocation(PREFIX + "wolf/wolf.png"));
+        cows.add(new ResourceLocation(PREFIX + "cow/cow.png"));
+        squids.add(new ResourceLocation(PREFIX + "squid/squid.png"));
+        chickens.add(new ResourceLocation(PREFIX + "chicken.png"));
+        pigs.add(new ResourceLocation(PREFIX + "pig/pig.png"));
+
 
         addCharmTextures(wolves, MobType.WOLF, "brownwolf", "greywolf", "blackwolf", "amotwolf", "jupiter1390");
 
@@ -108,13 +109,7 @@ public class VariantAnimalTextures extends MesonModule {
             addCharmTextures(rarePigs, MobType.PIG, "rare_pig" + i);
     }
 
-    public enum MobType implements IMesonEnum {
-        WOLF,
-        COW,
-        PIG,
-        CHICKEN,
-        SQUID
-    }
+    public enum MobType implements IMesonEnum { WOLF, COW, PIG, CHICKEN, SQUID }
 
     @Override
     @OnlyIn(Dist.CLIENT)
@@ -186,7 +181,7 @@ public class VariantAnimalTextures extends MesonModule {
 
             if (type == MobType.WOLF) {
                 tameWolves.put(res, createResource(type, texture + "_tame"));
-                angryWolves.put(res, createResource(type, textures + "_angry"));
+                angryWolves.put(res, createResource(type, texture + "_angry"));
             }
         });
     }
