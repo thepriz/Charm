@@ -67,7 +67,7 @@ public class VariantAnimalTextures extends MesonModule {
         // add vanilla textures
         wolves.add(new ResourceLocation(PREFIX + "wolf/wolf.png"));
         cows.add(new ResourceLocation(PREFIX + "cow/cow.png"));
-        squids.add(new ResourceLocation(PREFIX + "squid/squid.png"));
+        squids.add(new ResourceLocation(PREFIX + "squid.png"));
         chickens.add(new ResourceLocation(PREFIX + "chicken.png"));
         pigs.add(new ResourceLocation(PREFIX + "pig/pig.png"));
 
