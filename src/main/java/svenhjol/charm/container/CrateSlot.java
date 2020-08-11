@@ -12,6 +12,6 @@ public class CrateSlot extends Slot {
 
     @Override
     public boolean isItemValid(ItemStack stack) {
-        return Crates.canInsertItem(stack);
+        return Crates.canContainItem(stack);
     }
 }

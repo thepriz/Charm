@@ -12,11 +12,6 @@ public class BookcaseSlot extends Slot {
 
     @Override
     public boolean isItemValid(ItemStack stack) {
-        return Bookcases.canInsertItem(stack);
-    }
-
-    @Override
-    public void onSlotChanged() {
-        super.onSlotChanged();
+        return Bookcases.canContainItem(stack);
     }
 }

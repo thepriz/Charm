@@ -65,7 +65,7 @@ public class Crates extends MesonModule {
         MinecraftForge.EVENT_BUS.register(client);
     }
 
-    public static boolean canInsertItem(ItemStack stack) {
+    public static boolean canContainItem(ItemStack stack) {
         return !invalidItems.contains(stack.getItem().getClass()) && !invalidBlocks.contains(ItemHelper.getBlockClass(stack));
     }
 

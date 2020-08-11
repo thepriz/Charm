@@ -28,7 +28,7 @@ public interface IMesonBlock {
         return 64;
     }
 
-    default int getBurnTime() { return 300; }
+    default int getBurnTime() { return 0; }
 
     default void register(MesonModule module, String name) {
         module.getMod().register((Block)this, new ResourceLocation(module.getMod().getId(), name));
