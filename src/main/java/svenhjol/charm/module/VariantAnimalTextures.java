@@ -124,10 +124,10 @@ public class VariantAnimalTextures extends MesonModule {
 
 
         for (int i = 1; i <= 3; i++)
-            addCharmTextures(pigs, MobType.DRAGON, "dragon" + i);
+            addCharmTextures(dragons, MobType.DRAGON, "dragon" + i);
 
         for (int i = 1; i <= 1; i++)
-            addCharmTextures(rarePigs, MobType.DRAGON, "rare_dragon" + i);
+            addCharmTextures(rareDragons, MobType.DRAGON, "rare_dragon" + i);
     }
 
     public enum MobType implements IMesonEnum { WOLF, COW, PIG, CHICKEN, SQUID, DRAGON }
