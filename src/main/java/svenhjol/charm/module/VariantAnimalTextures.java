@@ -2,6 +2,7 @@ package svenhjol.charm.module;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.passive.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -28,21 +29,29 @@ public class VariantAnimalTextures extends MesonModule {
     public static List<ResourceLocation> squids = new ArrayList<>();
     public static List<ResourceLocation> chickens = new ArrayList<>();
     public static List<ResourceLocation> pigs = new ArrayList<>();
+    public static List<ResourceLocation> dragons = new ArrayList<>();
 
     public static List<ResourceLocation> rareWolves = new ArrayList<>();
     public static List<ResourceLocation> rareCows = new ArrayList<>();
     public static List<ResourceLocation> rareSquids = new ArrayList<>();
     public static List<ResourceLocation> rareChickens = new ArrayList<>();
     public static List<ResourceLocation> rarePigs = new ArrayList<>();
+    public static List<ResourceLocation> rareDragons = new ArrayList<>();
 
-    public static Map<ResourceLocation, ResourceLocation> tameWolves = new HashMap<>();
-    public static Map<ResourceLocation, ResourceLocation> angryWolves = new HashMap<>();
+    public static Map<ResourceLocation, ResourceLocation> wolvesTame = new HashMap<>();
+    public static Map<ResourceLocation, ResourceLocation> wolvesAngry = new HashMap<>();
+
+    public static Map<ResourceLocation, ResourceLocation> dragonEyes = new HashMap<>();
+    public static Map<ResourceLocation, ResourceLocation> dragonExploding = new HashMap<>();
 
     @Config(name = "Variant wolves", description = "If true, wolves may spawn with different textures.")
     public static boolean variantWolves = true;
 
     @Config(name = "Variant squids", description = "If true, squids may spawn with different textures.")
     public static boolean variantSquids = true;
+
+    @Config(name = "Variant dragons", description = "If true, ender dragons may spawn with different textures.")
+    public static boolean variantDragons = true;
 
     @Config(name = "Variant cows", description = "If true, cows may spawn with different textures. This is disabled if Quark is present.")
     public static boolean variantCows = true;
@@ -65,7 +74,12 @@ public class VariantAnimalTextures extends MesonModule {
     @Override
     public void onCommonSetup(FMLCommonSetupEvent event) {
         // add vanilla textures
-        wolves.add(new ResourceLocation(PREFIX + "wolf/wolf.png"));
+        ResourceLocation wolf = new ResourceLocation(PREFIX + "wolf/wolf.png");
+        wolves.add(wolf);
+        wolvesTame.put(wolf, new ResourceLocation(PREFIX + "wolf/wolf_tame.png"));
+        wolvesAngry.put(wolf, new ResourceLocation(PREFIX + "wolf/wolf_angry.png"));
+
+        dragons.add(new ResourceLocation(PREFIX + "enderdragon/dragon.png"));
         cows.add(new ResourceLocation(PREFIX + "cow/cow.png"));
         squids.add(new ResourceLocation(PREFIX + "squid.png"));
         chickens.add(new ResourceLocation(PREFIX + "chicken.png"));
@@ -107,9 +121,16 @@ public class VariantAnimalTextures extends MesonModule {
 
         for (int i = 1; i <= 1; i++)
             addCharmTextures(rarePigs, MobType.PIG, "rare_pig" + i);
+
+
+        for (int i = 1; i <= 3; i++)
+            addCharmTextures(pigs, MobType.DRAGON, "dragon" + i);
+
+        for (int i = 1; i <= 1; i++)
+            addCharmTextures(rarePigs, MobType.DRAGON, "rare_dragon" + i);
     }
 
-    public enum MobType implements IMesonEnum { WOLF, COW, PIG, CHICKEN, SQUID }
+    public enum MobType implements IMesonEnum { WOLF, COW, PIG, CHICKEN, SQUID, DRAGON }
 
     @Override
     @OnlyIn(Dist.CLIENT)
@@ -119,6 +140,9 @@ public class VariantAnimalTextures extends MesonModule {
 
         if (variantSquids)
             RenderingRegistry.registerEntityRenderingHandler(EntityType.SQUID, VariantSquidRenderer.factory());
+
+        if (variantDragons)
+            RenderingRegistry.registerEntityRenderingHandler(EntityType.ENDER_DRAGON, VariantEnderDragonRenderer.factory());
 
         if (variantCows && (!ModHelper.present("quark") || override))
             RenderingRegistry.registerEntityRenderingHandler(EntityType.COW, VariantCowRenderer.factory());
@@ -135,9 +159,9 @@ public class VariantAnimalTextures extends MesonModule {
         ResourceLocation res = getRandomTexture(entity, wolves, rareWolves);
 
         if (entity.isTamed()) {
-            res = tameWolves.get(res);
+            res = wolvesTame.get(res);
         } else if (entity.func_233678_J__()) {
-            res = angryWolves.get(res);
+            res = wolvesAngry.get(res);
         }
 
         return res;
@@ -163,6 +187,11 @@ public class VariantAnimalTextures extends MesonModule {
         return getRandomTexture(entity, pigs, rarePigs);
     }
 
+    @OnlyIn(Dist.CLIENT)
+    public static ResourceLocation getEnderDragonTexture(EnderDragonEntity entity) {
+        return getRandomTexture(entity, dragons, rareDragons);
+    }
+
     public static ResourceLocation getRandomTexture(Entity entity, List<ResourceLocation> normalSet, List<ResourceLocation> rareSet) {
         UUID id = entity.getUniqueID();
         boolean isRare = rareVariants && !rareSet.isEmpty() && (id.getLeastSignificantBits() + id.getMostSignificantBits()) % 50 == 0;
@@ -180,8 +209,8 @@ public class VariantAnimalTextures extends MesonModule {
             set.add(res);
 
             if (type == MobType.WOLF) {
-                tameWolves.put(res, createResource(type, texture + "_tame"));
-                angryWolves.put(res, createResource(type, texture + "_angry"));
+                wolvesTame.put(res, createResource(type, texture + "_tame"));
+                wolvesAngry.put(res, createResource(type, texture + "_angry"));
             }
         });
     }
