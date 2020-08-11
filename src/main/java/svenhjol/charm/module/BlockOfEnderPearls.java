@@ -12,7 +12,6 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.EntityEvent.EnteringChunk;
-import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import svenhjol.charm.block.EnderPearlBlock;
 import svenhjol.charm.goal.FormEndermiteGoal;
@@ -50,21 +49,12 @@ public class BlockOfEnderPearls extends MesonModule {
     }
 
     @SubscribeEvent
-    public void onItemUseFinish(LivingEntityUseItemEvent.Start event) {
-        if (chorusTeleport && !event.isCanceled()) {
-            boolean result = chorusTeleport(event.getEntityLiving(), event.getItem());
-            if (result)
-                event.setCanceled(true);
-        }
-    }
-
-    @SubscribeEvent
     public void onSilverfishEnteringChunk(EnteringChunk event) {
         if (convertSilverfish && !event.isCanceled())
             addGoalToSilverfish(event.getEntity());
     }
 
-    private boolean chorusTeleport(LivingEntity entity, ItemStack stack) {
+    public static boolean chorusTeleport(LivingEntity entity, ItemStack stack) {
         if (chorusTeleport
             && entity instanceof PlayerEntity
             && stack.getItem() == Items.CHORUS_FRUIT

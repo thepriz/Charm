@@ -9,6 +9,7 @@
     "ArmorInvisibilityLivingEntityMixin",
     "BeaconsHealMobsMixin",
     "CampfiresNoDamageMixin",
+    "ChorusFruitTeleportMixin",
     "HuskImprovementsMixin",
     "MineshaftImprovementsMixin",
     "ParrotsStayOnShoulderMixin",
