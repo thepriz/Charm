@@ -9,6 +9,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import svenhjol.charm.Charm;
 import svenhjol.charm.render.*;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.enums.IMesonEnum;
@@ -16,27 +17,26 @@ import svenhjol.meson.helper.ModHelper;
 import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @SuppressWarnings("unchecked")
 public class VariantAnimalTextures extends MesonModule {
     private static final String PREFIX = "textures/entity/";
-    private static List<String> TEXTURE_HAS_SUBDIRS = new ArrayList<>();
 
-    public static List<String> wolves = new ArrayList<>();
-    public static List<String> cows = new ArrayList<>();
-    public static List<String> squids = new ArrayList<>();
-    public static List<String> chickens = new ArrayList<>();
-    public static List<String> pigs = new ArrayList<>();
+    public static List<ResourceLocation> wolves = new ArrayList<>();
+    public static List<ResourceLocation> cows = new ArrayList<>();
+    public static List<ResourceLocation> squids = new ArrayList<>();
+    public static List<ResourceLocation> chickens = new ArrayList<>();
+    public static List<ResourceLocation> pigs = new ArrayList<>();
 
-    public static List<String> rareWolves = new ArrayList<>();
-    public static List<String> rareCows = new ArrayList<>();
-    public static List<String> rareSquids = new ArrayList<>();
-    public static List<String> rareChickens = new ArrayList<>();
-    public static List<String> rarePigs = new ArrayList<>();
+    public static List<ResourceLocation> rareWolves = new ArrayList<>();
+    public static List<ResourceLocation> rareCows = new ArrayList<>();
+    public static List<ResourceLocation> rareSquids = new ArrayList<>();
+    public static List<ResourceLocation> rareChickens = new ArrayList<>();
+    public static List<ResourceLocation> rarePigs = new ArrayList<>();
+
+    public static Map<ResourceLocation, ResourceLocation> tameWolves = new HashMap<>();
+    public static Map<ResourceLocation, ResourceLocation> angryWolves = new HashMap<>();
 
     @Config(name = "Variant wolves", description = "If true, wolves may spawn with different textures.")
     public static boolean variantWolves = true;
@@ -60,54 +60,52 @@ public class VariantAnimalTextures extends MesonModule {
     public static boolean override = false;
 
     @Module(description = "Animals may spawn with different textures.")
-    public VariantAnimalTextures() {
-        TEXTURE_HAS_SUBDIRS = new ArrayList<>(Arrays.asList("cow", "pig", "wolf"));
-    }
+    public VariantAnimalTextures() { }
 
     @Override
     public void onCommonSetup(FMLCommonSetupEvent event) {
         // add vanilla textures
-        wolves.add("minecraft:wolf");
-        cows.add("minecraft:cow");
-        squids.add("minecraft:squid");
-        chickens.add("minecraft:chicken");
-        pigs.add("minecraft:pig");
+        wolves.add(new ResourceLocation(PREFIX + "/wolf/wolf.png"));
+        cows.add(new ResourceLocation(PREFIX + "/cow/cow.png"));
+        squids.add(new ResourceLocation(PREFIX + "/squid/squid.png"));
+        chickens.add(new ResourceLocation(PREFIX + "/chicken.png"));
+        pigs.add(new ResourceLocation(PREFIX + "/pig/pig.png"));
 
-        wolves.addAll(Arrays.asList("charm:brownwolf", "charm:greywolf", "charm:blackwolf", "charm:amotwolf", "charm:jupiter1390"));
+        addCharmTextures(wolves, MobType.WOLF, "brownwolf", "greywolf", "blackwolf", "amotwolf", "jupiter1390");
 
         for (int i = 1; i <= 25; i++)
-            wolves.add("charm:nlg_wolf" + i); // add NeverLoseGuy wolf textures
+            addCharmTextures(wolves, MobType.WOLF, "nlg_wolf" + i); // add NeverLoseGuy wolf textures
+
+        for (int i = 1; i <= 1; i++)
+            addCharmTextures(rareWolves, MobType.WOLF, "rare_wolf" + i);
+
 
         for (int i = 1; i <= 7; i++)
-            cows.add("charm:cow" + i);
+            addCharmTextures(cows, MobType.COW, "cow" + i);
+
+        for (int i = 1; i <= 1; i++)
+            addCharmTextures(rareCows, MobType.COW, "rare_cow" + i);
+
 
         for (int i = 1; i <= 4; i++)
-            squids.add("charm:squid" + i);
+            addCharmTextures(squids, MobType.SQUID, "squid" + i);
+
+        for (int i = 1; i <= 1; i++)
+            addCharmTextures(rareSquids, MobType.SQUID, "rare_squid" + i);
+
 
         for (int i = 1; i <= 3; i++)
-            chickens.add("charm:chicken" + i);
+            addCharmTextures(chickens, MobType.CHICKEN, "chicken" + i);
 
         for (int i = 1; i <= 2; i++)
-            pigs.add("charm:pig" + i);
+            addCharmTextures(rareChickens, MobType.CHICKEN, "rare_chicken" + i);
 
-        // when rares are added
-//        for (int i = 1; i <= 1; i++)
-//            rareWolves.add("charm:rare_wolf" + i);
-
-        for (int i = 1; i <= 1; i++)
-            rareWolves.add("charm:rare_wolf" + i);
 
         for (int i = 1; i <= 2; i++)
-            rareChickens.add("charm:rare_chicken" + i);
+            addCharmTextures(pigs, MobType.PIG, "pig" + i);
 
         for (int i = 1; i <= 1; i++)
-            rareCows.add("charm:rare_cow" + i);
-
-        for (int i = 1; i <= 1; i++)
-            rarePigs.add("charm:rare_pig" + i);
-
-        for (int i = 1; i <= 1; i++)
-            rareSquids.add("charm:rare_squid" + i);
+            addCharmTextures(rarePigs, MobType.PIG, "rare_pig" + i);
     }
 
     public enum MobType implements IMesonEnum {
@@ -139,59 +137,61 @@ public class VariantAnimalTextures extends MesonModule {
 
     @OnlyIn(Dist.CLIENT)
     public static ResourceLocation getWolfTexture(WolfEntity entity) {
-        String texture = getRandomTexture(entity, wolves, rareWolves);
+        ResourceLocation res = getRandomTexture(entity, wolves, rareWolves);
+
         if (entity.isTamed()) {
-            texture += "_tame";
+            res = tameWolves.get(res);
         } else if (entity.func_233678_J__()) {
-            texture += "_angry";
+            res = angryWolves.get(res);
         }
 
-        return getTextureFromString(MobType.WOLF, texture);
+        return res;
     }
 
     @OnlyIn(Dist.CLIENT)
     public static ResourceLocation getCowTexture(CowEntity entity) {
-        return getTextureFromString(MobType.COW, getRandomTexture(entity, cows, rareCows));
+        return getRandomTexture(entity, cows, rareCows);
     }
 
     @OnlyIn(Dist.CLIENT)
     public static ResourceLocation getSquidTexture(SquidEntity entity) {
-        return getTextureFromString(MobType.SQUID, getRandomTexture(entity, squids, rareSquids));
+        return getRandomTexture(entity, squids, rareSquids);
     }
 
     @OnlyIn(Dist.CLIENT)
     public static ResourceLocation getChickenTexture(ChickenEntity entity) {
-        return getTextureFromString(MobType.CHICKEN, getRandomTexture(entity, chickens, rareChickens));
+        return getRandomTexture(entity, chickens, rareChickens);
     }
 
     @OnlyIn(Dist.CLIENT)
     public static ResourceLocation getPigTexture(PigEntity entity) {
-        return getTextureFromString(MobType.PIG, getRandomTexture(entity, pigs, rarePigs));
+        return getRandomTexture(entity, pigs, rarePigs);
     }
 
-    public static String getRandomTexture(Entity entity, List<String> normalSet, List<String> rareSet) {
+    public static ResourceLocation getRandomTexture(Entity entity, List<ResourceLocation> normalSet, List<ResourceLocation> rareSet) {
         UUID id = entity.getUniqueID();
         boolean isRare = rareVariants && !rareSet.isEmpty() && (id.getLeastSignificantBits() + id.getMostSignificantBits()) % 50 == 0;
 
-        List<String> set = isRare ? rareSet : normalSet;
+        List<ResourceLocation> set = isRare ? rareSet : normalSet;
         int choice = Math.abs((int)(id.getMostSignificantBits() % set.size()));
         return set.get(choice);
     }
 
-    public static ResourceLocation getTextureFromString(MobType type, String texture) {
-        String typeName = type.getLowercaseName();
-        String[] a = texture.split(":");
+    public void addCharmTextures(List<ResourceLocation> set, MobType type, String... names) {
+        ArrayList<String> textures = new ArrayList<>(Arrays.asList(names));
 
-        String mod = a[0].toLowerCase();
-        String file = a[1].toLowerCase();
+        textures.forEach(texture -> {
+            ResourceLocation res = createResource(type, texture);
+            set.add(res);
 
-        // TODO should cache this
-        if (!mod.equals("minecraft") || TEXTURE_HAS_SUBDIRS.contains(typeName)) {
-            file = PREFIX + typeName + "/" + file + ".png";
-        } else {
-            file = PREFIX + file + ".png";
-        }
+            if (type == MobType.WOLF) {
+                tameWolves.put(res, createResource(type, texture + "_tame"));
+                angryWolves.put(res, createResource(type, textures + "_angry"));
+            }
+        });
+    }
 
-        return new ResourceLocation(mod, file);
+    private ResourceLocation createResource(MobType type, String texture) {
+        return new ResourceLocation(Charm.MOD_ID, PREFIX + type.getString() + "/" + texture + ".png");
     }
 }
