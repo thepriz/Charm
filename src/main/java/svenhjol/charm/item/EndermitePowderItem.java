@@ -30,9 +30,17 @@ public class EndermitePowderItem extends MesonItem {
         if (!playerIn.isCreative())
             stack.shrink(1);
 
+        int x = playerIn.getPosition().getX();
+        int y = playerIn.getPosition().getY();
+        int z = playerIn.getPosition().getZ();
+
+        playerIn.getCooldownTracker().setCooldown(this, 40);
+
         // client
-        if (worldIn.isRemote)
+        if (worldIn.isRemote) {
             playerIn.swingArm(handIn);
+            worldIn.playSound(playerIn, x, y, z, SoundEvents.ENTITY_ENDER_EYE_LAUNCH, SoundCategory.PLAYERS, 1.0F, 1.0F);
+        }
 
         // server
         if (!worldIn.isRemote) {
@@ -41,13 +49,10 @@ public class EndermitePowderItem extends MesonItem {
             if (pos != null) {
                 EndermitePowderEntity entity = new EndermitePowderEntity(worldIn, pos.getX(), pos.getZ());
                 Vector3d look = playerIn.getLookVec();
-                int x = playerIn.getPosition().getX();
-                int y = playerIn.getPosition().getY();
-                int z = playerIn.getPosition().getZ();
 
                 entity.setPosition(x + look.x * 2, y + 0.5, z + look.z * 2);
                 worldIn.addEntity(entity);
-                worldIn.playSound(null, x, y, z, SoundEvents.ENTITY_ENDER_EYE_LAUNCH, SoundCategory.PLAYERS, 1.0F, 1.0F);
+                return new ActionResult<>(ActionResultType.PASS, stack);
             }
         }
 
