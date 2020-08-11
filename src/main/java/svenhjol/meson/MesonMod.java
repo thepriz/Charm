@@ -104,7 +104,7 @@ public abstract class MesonMod {
     }
 
     public void onModConfig(ModConfigEvent event) {
-        configHandler.refreshSetupConfig();
+        configHandler.refreshConfig();
         eachEnabledModule(module -> module.onModConfig(event));
     }
 
