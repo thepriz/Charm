@@ -101,6 +101,11 @@ public class VariantTrappedChestBlock extends ChestBlock implements IMesonBlock,
         return Stats.CUSTOM.get(Stats.TRIGGER_TRAPPED_CHEST);
     }
 
+    @Override
+    public int getBurnTime() {
+        return 300;
+    }
+
     public boolean canProvidePower(BlockState state) {
         return true;
     }

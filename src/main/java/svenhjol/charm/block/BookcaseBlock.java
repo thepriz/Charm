@@ -136,6 +136,11 @@ public class BookcaseBlock extends MesonBlock {
     }
 
     @Override
+    public int getBurnTime() {
+        return 300;
+    }
+
+    @Override
     public int getMaxStackSize() {
         return 64;
     }
