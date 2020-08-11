@@ -10,6 +10,7 @@
     "BeaconsHealMobsMixin",
     "CampfiresNoDamageMixin",
     "ChorusFruitTeleportMixin",
+    "CratesMixin",
     "HuskImprovementsMixin",
     "MineshaftImprovementsMixin",
     "ParrotsStayOnShoulderMixin",
