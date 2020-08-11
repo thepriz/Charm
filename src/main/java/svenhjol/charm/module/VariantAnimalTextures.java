@@ -102,7 +102,7 @@ public class VariantAnimalTextures extends MesonModule {
             addCharmTextures(rareChickens, MobType.CHICKEN, "rare_chicken" + i);
 
 
-        for (int i = 1; i <= 2; i++)
+        for (int i = 1; i <= 3; i++)
             addCharmTextures(pigs, MobType.PIG, "pig" + i);
 
         for (int i = 1; i <= 1; i++)
