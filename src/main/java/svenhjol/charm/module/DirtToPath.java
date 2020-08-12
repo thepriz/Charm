@@ -25,7 +25,7 @@ public class DirtToPath extends MesonModule {
     public DirtToPath() {}
 
     @Override
-    public boolean test() {
+    public boolean shouldSetup() {
         return !ModHelper.present("quark") || override;
     }
 

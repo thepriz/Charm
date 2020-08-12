@@ -43,7 +43,7 @@ public class HoeHarvesting extends MesonModule {
     }
 
     @Override
-    public boolean test() {
+    public boolean shouldSetup() {
         return !ModHelper.present("quark") || override;
     }
 

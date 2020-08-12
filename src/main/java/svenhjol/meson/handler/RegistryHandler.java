@@ -51,8 +51,12 @@ public class RegistryHandler {
                     return;
                 }
 
-                registry.register(entry);
-                Meson.LOG.info(LogHandler.REGISTRY, "Registering to " + registry.getRegistryName() + " - " + entry.getRegistryName());
+                try {
+                    registry.register(entry);
+                    Meson.LOG.info(LogHandler.REGISTRY, "Registering to " + registry.getRegistryName() + " - " + entry.getRegistryName());
+                } catch (Exception e) {
+                    throw new RuntimeException("Failed to register entry! " + object.toString() + " " + e.getMessage());
+                }
             });
 
             queue.removeAll(registryType);

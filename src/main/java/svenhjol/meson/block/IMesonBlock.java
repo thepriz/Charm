@@ -37,25 +37,21 @@ public interface IMesonBlock {
     default BlockItem createBlockItem() {
         Item.Properties props = new Item.Properties();
 
-        if (enabled()) {
-            // set up custom props for the blockitem
-            ItemGroup group = getItemGroup();
-            if (group != null) props.group(group);
+        // set up custom props for the blockitem
+        ItemGroup group = getItemGroup();
+        if (group != null) props.group(group);
 
-            props.maxStackSize(getMaxStackSize());
+        props.maxStackSize(getMaxStackSize());
 
-            // set item stack renderer function if present
-            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
-                Supplier<Callable<ItemStackTileEntityRenderer>> ister = this.getISTER();
+        // set item stack renderer function if present
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
+            Supplier<Callable<ItemStackTileEntityRenderer>> ister = this.getISTER();
 
-                if (ister != null)
-                    props.setISTER(ister);
-            });
+            if (ister != null)
+                props.setISTER(ister);
+        });
 
-            return new MesonBlockItem(this, props);
-        }
-
-        return new BlockItem((Block)this, props);
+        return new MesonBlockItem(this, props);
     }
 
     default void setBlockItem(BlockItem blockItem) {

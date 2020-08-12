@@ -21,7 +21,7 @@ public class AutomaticRecipeUnlock extends MesonModule {
     public AutomaticRecipeUnlock() { }
 
     @Override
-    public boolean test() {
+    public boolean shouldSetup() {
         return !ModHelper.present("quark") || override;
     }
 

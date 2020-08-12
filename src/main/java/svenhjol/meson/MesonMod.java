@@ -41,8 +41,6 @@ public abstract class MesonMod {
         this.packetHandler = new PacketHandler(this);
 
         eachModule(MesonModule::init);
-        configHandler.refreshConfig();
-
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> eachModule(MesonModule::initClient));
     }
 

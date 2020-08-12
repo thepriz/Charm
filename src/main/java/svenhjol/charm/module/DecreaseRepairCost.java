@@ -22,7 +22,7 @@ public class DecreaseRepairCost extends MesonModule {
     public DecreaseRepairCost() {}
 
     @Override
-    public boolean test() {
+    public boolean shouldSetup() {
         return Meson.enabled("charm:netherite_nuggets");
     }
 
