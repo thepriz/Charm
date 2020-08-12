@@ -96,7 +96,9 @@ public class BlockOfEnderPearls extends MesonModule {
 
             if (didTeleport) {
                 player.getCooldownTracker().setCooldown(Items.CHORUS_FRUIT, 20);
-                stack.shrink(1);
+                if (!player.abilities.isCreativeMode)
+                    stack.shrink(1);
+
                 return true;
             }
         }
