@@ -15,3 +15,9 @@
 * Endermite powder trigger no longer swings arm twice. #312
 * Chorus fruit teleports on finish eating. #311
 * Hopper improvements with Charm containers. #308, #307
+
+# 2.0.0 beta 4
+* Emerald ore removed from central mineshaft rooms.
+* Spectators can no longer use inventory sort. #314
+* Chorus fruit stack does not shrink in creative mode.
+* Mineshaft rooms exposed to skylight don't generate ores.
