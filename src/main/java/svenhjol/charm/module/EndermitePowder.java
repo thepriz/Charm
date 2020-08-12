@@ -31,7 +31,7 @@ public class EndermitePowder extends MesonModule {
     public static double lootingBoost = 0.025D;
 
     @Config(name = "Drop chance", description = "Chance (out of 1.0) of an endermite dropping endermite powder when killed by the player.")
-    public static double dropChance = 0.05D;
+    public static double dropChance = 0.5D;
 
     @Module(description = "Endermites drop endermite powder that can be used to locate an End City.", hasSubscriptions = true)
     public EndermitePowder() {}
