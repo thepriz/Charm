@@ -71,6 +71,11 @@ public class VariantChestBlock extends ChestBlock implements IMesonBlock, IVaria
         return this.type;
     }
 
+    @Override
+    public int getBurnTime() {
+        return 300;
+    }
+
     @Nullable
     @Override
     @OnlyIn(Dist.CLIENT)

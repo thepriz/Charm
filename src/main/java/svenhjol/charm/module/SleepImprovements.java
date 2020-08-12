@@ -29,7 +29,7 @@ public class SleepImprovements extends MesonModule {
     public SleepImprovements() {}
 
     @Override
-    public boolean test() {
+    public boolean shouldSetup() {
         return !ModHelper.present("quark") || override;
     }
 

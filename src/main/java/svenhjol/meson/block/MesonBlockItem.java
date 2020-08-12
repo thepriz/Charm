@@ -21,7 +21,9 @@ public class MesonBlockItem extends BlockItem {
             this.setRegistryName(b.getRegistryName());
 
         // set other props
-        this.setBurnTime(blockIn.getBurnTime());
+        int burnTime = blockIn.getBurnTime();
+        if (burnTime > 0)
+            this.setBurnTime(burnTime);
 
         // callable inventory tick consumer from the meson block
         this.inventoryTickConsumer = blockIn.getInventoryTickConsumer();

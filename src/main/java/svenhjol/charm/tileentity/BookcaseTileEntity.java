@@ -3,25 +3,33 @@ package svenhjol.charm.tileentity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.LockableLootTileEntity;
+import net.minecraft.util.Direction;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.items.IItemHandler;
 import svenhjol.charm.base.CharmSounds;
 import svenhjol.charm.block.BookcaseBlock;
 import svenhjol.charm.container.BookcaseContainer;
+import svenhjol.charm.container.BookcaseInvWrapper;
 import svenhjol.charm.module.Bookcases;
 import svenhjol.meson.tileentity.IMesonTileEntity;
 import vazkii.quark.api.ITransferManager;
 
-public class BookcaseTileEntity extends LockableLootTileEntity implements ICapabilityProvider, IMesonTileEntity, ITransferManager {
+import javax.annotation.Nullable;
+import java.util.stream.IntStream;
+
+public class BookcaseTileEntity extends LockableLootTileEntity implements ICapabilityProvider, IMesonTileEntity, ISidedInventory, ITransferManager {
     public static int SIZE = 9;
+    private static final int[] SLOTS = IntStream.range(0, SIZE).toArray();
     private NonNullList<ItemStack> items = NonNullList.withSize(SIZE, ItemStack.EMPTY);
 
     public BookcaseTileEntity() {
@@ -110,5 +118,31 @@ public class BookcaseTileEntity extends LockableLootTileEntity implements ICapab
 
         if (world != null && world.getBlockState(pos).getBlock() instanceof BookcaseBlock)
             world.setBlockState(pos, world.getBlockState(pos).with(BookcaseBlock.SLOTS, filled), 2);
+    }
+
+    @Override
+    public int[] getSlotsForFace(Direction side) {
+        return SLOTS;
+    }
+
+    @Override
+    public boolean canInsertItem(int index, ItemStack stack, @Nullable Direction direction) {
+        return Bookcases.canContainItem(stack);
+    }
+
+    @Override
+    public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
+        return true;
+    }
+
+    @Override
+    public void markDirty() {
+        updateBlockState();
+        super.markDirty();
+    }
+
+    @Override
+    protected IItemHandler createUnSidedHandler() {
+        return new BookcaseInvWrapper(this, Direction.UP);
     }
 }

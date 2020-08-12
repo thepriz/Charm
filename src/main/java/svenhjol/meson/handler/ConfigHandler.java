@@ -89,12 +89,12 @@ public class ConfigHandler {
             );
 
             refreshAllConfig.add(() -> {
-                module.enabled = module.enabled && val.get();
+                module.enabled = module.enabled && val.get() && module.depends();
                 updateModule(module);
             });
 
             refreshSetupConfig.add(() -> {
-                module.enabled = module.enabled && module.test();
+                module.enabled = module.enabled && module.shouldSetup();
                 updateModule(module);
             });
         });

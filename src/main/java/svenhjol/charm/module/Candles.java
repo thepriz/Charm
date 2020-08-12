@@ -24,7 +24,7 @@ public class Candles extends MesonModule {
     public Candles() {}
 
     @Override
-    public boolean test() {
+    public boolean shouldSetup() {
         return !ModHelper.present("quark") || override;
     }
 

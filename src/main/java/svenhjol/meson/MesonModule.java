@@ -19,6 +19,15 @@ public abstract class MesonModule {
     public MesonMod mod;
     public String description = "";
 
+    public boolean shouldSetup() {
+        return true;
+    }
+
+    public boolean depends() {
+        return true;
+    }
+
+    @Deprecated
     public boolean test() {
         return true;
     }

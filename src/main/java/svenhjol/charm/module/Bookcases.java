@@ -85,7 +85,7 @@ public class Bookcases extends MesonModule {
         ScreenManager.registerFactory(CONTAINER, BookcaseScreen::new);
     }
 
-    public static boolean canInsertItem(ItemStack stack) {
+    public static boolean canContainItem(ItemStack stack) {
         return validItems.contains(stack.getItem().getClass());
     }
 }

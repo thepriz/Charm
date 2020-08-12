@@ -21,7 +21,7 @@ public class VillagersFollowEmeralds extends MesonModule {
     public VillagersFollowEmeralds() {}
 
     @Override
-    public boolean test() {
+    public boolean shouldSetup() {
         return !ModHelper.present("quark") || override;
     }
 
