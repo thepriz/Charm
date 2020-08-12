@@ -52,11 +52,6 @@ public class VariantBarrelBlock extends BarrelBlock implements IMesonBlock {
         return module.enabled;
     }
 
-    @Override
-    public int getBurnTime() {
-        return 300;
-    }
-
     @Nullable
     @Override
     public TileEntity createNewTileEntity(IBlockReader worldIn) {

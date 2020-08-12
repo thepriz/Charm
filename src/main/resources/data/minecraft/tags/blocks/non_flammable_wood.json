@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "charm:crimson_bookcase",
+    "charm:crimson_bookshelf",
+    "charm:crimson_crate",
+    "charm:warped_bookcase",
+    "charm:warped_bookshelf",
+    "charm:warped_crate"
+  ]
+}
