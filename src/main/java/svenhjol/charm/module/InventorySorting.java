@@ -43,6 +43,9 @@ public class InventorySorting extends MesonModule {
     public static void serverCallback(ServerPlayerEntity player, int type) {
         Container useContainer;
 
+        if (player.isSpectator())
+            return;
+
         if (type == PLAYER && player.container != null) {
             useContainer = player.container;
         } else if (type == TILE && player.openContainer != null) {
