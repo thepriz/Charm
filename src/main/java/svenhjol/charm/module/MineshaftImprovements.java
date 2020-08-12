@@ -217,8 +217,11 @@ public class MineshaftImprovements extends MesonModule {
                             }
                             BlockPos pos = new BlockPos(((StructurePieceAccessor)piece).getBoundingBox().minX + x, ((StructurePieceAccessor)piece).getBoundingBox().minY + y, ((StructurePieceAccessor)piece).getBoundingBox().minZ + z);
 
-                            if (world.isAirBlock(pos) && world.getBlockState(pos.down()).isOpaqueCube(world, pos.down()))
+                            if (world.isAirBlock(pos)
+                                && world.getBlockState(pos.down()).isOpaqueCube(world, pos.down())
+                                && !world.canBlockSeeSky(pos)) {
                                 world.setBlockState(pos, state, 11);
+                            }
                         }
                     }
                 }
