@@ -16,10 +16,10 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import svenhjol.charm.base.CharmSounds;
 import svenhjol.charm.block.BookcaseBlock;
 import svenhjol.charm.container.BookcaseContainer;
+import svenhjol.charm.container.BookcaseInvWrapper;
 import svenhjol.charm.module.Bookcases;
 import svenhjol.meson.tileentity.IMesonTileEntity;
 import vazkii.quark.api.ITransferManager;
@@ -136,7 +136,13 @@ public class BookcaseTileEntity extends LockableLootTileEntity implements ICapab
     }
 
     @Override
+    public void markDirty() {
+        updateBlockState();
+        super.markDirty();
+    }
+
+    @Override
     protected IItemHandler createUnSidedHandler() {
-        return new SidedInvWrapper(this, Direction.UP);
+        return new BookcaseInvWrapper(this, Direction.UP);
     }
 }
