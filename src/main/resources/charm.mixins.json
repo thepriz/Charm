@@ -27,6 +27,7 @@
     "accessor.GoalSelectorAccessor",
     "accessor.ItemAccessor",
     "accessor.PlayerEntityAccessor",
+    "accessor.PointOfInterestTypeAccessor",
     "accessor.ServerWorldAccessor",
     "accessor.StructurePieceAccessor"
   ],

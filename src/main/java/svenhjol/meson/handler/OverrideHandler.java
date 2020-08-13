@@ -1,9 +1,12 @@
 package svenhjol.meson.handler;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.village.PointOfInterestType;
+import svenhjol.charm.mixin.accessor.PointOfInterestTypeAccessor;
 import svenhjol.meson.MesonMod;
 import svenhjol.charm.mixin.accessor.BlockAccessor;
 import svenhjol.charm.mixin.accessor.ItemAccessor;
@@ -11,6 +14,7 @@ import svenhjol.charm.mixin.accessor.ItemAccessor;
 import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Inspired by Quark.
@@ -52,5 +56,13 @@ public class OverrideHandler {
 
     public static void changeVanillaItem(MesonMod mod, Item item, ResourceLocation newRes) {
         Registry.register(Registry.ITEM, newRes, item);
+    }
+
+    public static void changeVanillaPointOfInterestType(MesonMod mod, PointOfInterestType type, ResourceLocation newRes) {
+        Registry.register(Registry.POINT_OF_INTEREST_TYPE, newRes, type);
+
+        Set<BlockState> blockStates = ((PointOfInterestTypeAccessor) type).getBlockStates();
+        PointOfInterestTypeAccessor.getBlocksOfInterest().addAll(blockStates);
+        blockStates.forEach(blockState -> PointOfInterestTypeAccessor.getPoitByBlockState().put(blockState, type));
     }
 }
