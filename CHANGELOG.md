@@ -18,7 +18,7 @@
 
 # 2.0.0 beta 4
 * Emerald ore removed from central mineshaft rooms.
-* Chests and barrels no longer flammable.
+* Chests, barrels, crates and bookcases no longer flammable.
 * Warped and Crimson wood-based items no longer flammable.
 * Spectators can no longer use inventory sort. #314
 * Chorus fruit stack does not shrink in creative mode.
