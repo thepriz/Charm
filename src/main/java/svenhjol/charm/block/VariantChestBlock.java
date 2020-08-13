@@ -1,6 +1,7 @@
 package svenhjol.charm.block;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ChestBlock;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -10,7 +11,9 @@ import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Direction;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraftforge.api.distmarker.Dist;
@@ -27,8 +30,8 @@ import java.util.function.Supplier;
 
 @SuppressWarnings("NullableProblems")
 public class VariantChestBlock extends ChestBlock implements IMesonBlock, IVariantChestBlock {
-    private MesonModule module;
-    private IStorageMaterial type;
+    private final MesonModule module;
+    private final IStorageMaterial type;
 
     public VariantChestBlock(MesonModule module, IStorageMaterial type) {
         super(Properties.from(Blocks.CHEST), () -> VariantChests.NORMAL_TILE);
@@ -53,6 +56,11 @@ public class VariantChestBlock extends ChestBlock implements IMesonBlock, IVaria
     @Override
     public boolean enabled() {
         return module.enabled;
+    }
+
+    @Override
+    public boolean isFlammable(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
+        return false;
     }
 
     @Nullable

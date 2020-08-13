@@ -65,18 +65,13 @@ public class CrateBlock extends MesonBlock {
     }
 
     @Override
-    public int getFlammability(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
-        return 50;
-    }
-
-    @Override
     public int getBurnTime() {
         return 300;
     }
 
     @Override
     public boolean isFlammable(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
-        return true;
+        return false;
     }
 
     @Override

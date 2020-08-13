@@ -10,17 +10,12 @@ import svenhjol.meson.block.MesonBlock;
 import svenhjol.meson.enums.IStorageMaterial;
 
 public class VariantBookshelfBlock extends MesonBlock {
-    private MesonModule module;
-    private IStorageMaterial type;
-
     public VariantBookshelfBlock(MesonModule module, IStorageMaterial type) {
         super(module, type.getLowercaseName() + "_bookshelf", AbstractBlock.Properties.from(Blocks.BOOKSHELF));
 
         /** @see net.minecraft.block.FireBlock#init */
-        this.setFireInfo(30, 20);
-
-        this.module = module;
-        this.type = type;
+        if (type.isFlammable())
+            this.setFireInfo(30, 20);
     }
 
     @Override

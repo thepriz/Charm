@@ -50,6 +50,7 @@ public class Charm extends MesonMod {
             DecreaseRepairCost.class,
             DirtToPath.class,
             EndermitePowder.class,
+            ExtendNetheriteLifetime.class,
             ExtractEnchantments.class,
             FeatherFallingCrops.class,
             GoldBars.class,
