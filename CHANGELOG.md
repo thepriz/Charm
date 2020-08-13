@@ -24,3 +24,4 @@
 * Spectators can no longer use inventory sort. #314
 * Chorus fruit stack does not shrink in creative mode.
 * Mineshaft rooms exposed to skylight don't generate ores.
+* Updated gold lantern block and item textures.
