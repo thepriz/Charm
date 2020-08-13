@@ -33,9 +33,10 @@ import javax.annotation.Nullable;
 import java.util.concurrent.Callable;
 import java.util.function.Supplier;
 
+@SuppressWarnings({"NullableProblems", "deprecation"})
 public class VariantTrappedChestBlock extends ChestBlock implements IMesonBlock, IVariantChestBlock {
-    private MesonModule module;
-    private IStorageMaterial type;
+    private final MesonModule module;
+    private final IStorageMaterial type;
 
     public VariantTrappedChestBlock(MesonModule module, IStorageMaterial type) {
         super(Properties.from(Blocks.TRAPPED_CHEST), () -> VariantChests.TRAPPED_TILE);
@@ -49,6 +50,11 @@ public class VariantTrappedChestBlock extends ChestBlock implements IMesonBlock,
     @Override
     public ItemGroup getItemGroup() {
         return ItemGroup.REDSTONE;
+    }
+
+    @Override
+    public boolean isFlammable(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
+        return false;
     }
 
     @Override
