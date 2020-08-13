@@ -17,7 +17,7 @@
 * Hopper improvements with Charm containers. #308, #307
 
 # 2.0.0 beta 4
-* Netherite and netherite-based items longer lifetime before despawning.
+* Netherite and netherite-based items have a longer lifetime before despawning.
 * Emerald ore removed from central mineshaft rooms.
 * Chests, barrels, crates and bookcases no longer flammable.
 * Warped and Crimson wood-based items no longer flammable.
