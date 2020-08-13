@@ -23,4 +23,10 @@ public enum VanillaStorageMaterial implements IStorageMaterial {
         List<IStorageMaterial> typesList = new ArrayList<>(Arrays.asList(types));
         return Arrays.stream(values()).filter(t -> !typesList.contains(t)).collect(Collectors.toList());
     }
+
+    @Override
+    public boolean isFlammable() {
+        // non_flammable_wood is not available at reg point
+        return !this.equals(CRIMSON) && !this.equals(WARPED);
+    }
 }
