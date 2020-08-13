@@ -25,3 +25,7 @@
 * Chorus fruit stack does not shrink in creative mode.
 * Mineshaft rooms exposed to skylight don't generate ores.
 * Updated gold lantern block and item textures.
+
+# 2.0.0 beta 5
+* Bump to Minecraft 1.16.2
+* Fix variant barrels not being used as fisherman job sites.
