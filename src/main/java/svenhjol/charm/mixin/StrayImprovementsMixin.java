@@ -5,7 +5,7 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.monster.AbstractSkeletonEntity;
 import net.minecraft.entity.monster.StrayEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorld;
+import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -27,7 +27,7 @@ public abstract class StrayImprovementsMixin extends AbstractSkeletonEntity {
         at = @At("HEAD"),
         cancellable = true
     )
-    private static void spawnCheckHook(EntityType<StrayEntity> entity, IWorld world, SpawnReason reason, BlockPos pos, Random rand, CallbackInfoReturnable<Boolean> cir) {
+    private static void spawnCheckHook(EntityType<StrayEntity> entity, IServerWorld world, SpawnReason reason, BlockPos pos, Random rand, CallbackInfoReturnable<Boolean> cir) {
         if (Meson.enabled("charm:stray_improvements"))
             cir.setReturnValue(canMonsterSpawnInLight(entity, world, reason, pos, rand) && (reason == SpawnReason.SPAWNER || StrayImprovements.canStraySpawnInLight(world, pos)));
     }

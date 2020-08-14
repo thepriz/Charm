@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.merchant.villager.VillagerProfession;
+import net.minecraft.item.Items;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvents;
@@ -40,6 +41,12 @@ public class VariantBarrels extends MesonModule {
         mod.register(TILE, ID);
 
         if (enabled) {
+            OverrideHandler.changeBlockTranslationKey(Blocks.BARREL, "block.charm.fisherman_barrel");
+            OverrideHandler.changeItemTranslationKey(Items.BARREL, "item.charm.fisherman_barrel");
+        }
+
+        // TODO none of the following is to stay, failed villager re-registration.
+        if (false) {
             // add vanilla barrel states
             List<BlockState> states = new ArrayList<>(Blocks.BARREL.getStateContainer().getValidStates());
 

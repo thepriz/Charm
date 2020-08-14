@@ -37,7 +37,7 @@ public class FormEndermiteGoal extends RandomWalkingGoal {
             Random random = silverfish.getRNG();
 
             if (random.nextFloat() < 0.8D) {
-                facing = Direction.func_239631_a_(random);
+                facing = Direction.getRandomDirection(random);
                 BlockPos pos = getSilverfishPosition(silverfish).offset(facing);
                 BlockState state = silverfish.getEntityWorld().getBlockState(pos);
 

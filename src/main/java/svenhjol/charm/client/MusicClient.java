@@ -116,7 +116,7 @@ public class MusicClient {
 
     /**
      * @see net.minecraft.client.audio.MusicTicker#tick
-     * @see net.minecraft.client.audio.MusicTicker#func_239539_a_
+     * @see BackgroundMusicSelector#getSoundEvent()
      */
     public static boolean handleTick(@Nullable ISound current) {
         Minecraft mc = Minecraft.getInstance();
@@ -159,7 +159,7 @@ public class MusicClient {
     }
 
     public static boolean handlePlaying(BackgroundMusicSelector music) {
-        return currentMusic != null && music.func_232661_a_().getName().equals(currentMusic.getSoundLocation());
+        return currentMusic != null && music.getSoundEvent().getName().equals(currentMusic.getSoundLocation());
     }
 
     public static void forceStop() {

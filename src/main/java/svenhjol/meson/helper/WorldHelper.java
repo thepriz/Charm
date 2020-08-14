@@ -6,6 +6,7 @@ import net.minecraft.state.Property;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeManager;
@@ -13,6 +14,7 @@ import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.server.ServerWorld;
 
 import javax.annotation.Nullable;
+import java.util.Optional;
 
 public class WorldHelper {
     public static Biome getBiome(ServerWorld world, BlockPos pos) {
@@ -20,8 +22,16 @@ public class WorldHelper {
         return biomeManager.getBiome(pos);
     }
 
+    public static Optional<RegistryKey<Biome>> getBiomeKeyAtPosition(World world, BlockPos pos) {
+        return world.func_242406_i(pos);
+    }
+
+    public static Biome getBiomeFromRegistryKey(RegistryKey<Biome> biomeKey) {
+        return WorldGenRegistries.field_243657_i.func_243576_d(biomeKey);
+    }
+
     public static ResourceLocation getDimension(World world) {
-        RegistryKey<World> key = world.func_234923_W_();
+        RegistryKey<World> key = world.getDimensionKey();
         return key.func_240901_a_();
     }
 
@@ -39,6 +49,11 @@ public class WorldHelper {
 
     public static boolean isInsideStructure(ServerWorld world, BlockPos pos, Structure<?> structure) {
         return world.func_241112_a_().func_235010_a_(pos, true, structure).isValid();
+    }
+
+    @Nullable
+    public static BlockPos locateBiome(RegistryKey<Biome> biomeKey, ServerWorld world, BlockPos pos) {
+        return locateBiome(getBiomeFromRegistryKey(biomeKey), world, pos);
     }
 
     @Nullable

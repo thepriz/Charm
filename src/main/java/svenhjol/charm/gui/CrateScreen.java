@@ -24,13 +24,13 @@ public class CrateScreen extends ContainerScreen<CrateContainer> implements IHas
     public void render(MatrixStack matrix, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(matrix);
         super.render(matrix, mouseX, mouseY, partialTicks);
-        this.func_230459_a_(matrix, mouseX, mouseY);
+        this.renderHoveredTooltip(matrix, mouseX, mouseY);
     }
 
     @Override
     protected void drawGuiContainerForegroundLayer(MatrixStack matrix, int mouseX, int mouseY) {
-        this.font.func_238422_b_(matrix, this.title, 8.0F, 6.0F, 4210752);
-        this.font.func_238422_b_(matrix, this.playerInventory.getDisplayName(), 8.0F, (float) (this.ySize - 96 + 2), 4210752);
+        this.font.func_238422_b_(matrix, this.title.func_241878_f(), 8.0F, 6.0F, 4210752);
+        this.font.func_238422_b_(matrix, this.playerInventory.getDisplayName().func_241878_f(), 8.0F, (float) (this.ySize - 96 + 2), 4210752);
     }
 
     @Override

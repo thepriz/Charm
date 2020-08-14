@@ -20,9 +20,9 @@ public class MusicCondition {
     }
 
     public MusicCondition(BackgroundMusicSelector music) {
-        this.sound = music.func_232661_a_();
-        this.minDelay = music.func_232664_b_();
-        this.maxDelay = music.func_232666_c_();
+        this.sound = music.getSoundEvent();
+        this.minDelay = music.getMinDelay();
+        this.maxDelay = music.getMaxDelay();
     }
 
     public boolean handle() {

@@ -2,6 +2,7 @@ modLoader="javafml"
 loaderVersion="[32,)"
 issueTrackerURL="http://github.com/svenhjol/Charm/issues"
 displayURL="https://svenhjol.github.io/Charm/"
+license="All rights reserved" # Fucking hell, Forge. Way to break all the deps.
 
 [[mods]]
 modId="charm"
@@ -11,7 +12,6 @@ description='''
 Smaller things.
 '''
 authors="svenhjol, warlordwossman, Coranthes"
-license="MIT"
 
 [[dependencies.charm]]
     modId="forge"

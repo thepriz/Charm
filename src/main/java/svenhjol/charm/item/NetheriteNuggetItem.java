@@ -9,6 +9,6 @@ public class NetheriteNuggetItem extends MesonItem {
     public NetheriteNuggetItem(MesonModule module) {
         super(module, "netherite_nugget", new Item.Properties()
             .group(ItemGroup.MATERIALS)
-            .isBurnable());
+            .isImmuneToFire());
     }
 }

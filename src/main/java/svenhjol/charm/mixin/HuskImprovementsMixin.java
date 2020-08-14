@@ -5,7 +5,7 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.monster.HuskEntity;
 import net.minecraft.entity.monster.ZombieEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorld;
+import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -27,7 +27,7 @@ public abstract class HuskImprovementsMixin extends ZombieEntity {
         at = @At("HEAD"),
         cancellable = true
     )
-    private static void spawnCheckHook(EntityType<HuskEntity> entity, IWorld world, SpawnReason reason, BlockPos pos, Random rand, CallbackInfoReturnable<Boolean> cir) {
+    private static void spawnCheckHook(EntityType<HuskEntity> entity, IServerWorld world, SpawnReason reason, BlockPos pos, Random rand, CallbackInfoReturnable<Boolean> cir) {
         if (Meson.enabled("charm:husk_improvements"))
             cir.setReturnValue(canMonsterSpawnInLight(entity, world, reason, pos, rand) && (reason == SpawnReason.SPAWNER || HuskImprovements.canHuskSpawnInLight(world, pos)));
     }

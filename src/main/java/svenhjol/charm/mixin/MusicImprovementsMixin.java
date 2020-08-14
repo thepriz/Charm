@@ -38,7 +38,7 @@ public class MusicImprovementsMixin {
     }
 
     @Inject(
-        method = "func_239540_b_",
+        method = "isBackgroundMusicPlaying",
         at = @At("HEAD"),
         cancellable = true
     )

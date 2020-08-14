@@ -26,7 +26,7 @@ public class ExtendNetheriteLifetime extends MesonModule {
             if (stack.isEmpty())
                 return;
 
-            if ((item instanceof TieredItem && ((TieredItem)item).getTier() == ItemTier.NETHERITE) || item.isBurnable()) {
+            if ((item instanceof TieredItem && ((TieredItem)item).getTier() == ItemTier.NETHERITE) || item.isImmuneToFire()) {
                 if (event.getEntityItem().getAge() <= 6020) { // 6000 is default lifetime, add a little buffer just in case
                     event.setExtraLife(extendBy * 20); // in ticks
                     event.setCanceled(true);

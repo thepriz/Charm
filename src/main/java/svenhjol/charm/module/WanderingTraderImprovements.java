@@ -7,7 +7,7 @@ import net.minecraft.entity.merchant.villager.VillagerTrades;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.MerchantOffer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
@@ -169,11 +169,11 @@ public class WanderingTraderImprovements extends MesonModule {
     }
 
     public static class BiomeMap implements TraderMap {
-        public Biome biome;
+        public RegistryKey<Biome> biomeKey;
         public boolean rare;
 
-        public BiomeMap(Biome biome, boolean rare) {
-            this.biome = biome;
+        public BiomeMap(RegistryKey<Biome> biomeKey, boolean rare) {
+            this.biomeKey = biomeKey;
             this.rare = rare;
         }
 
@@ -182,15 +182,13 @@ public class WanderingTraderImprovements extends MesonModule {
         public ItemStack getMap(ServerWorld world, BlockPos pos) {
             int color = 0x002266;
 
-            BlockPos nearestBiome = WorldHelper.locateBiome(biome, world, pos);
+            BlockPos nearestBiome = WorldHelper.locateBiome(biomeKey, world, pos);
+            String biomeName = biomeKey.func_240901_a_().getPath();
+
             if (nearestBiome == null)
                 return null;
 
-            ResourceLocation biomeRegName = biome.getRegistryName();
-            if (biomeRegName == null)
-                return null;
-
-            TranslationTextComponent mapName = new TranslationTextComponent("filled_map.charm.trader_map", new TranslationTextComponent(biome.getTranslationKey()));
+            TranslationTextComponent mapName = new TranslationTextComponent("filled_map.charm.trader_map", new TranslationTextComponent("biome.minecraft." + biomeName));
             return MapHelper.getMap(world, nearestBiome, mapName, MapDecoration.Type.TARGET_X, color);
         }
 

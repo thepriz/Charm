@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "PSP",
-    "P P",
+    "PFP",
     "PSP"
   ],
   "key": {
@@ -11,6 +11,9 @@
     },
     "S": {
       "tag": "minecraft:wooden_slabs"
+    },
+    "F": {
+      "tag": "minecraft:fishes"
     }
   },
   "result": {
@@ -18,7 +21,7 @@
   },
   "conditions": [
     {
-      "type": "meson:module_not_enabled",
+      "type": "meson:module_enabled",
       "module": "charm:variant_barrels"
     }
   ]
