@@ -17,12 +17,11 @@ public class BookcaseContainer extends MesonContainer {
 
         // container's inventory slots
         for (int i = 0; i < 9; ++i) {
-            this.addSlot(new BookcaseSlot(inventory, index++, 8 + (i * 18), 18));
-
+            this.addSlot(new BookcaseSlot(inventory, index++, 8 + (i * 18), 0));
         }
 
         for (int i = 0; i < 9; ++i) {
-            this.addSlot(new BookcaseSlot(inventory, index++, 8 + (i * 18), 0));
+            this.addSlot(new BookcaseSlot(inventory, index++, 8 + (i * 18), 18));
         }
         index = 9;
 

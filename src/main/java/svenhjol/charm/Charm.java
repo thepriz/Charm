@@ -35,7 +35,6 @@ public class Charm extends MesonMod {
             AnvilImprovements.class,
             ArmorInvisibility.class,
             AutomaticRecipeUnlock.class,
-            BabyChickenBucket.class,
             BatBucket.class,
             BeaconsHealMobs.class,
             BlockOfEnderPearls.class,
