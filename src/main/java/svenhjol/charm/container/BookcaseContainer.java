@@ -23,6 +23,8 @@ public class BookcaseContainer extends MesonContainer {
             this.addSlot(new BookcaseSlot(inventory, index++, 8 + (i * 18), 36));
         }
 
+        index = 9; // start of player inventory
+
         // player's main inventory slots
         for (int r = 0; r < 3; ++r) {
             for (int c = 0; c < 9; ++c) {
