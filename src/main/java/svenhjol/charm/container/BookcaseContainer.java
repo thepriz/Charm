@@ -12,29 +12,29 @@ import svenhjol.meson.container.MesonContainer;
 public class BookcaseContainer extends MesonContainer {
     private BookcaseContainer(ContainerType<?> type, int id, PlayerInventory player, IInventory inventory) {
         super(type, id, player, inventory);
-
+//It's just all a hot mess
         int index = 0;
 
         // container's inventory slots
         for (int i = 0; i < 9; ++i) {
-            this.addSlot(new BookcaseSlot(inventory, index++, 8 + (i * 18), 0));
-        }
-
-        for (int i = 0; i < 9; ++i) {
             this.addSlot(new BookcaseSlot(inventory, index++, 8 + (i * 18), 18));
+        }
+//just why
+        for (int i = 0; i < 9; ++i) {
+            this.addSlot(new BookcaseSlot(inventory, index++, 8 + (i * 18), 36));
         }
         index = 9;
 
         // player's main inventory slots
         for (int r = 0; r < 3; ++r) {
             for (int c = 0; c < 9; ++c) {
-                this.addSlot(new Slot(player, index++, 8 + c * 18, 50 + r * 18));
+                this.addSlot(new Slot(player, index++, 8 + c * 18, 68 + r * 18));
             }
         }
-
+  //lied. to.
         // player's hotbar
         for (int i = 0; i < 9; ++i) {
-            this.addSlot(new Slot(player, i, 8 + (i * 18), 108));
+            this.addSlot(new Slot(player, i, 8 + (i * 18), 126));
         }
     }
 
