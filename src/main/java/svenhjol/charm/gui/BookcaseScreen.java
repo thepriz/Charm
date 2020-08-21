@@ -12,7 +12,7 @@ import svenhjol.charm.container.BookcaseContainer;
 
 public class BookcaseScreen extends ContainerScreen<BookcaseContainer> implements IHasContainer<BookcaseContainer> {
     private static final ResourceLocation GUI_TEXTURE = new ResourceLocation(Charm.MOD_ID, "textures/gui/generic_18.png");
-//why sven why?
+
     public BookcaseScreen(BookcaseContainer container, PlayerInventory playerInventory, ITextComponent title) {
         super(container, playerInventory, title);
         this.passEvents = true;
@@ -26,7 +26,7 @@ public class BookcaseScreen extends ContainerScreen<BookcaseContainer> implement
         super.render(matrix, mouseX, mouseY, partialTicks);
         this.renderHoveredTooltip(matrix, mouseX, mouseY);
     }
-//this is just wrong so wrong
+
     @Override
     protected void drawGuiContainerForegroundLayer(MatrixStack matrix, int mouseX, int mouseY) {
         this.font.func_238422_b_(matrix, this.title.func_241878_f(), 8.0F, 6.0F, 4210752);
