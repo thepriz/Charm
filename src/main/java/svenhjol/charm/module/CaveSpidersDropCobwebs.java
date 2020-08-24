@@ -20,7 +20,7 @@ public class CaveSpidersDropCobwebs extends MesonModule {
     public static double lootingBoost = 0.3D;
 
     @Config(name = "Maximum drops", description = "Maximum cobwebs dropped when cave spider is killed.")
-    public static double maxDrops = 2;
+    public static int maxDrops = 2;
 
     @Module(description = "Cave spiders have a chance to drop cobwebs.", hasSubscriptions = true)
     public CaveSpidersDropCobwebs() {}
