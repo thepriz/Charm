@@ -13,11 +13,12 @@ public class VariantSheepRenderer extends SheepRenderer {
     }
 
     @SuppressWarnings("rawtypes")
-    public static IRenderFactory factory(){ return VariantSheepRenderer::new;
+    public static IRenderFactory factory() {
+        return VariantSheepRenderer::new;
     }
 
     @Override
     public ResourceLocation getEntityTexture(SheepEntity entity) {
         return VariantAnimalTextures.getSheepTexture(entity);
     }
-      main\resources\assets\charm\textures\entity\sheep
+}

@@ -3,6 +3,7 @@ package svenhjol.charm.module;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.*;
+import net.minecraft.item.DyeColor;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -22,6 +23,8 @@ import java.util.*;
 @SuppressWarnings("unchecked")
 public class VariantAnimalTextures extends MesonModule {
     private static final String PREFIX = "textures/entity/";
+    private static final ResourceLocation DEFAULT_SHEEP = new ResourceLocation(PREFIX + "sheep/sheep.png");
+    public static Map<DyeColor, ResourceLocation> sheep = new HashMap<>();
 
     public static List<ResourceLocation> wolves = new ArrayList<>();
     public static List<ResourceLocation> cows = new ArrayList<>();
@@ -29,7 +32,7 @@ public class VariantAnimalTextures extends MesonModule {
     public static List<ResourceLocation> turtles = new ArrayList<>();
     public static List<ResourceLocation> chickens = new ArrayList<>();
     public static List<ResourceLocation> pigs = new ArrayList<>();
-    public static List<ResourceLocation> sheep = new ArrayList<>();
+
 
     public static List<ResourceLocation> rareWolves = new ArrayList<>();
     public static List<ResourceLocation> rareCows = new ArrayList<>();
@@ -37,7 +40,6 @@ public class VariantAnimalTextures extends MesonModule {
     public static List<ResourceLocation> rareTurtles = new ArrayList<>();
     public static List<ResourceLocation> rareChickens = new ArrayList<>();
     public static List<ResourceLocation> rarePigs = new ArrayList<>();
-    public static List<ResourceLocation> rareSheep = new ArrayList<>();
 
     public static Map<ResourceLocation, ResourceLocation> wolvesTame = new HashMap<>();
     public static Map<ResourceLocation, ResourceLocation> wolvesAngry = new HashMap<>();
@@ -79,13 +81,11 @@ public class VariantAnimalTextures extends MesonModule {
         wolves.add(wolf);
         wolvesTame.put(wolf, new ResourceLocation(PREFIX + "wolf/wolf_tame.png"));
         wolvesAngry.put(wolf, new ResourceLocation(PREFIX + "wolf/wolf_angry.png"));
-
         cows.add(new ResourceLocation(PREFIX + "cow/cow.png"));
         squids.add(new ResourceLocation(PREFIX + "squid.png"));
         turtles.add(new ResourceLocation(PREFIX + "turtle/big_sea_turtle.png"));
         chickens.add(new ResourceLocation(PREFIX + "chicken.png"));
         pigs.add(new ResourceLocation(PREFIX + "pig/pig.png"));
-        sheep.add(new ResourceLocation(PREFIX + "sheep/sheep.png"));
 
 
         addCharmTextures(wolves, MobType.WOLF, "brownwolf", "greywolf", "blackwolf", "amotwolf", "jupiter1390");
@@ -129,11 +129,12 @@ public class VariantAnimalTextures extends MesonModule {
         for (int i = 1; i <= 1; i++)
             addCharmTextures(rarePigs, MobType.PIG, "rare_pig" + i);
 
-        for (int i = 1; i <= 2; i++)
-            addCharmTextures(sheep, MobType.SHEEP, "sheep" + i);
 
-        //for (int i = 1; i <= 1; i++)
-        //    addCharmTextures(rareSheep, MobType.SHEEP, "rare_sheep" + i);
+        // add all the sheep textures by dyecolor
+        for (DyeColor color : DyeColor.values()) {
+            ResourceLocation res = createResource(MobType.SHEEP, "sheep_" + color.toString());
+            sheep.put(color, res);
+        }
     }
 
     public enum MobType implements IMesonEnum { WOLF,COW, PIG, SHEEP, CHICKEN, SQUID, TURTLE }
@@ -178,7 +179,8 @@ public class VariantAnimalTextures extends MesonModule {
 
     @OnlyIn(Dist.CLIENT)
     public static ResourceLocation getSheepTexture(SheepEntity entity) {
-        return getRandomTexture(entity, sheep, rareSheep);
+        DyeColor fleeceColor = entity.getFleeceColor();
+        return sheep.getOrDefault(fleeceColor, DEFAULT_SHEEP);
     }
 
     @OnlyIn(Dist.CLIENT)
