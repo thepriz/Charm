@@ -26,14 +26,18 @@ public class VariantAnimalTextures extends MesonModule {
     public static List<ResourceLocation> wolves = new ArrayList<>();
     public static List<ResourceLocation> cows = new ArrayList<>();
     public static List<ResourceLocation> squids = new ArrayList<>();
+    public static List<ResourceLocation> turtles = new ArrayList<>();
     public static List<ResourceLocation> chickens = new ArrayList<>();
     public static List<ResourceLocation> pigs = new ArrayList<>();
+    public static List<ResourceLocation> sheep = new ArrayList<>();
 
     public static List<ResourceLocation> rareWolves = new ArrayList<>();
     public static List<ResourceLocation> rareCows = new ArrayList<>();
     public static List<ResourceLocation> rareSquids = new ArrayList<>();
+    public static List<ResourceLocation> rareTurtles = new ArrayList<>();
     public static List<ResourceLocation> rareChickens = new ArrayList<>();
     public static List<ResourceLocation> rarePigs = new ArrayList<>();
+    public static List<ResourceLocation> rareSheep = new ArrayList<>();
 
     public static Map<ResourceLocation, ResourceLocation> wolvesTame = new HashMap<>();
     public static Map<ResourceLocation, ResourceLocation> wolvesAngry = new HashMap<>();
@@ -44,6 +48,9 @@ public class VariantAnimalTextures extends MesonModule {
     @Config(name = "Variant squids", description = "If true, squids may spawn with different textures.")
     public static boolean variantSquids = true;
 
+    @Config(name = "Variant turtles", description = "If true, turtles may spawn with different textures.")
+    public static boolean variantTurtles = true;
+
     @Config(name = "Variant cows", description = "If true, cows may spawn with different textures. This is disabled if Quark is present.")
     public static boolean variantCows = true;
 
@@ -52,6 +59,9 @@ public class VariantAnimalTextures extends MesonModule {
 
     @Config(name = "Variant pigs", description = "If true, pigs may spawn with different textures. This is disabled if Quark is present.")
     public static boolean variantPigs = true;
+
+    @Config(name = "Variant sheep", description = "If true, sheep may spawn with different textures. This is disabled if Quark is present.")
+    public static boolean variantSheep = true;
 
     @Config(name = "Rare variants", description = "If true, all animals have a chance to spawn as a rare variant.")
     public static boolean rareVariants = true;
@@ -72,8 +82,10 @@ public class VariantAnimalTextures extends MesonModule {
 
         cows.add(new ResourceLocation(PREFIX + "cow/cow.png"));
         squids.add(new ResourceLocation(PREFIX + "squid.png"));
+        turtles.add(new ResourceLocation(PREFIX + "turtle/big_sea_turtle.png"));
         chickens.add(new ResourceLocation(PREFIX + "chicken.png"));
         pigs.add(new ResourceLocation(PREFIX + "pig/pig.png"));
+        sheep.add(new ResourceLocation(PREFIX + "sheep/sheep.png"));
 
 
         addCharmTextures(wolves, MobType.WOLF, "brownwolf", "greywolf", "blackwolf", "amotwolf", "jupiter1390");
@@ -81,7 +93,7 @@ public class VariantAnimalTextures extends MesonModule {
         for (int i = 1; i <= 25; i++)
             addCharmTextures(wolves, MobType.WOLF, "nlg_wolf" + i); // add NeverLoseGuy wolf textures
 
-        for (int i = 1; i <= 1; i++)
+        for (int i = 1; i <= 2; i++)
             addCharmTextures(rareWolves, MobType.WOLF, "rare_wolf" + i);
 
 
@@ -98,6 +110,11 @@ public class VariantAnimalTextures extends MesonModule {
         for (int i = 1; i <= 1; i++)
             addCharmTextures(rareSquids, MobType.SQUID, "rare_squid" + i);
 
+        for (int i = 1; i <= 1; i++)
+            addCharmTextures(turtles, MobType.TURTLE, "turtle" + i);
+
+        ///for (int i = 1; i <= 1; i++)
+       ///     addCharmTextures(rareTurtles, MobType.TURTLE, "rare_turtle" + i);
 
         for (int i = 1; i <= 5; i++)
             addCharmTextures(chickens, MobType.CHICKEN, "chicken" + i);
@@ -111,9 +128,15 @@ public class VariantAnimalTextures extends MesonModule {
 
         for (int i = 1; i <= 1; i++)
             addCharmTextures(rarePigs, MobType.PIG, "rare_pig" + i);
+
+        for (int i = 1; i <= 2; i++)
+            addCharmTextures(sheep, MobType.SHEEP, "sheep" + i);
+
+        //for (int i = 1; i <= 1; i++)
+        //    addCharmTextures(rareSheep, MobType.SHEEP, "rare_sheep" + i);
     }
 
-    public enum MobType implements IMesonEnum { WOLF, COW, PIG, CHICKEN, SQUID }
+    public enum MobType implements IMesonEnum { WOLF,COW, PIG, SHEEP, CHICKEN, SQUID, TURTLE }
 
     @Override
     @OnlyIn(Dist.CLIENT)
@@ -121,8 +144,14 @@ public class VariantAnimalTextures extends MesonModule {
         if (variantWolves)
             RenderingRegistry.registerEntityRenderingHandler(EntityType.WOLF, VariantWolfRenderer.factory());
 
+        if (variantSheep)
+            RenderingRegistry.registerEntityRenderingHandler(EntityType.SHEEP, VariantSheepRenderer.factory());
+
         if (variantSquids)
             RenderingRegistry.registerEntityRenderingHandler(EntityType.SQUID, VariantSquidRenderer.factory());
+
+        if (variantTurtles)
+            RenderingRegistry.registerEntityRenderingHandler(EntityType.TURTLE, VariantTurtleRenderer.factory());
 
         if (variantCows && (!ModHelper.present("quark") || override))
             RenderingRegistry.registerEntityRenderingHandler(EntityType.COW, VariantCowRenderer.factory());
@@ -148,6 +177,11 @@ public class VariantAnimalTextures extends MesonModule {
     }
 
     @OnlyIn(Dist.CLIENT)
+    public static ResourceLocation getSheepTexture(SheepEntity entity) {
+        return getRandomTexture(entity, sheep, rareSheep);
+    }
+
+    @OnlyIn(Dist.CLIENT)
     public static ResourceLocation getCowTexture(CowEntity entity) {
         return getRandomTexture(entity, cows, rareCows);
     }
@@ -155,6 +189,11 @@ public class VariantAnimalTextures extends MesonModule {
     @OnlyIn(Dist.CLIENT)
     public static ResourceLocation getSquidTexture(SquidEntity entity) {
         return getRandomTexture(entity, squids, rareSquids);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public static ResourceLocation getTurtleTexture(TurtleEntity entity) {
+        return getRandomTexture(entity, turtles, rareTurtles);
     }
 
     @OnlyIn(Dist.CLIENT)
