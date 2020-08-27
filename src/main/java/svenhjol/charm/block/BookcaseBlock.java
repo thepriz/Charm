@@ -31,7 +31,7 @@ import svenhjol.meson.enums.IStorageMaterial;
 import javax.annotation.Nullable;
 
 public class BookcaseBlock extends MesonBlock {
-    public static final IntegerProperty SLOTS = IntegerProperty.create("slots", 0, 9);
+    public static final IntegerProperty SLOTS = IntegerProperty.create("slots", 0, 18);
 
     protected MesonModule module;
     protected IStorageMaterial type;

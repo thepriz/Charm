@@ -11,13 +11,13 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.container.BookcaseContainer;
 
 public class BookcaseScreen extends ContainerScreen<BookcaseContainer> implements IHasContainer<BookcaseContainer> {
-    private static final ResourceLocation GUI_TEXTURE = new ResourceLocation(Charm.MOD_ID, "textures/gui/generic_9.png");
+    private static final ResourceLocation GUI_TEXTURE = new ResourceLocation(Charm.MOD_ID, "textures/gui/generic_18.png");
 
     public BookcaseScreen(BookcaseContainer container, PlayerInventory playerInventory, ITextComponent title) {
         super(container, playerInventory, title);
         this.passEvents = true;
         this.xSize = 175;
-        this.ySize = 131;
+        this.ySize = 151;
     }
 
     @Override

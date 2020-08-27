@@ -28,7 +28,7 @@ import javax.annotation.Nullable;
 import java.util.stream.IntStream;
 
 public class BookcaseTileEntity extends LockableLootTileEntity implements ICapabilityProvider, IMesonTileEntity, ISidedInventory, ITransferManager {
-    public static int SIZE = 9;
+    public static int SIZE = 18;
     private static final int[] SLOTS = IntStream.range(0, SIZE).toArray();
     private NonNullList<ItemStack> items = NonNullList.withSize(SIZE, ItemStack.EMPTY);
 

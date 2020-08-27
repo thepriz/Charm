@@ -12,6 +12,7 @@ import net.minecraftforge.client.event.GuiContainerEvent.DrawForeground;
 import net.minecraftforge.client.event.GuiScreenEvent.InitGuiEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import svenhjol.charm.base.CharmResources;
+import svenhjol.charm.gui.BookcaseScreen;
 import svenhjol.charm.gui.CrateScreen;
 import svenhjol.charm.message.ServerSortInventory;
 import svenhjol.meson.MesonModule;
@@ -39,6 +40,7 @@ public class InventorySortingClient {
             ChestScreen.class,
             HopperScreen.class,
             ShulkerBoxScreen.class,
+            BookcaseScreen.class,
             DispenserScreen.class,
             CrateScreen.class
         ));
