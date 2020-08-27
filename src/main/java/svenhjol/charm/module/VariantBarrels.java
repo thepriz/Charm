@@ -44,23 +44,5 @@ public class VariantBarrels extends MesonModule {
             OverrideHandler.changeBlockTranslationKey(Blocks.BARREL, "block.charm.fisherman_barrel");
             OverrideHandler.changeItemTranslationKey(Items.BARREL, "item.charm.fisherman_barrel");
         }
-
-        // TODO none of the following is to stay, failed villager re-registration.
-        if (false) {
-            // add vanilla barrel states
-            List<BlockState> states = new ArrayList<>(Blocks.BARREL.getStateContainer().getValidStates());
-
-            // add custom barrel states
-            for (VariantBarrelBlock barrel : BARREL_BLOCKS.values())
-                states.addAll(barrel.getStateContainer().getValidStates());
-
-            // re-register the POI
-            PointOfInterestType poi = new PointOfInterestType("fisherman", ImmutableSet.copyOf(states), 1, 1);
-            OverrideHandler.changeVanillaPointOfInterestType(this.mod, poi, new ResourceLocation("fisherman"));
-
-            // re-register the villager
-            VillagerProfession profession = new VillagerProfession("fisherman", poi, ImmutableSet.of(), ImmutableSet.of(), SoundEvents.ENTITY_VILLAGER_WORK_FISHERMAN);
-            Registry.register(Registry.VILLAGER_PROFESSION, new ResourceLocation("fisherman"), profession);
-        }
     }
 }
