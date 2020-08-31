@@ -5,22 +5,13 @@
 
 ### Charm
 
-For 16.1:
-
-* Branch `2.0-forge` to `2.0-forge-16.1`:
-	* `build.gradle` target MC 16.1
-	* Diff 16.2 and save patch 
-	* Backport code fixes from fabric to forge
-	* Restore Quark compat class.
-* Archive all `14.x` and `15.x` branches
-* Build beta and test in a MultiMC instance alongside Quark
-
 For 16.2:
 
-* Branch `2.0-forge-16.1` to `2.0-forge-16.2`
-	* Restore 16.2 diff patch and fix conflicts
-	* Disable Quark compat class (comment-out)
-* **No build until Forge 16.2 is stable**
+* Branch `2.0-forge` to `2.0-forge-16.2`
+	* Backport code fixes from fabric to forge
+	* Restore Quark compat class
+	* Archive all `14.x` and `15.x` branches
+	* Build beta and test in a MultiMC instance alongside Quark
 
 For 12.2:
 
