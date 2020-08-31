@@ -62,7 +62,7 @@ public class VariantAnimalTextures extends MesonModule {
     @Config(name = "Variant pigs", description = "If true, pigs may spawn with different textures. This is disabled if Quark is present.")
     public static boolean variantPigs = true;
 
-    @Config(name = "Variant sheep", description = "If true, sheep may spawn with different textures. This is disabled if Quark is present.")
+    @Config(name = "Variant sheep", description = "If true, sheep face and 'shorn' textures match their wool color.")
     public static boolean variantSheep = true;
 
     @Config(name = "Rare variants", description = "If true, all animals have a chance to spawn as a rare variant.")
