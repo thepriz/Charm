@@ -7,6 +7,7 @@ import svenhjol.meson.enums.IStorageMaterial;
 import svenhjol.meson.enums.VanillaStorageMaterial;
 import svenhjol.meson.handler.OverrideHandler;
 import svenhjol.meson.helper.ModHelper;
+import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
 
 import java.util.HashMap;
@@ -14,6 +15,9 @@ import java.util.Map;
 
 public class VariantBookshelves extends MesonModule {
     public static final Map<IStorageMaterial, VariantBookshelfBlock> BOOKSHELF_BLOCKS = new HashMap<>();
+
+    @Config(name = "Override", description = "This module is automatically disabled if Quark is present. Set true to force enable.")
+    public static boolean override = false;
 
     @Module(description = "Bookshelves available in all types of vanilla wood.")
     public VariantBookshelves() {}
@@ -27,4 +31,10 @@ public class VariantBookshelves extends MesonModule {
         if (enabled && !ModHelper.present("quark"))
             OverrideHandler.changeBlockTranslationKey(Blocks.BOOKSHELF, "block.charm.oak_bookshelf");
     }
+
+    @Override
+    public boolean shouldSetup() {
+        return !ModHelper.present("quark") || override;
+    }
+
 }

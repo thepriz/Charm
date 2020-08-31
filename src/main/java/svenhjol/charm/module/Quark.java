@@ -1,5 +1,6 @@
 package svenhjol.charm.module;
 
+import svenhjol.charm.compat.QuarkCompat;
 import svenhjol.charm.iface.IQuarkCompat;
 import svenhjol.meson.Meson;
 import svenhjol.meson.MesonModule;
@@ -16,7 +17,7 @@ public class Quark extends MesonModule {
     public void init() {
         try {
             if (ModHelper.present("quark")) {
-//                compat = QuarkCompat.class.getDeclaredConstructor().newInstance();
+                compat = QuarkCompat.class.getDeclaredConstructor().newInstance();
                 Meson.LOG.debug("Loaded Quark compatibility class");
             }
         } catch (Exception e) {
