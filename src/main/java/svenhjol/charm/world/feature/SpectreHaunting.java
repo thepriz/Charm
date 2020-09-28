@@ -90,6 +90,7 @@ public class SpectreHaunting extends Feature
             && event.side.isServer()
             && event.player != null
             && event.player.world != null
+            && event.player.world.provider.getDimension() != 0
             && WorldHelper.canGenerateStructures(event.player.world)
             && WorldHelper.canGenerateStructure(event.player.world, structure)
             && event.player.world.getTotalWorldTime() % checkInterval == 0
